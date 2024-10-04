@@ -1,0 +1,39 @@
+@import "mixins";
+@import "variables";
+
+.nav {
+  @include flex();
+  @include padding-x(3rem);
+  @include padding-y(1rem);
+  @include shadow();
+  @include tablet() {
+    @include padding-x(1rem);
+    @include padding-y(0.5rem);
+  }
+  background-color: $white-color;
+  &__logo {
+    flex: 1;
+  }
+  &__links {
+    @include flex(row, center, center, 4rem);
+    @include mobile() {
+      display: none;
+    }
+    @include tablet() {
+      gap: 2rem;
+    }
+  }
+  &__actions {
+    flex: 1;
+    @include flex-end();
+    @include mobile() {
+      display: none;
+    }
+  }
+  &__hamburguer{
+    display: none;
+    @include mobile(){
+      display: block;
+    }
+  }
+}

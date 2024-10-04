@@ -1,0 +1,107 @@
+@import './variables';
+@mixin flex($direction: row, $justify: center, $align: center, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  gap: $gap;
+}
+
+@mixin flex-end() {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@mixin mobile(){
+  @media (max-width: $breakpoint-sm) {
+    @content;
+  }
+}
+@mixin tablet(){
+  @media (max-width: $breakpoint-md) {
+    @content;
+  }
+}
+@mixin laptop(){
+  @media (max-width: $breakpoint-lg) {
+    @content;
+  }
+}
+@mixin desktop(){
+  @media (min-width: $breakpoint-xl) {
+    @content;
+  }
+}
+
+@mixin container() {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+// Utils
+@mixin text-sm() {
+  font-size: 0.875rem;
+}
+@mixin text-lg() {
+  font-size: 1.125rem;
+}
+@mixin text-xl() {
+  font-size: 1.25rem;
+}
+@mixin text-2xl() {
+  font-size: 1.5rem;
+}
+@mixin text-3xl() {
+  font-size: 1.875rem;
+}
+@mixin text-bold() {
+  font-weight: 700;
+}
+@mixin text-light() {
+  font-weight: 300;
+}
+
+@mixin padding-y($value) {
+  padding-top: $value;
+  padding-bottom: $value;
+}
+@mixin padding-x($value) {
+  padding-left: $value;
+  padding-right: $value;
+}
+@mixin margin-y($value) {
+  margin-top: $value;
+  margin-bottom: $value;
+}
+@mixin margin-x($value) {
+  margin-left: $value;
+  margin-right: $value;
+}
+
+@mixin shadow() {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+@mixin background-color-opacity($color, $opacity) {
+  background-color: rgba($color, $opacity);
+}
+
+@mixin transition($property: all, $duration: 0.3s) {
+  transition: $property $duration;
+}
+
+@mixin border-radius-sm() {
+  border-radius: 0.25rem;
+}
+@mixin border-radius-md() {
+  border-radius: 0.5rem;
+}
+@mixin border-radius-lg() {
+  border-radius: 0.75rem;
+}
+
+@mixin font-poppins() {
+  font-family: "Poppins", sans-serif;
+}
