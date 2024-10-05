@@ -7,6 +7,10 @@ import { ButtonComponent } from './components/atoms/button/button.component';
 import { LinkComponent } from './components/atoms/link/link.component';
 import { LogoComponent } from './components/atoms/logo/logo.component';
 import { NavbarComponent } from './components/molecule/navbar/navbar.component';
+import { MainLayoutComponent } from './components/templates/main-layout/main-layout.component';
+import { HomeComponent } from './components/pages/home/home.component';
+import { SectionComponent } from './components/atoms/section/section.component';
+import { HeadingComponent } from './components/atoms/heading/heading.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +18,11 @@ import { NavbarComponent } from './components/molecule/navbar/navbar.component';
     ButtonComponent,
     LinkComponent,
     LogoComponent,
-    NavbarComponent
+    NavbarComponent,
+    MainLayoutComponent,
+    HomeComponent,
+    SectionComponent,
+    HeadingComponent
   ],
   imports: [
     BrowserModule,

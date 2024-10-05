@@ -1,0 +1,16 @@
+@import "mixins";
+
+.section{
+    height: auto;
+    width: 100%;
+    padding: 4rem 0;
+    @include tablet(){
+        padding: 2rem 0;
+    }
+    @include mobile(){
+        padding: 1rem 0;
+    }
+    &__content{
+        @include container();
+    }
+}
