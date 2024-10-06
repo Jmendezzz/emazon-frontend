@@ -17,7 +17,24 @@
   &__links {
     @include flex(row, center, center, 4rem);
     @include mobile() {
-      display: none;
+      flex-direction: column;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      background-color: $white-color;
+      @include shadow();
+      z-index: 1000;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(-100%);
+      transition: opacity 0s, visibility 0s, transform 0.3s;
+    }
+    &--open {
+      display: flex;
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
     }
     @include tablet() {
       gap: 2rem;
@@ -30,9 +47,9 @@
       display: none;
     }
   }
-  &__hamburguer{
+  &__hamburguer {
     display: none;
-    @include mobile(){
+    @include mobile() {
       display: block;
     }
   }

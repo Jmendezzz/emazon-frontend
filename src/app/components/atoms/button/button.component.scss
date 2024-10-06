@@ -25,6 +25,9 @@
     @include padding-y(0.5rem);
     @include text-xl();
   }
+  &--rounded {
+    @include border-radius-md();
+  }
 
   &:hover {
     background-color: $primary-color-700;

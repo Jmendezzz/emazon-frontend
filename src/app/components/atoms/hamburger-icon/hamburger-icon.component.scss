@@ -1,0 +1,15 @@
+@import "mixins";
+@import "variables";
+.hamburguer{
+    @include flex(column, space-between, center, 0px);
+    width: 30px;
+    height: 20px;
+    cursor: pointer;
+    &__line{
+        height: 3px;
+        width: 100%;
+        background-color: $black-color;
+        border-radius: 2px;
+        transition: all 0.3s;
+    }
+}

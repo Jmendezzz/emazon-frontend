@@ -2,7 +2,7 @@
     <div class="nav__logo">
         <app-logo></app-logo>
     </div>
-    <ul class="nav__links">
+    <ul class="nav__links" [ngClass]="{'nav__links--open':isMenuOpen}">
         <app-link href="Test">
             Home
         </app-link>
@@ -13,10 +13,10 @@
             About
         </app-link>
     </ul>
-    <div class="nav__actions">
+    <div class="nav__actions" [ngClass]="{'nav__actions-open': isMenuOpen}">
         <app-button size="lg" variant="primary">Login</app-button>
     </div>
     <div class="nav__hamburguer">
-        -_-
+        <app-hamburger-icon (click)="onHamburgerClick()"></app-hamburger-icon>
     </div>
 </nav>
