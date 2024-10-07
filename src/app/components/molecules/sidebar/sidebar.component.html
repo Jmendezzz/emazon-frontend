@@ -1,5 +1,5 @@
-<aside class="sidebar" [ngClass]="{'sidebar--open': isOpen}">
-    <app-button variant="rounded" class="sidebar__button">
+<aside class="sidebar" [ngClass]="{'sidebar--collapsed': isCollapsed }">
+    <app-button variant="rounded" class="sidebar__toggle-btn" (click)="onToggleSidebar()">
         >
     </app-button>
     <ng-content></ng-content>

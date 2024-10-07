@@ -1,12 +1,26 @@
 @import "mixins";
-.sidebar{
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
+@import "variables";
+.sidebar {
+    position: relative;
+    height: 90vh;
+    width: 250px;
+    background-color: $white-color;
     @include shadow();
-
-    &--open{
-
+    transition: width 0.3s ease-in-out;
+  
+    &--collapsed {
+      width: 80px;
     }
-}
+  
+    &__toggle-btn {
+      position: absolute;
+      top: 50%;
+      left: 90%;
+      transform: translateY(-50%);
+      transition: left 0.3s ease-in-out;
+    }
+  
+    &--collapsed .sidebar__toggle-btn {
+      left: calc(100% - 20px); /* Adjust the position of the toggle button when collapsed */
+    }
+  }

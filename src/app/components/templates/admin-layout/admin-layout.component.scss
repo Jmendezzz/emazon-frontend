@@ -1,0 +1,9 @@
+@import "mixins";
+.main{
+    @include flex(row,center,start,0);
+    width: 100%;
+    &__content {
+        width: 100%;
+        flex: 1;
+    }
+}

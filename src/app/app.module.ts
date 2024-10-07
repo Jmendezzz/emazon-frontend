@@ -13,6 +13,8 @@ import { SectionComponent } from './components/atoms/section/section.component';
 import { HeadingComponent } from './components/atoms/heading/heading.component';
 import { HamburgerIconComponent } from './components/atoms/hamburger-icon/hamburger-icon.component';
 import { SidebarComponent } from './components/molecules/sidebar/sidebar.component';
+import { AdminLayoutComponent } from './components/templates/admin-layout/admin-layout.component';
+import { CreateCategoryComponent } from './components/pages/categories/create-category/create-category.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { SidebarComponent } from './components/molecules/sidebar/sidebar.compone
     SectionComponent,
     HeadingComponent,
     HamburgerIconComponent,
-    SidebarComponent
+    SidebarComponent,
+    AdminLayoutComponent,
+    CreateCategoryComponent
   ],
   imports: [
     BrowserModule,
