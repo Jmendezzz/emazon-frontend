@@ -1,0 +1,10 @@
+<tr class="table-header">
+    <th *ngFor="let header of headers" >
+        {{header.label}}
+        <span *ngIf="header.sortable" class="table-header__sorting">
+            <button (click)="onSort(header, 'asc')">🔺</button>
+            <button (click)="onSort(header, 'desc')">🔻</button>
+        </span>
+            
+    </th>
+</tr>

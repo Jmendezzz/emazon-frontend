@@ -9,12 +9,26 @@ const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
-    children: [{ path: '', component: HomeComponent }],
+    data: { title: 'Home', breadcrumb: 'Home' },
+    children: [
+      {
+        path: '',
+        component: HomeComponent,
+        data: { title: 'Home', breadcrumb: 'Home' },
+      },
+    ],
   },
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    children: [{ path: 'categories/create', component: CreateCategoryComponent }],
+    data: { title: 'Admin', breadcrumb: 'Admin' },
+    children: [
+      {
+        path: 'categories/create',
+        component: CreateCategoryComponent,
+        data: { title: 'Create Category', breadcrumb: 'Create Category' },
+      },
+    ],
   },
 ];
 

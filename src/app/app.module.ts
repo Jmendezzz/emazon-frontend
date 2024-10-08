@@ -15,6 +15,16 @@ import { HamburgerIconComponent } from './components/atoms/hamburger-icon/hambur
 import { SidebarComponent } from './components/molecules/sidebar/sidebar.component';
 import { AdminLayoutComponent } from './components/templates/admin-layout/admin-layout.component';
 import { CreateCategoryComponent } from './components/pages/categories/create-category/create-category.component';
+import { AdminSectionComponent } from './components/molecules/admin-section/admin-section.component';
+import { BreadcumbComponent } from './components/organisms/breadcumb/breadcumb.component';
+import { InputComponent } from './components/atoms/input/input.component';
+import { AdminNavbarComponent } from './components/organisms/admin-navbar/admin-navbar.component';
+import { InputFormRowComponent } from './components/molecules/input-form-row/input-form-row.component';
+import { CreateCategoryFormComponent } from './components/organisms/create-category-form/create-category-form.component';
+import { TableHeaderComponent } from './components/atoms/table-header/table-header.component';
+import { TableRowComponent } from './components/atoms/table-row/table-row.component';
+import { TableComponent } from './components/molecules/table/table.component';
+import { CategoryTableComponent } from './components/organisms/category-table/category-table.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +40,17 @@ import { CreateCategoryComponent } from './components/pages/categories/create-ca
     HamburgerIconComponent,
     SidebarComponent,
     AdminLayoutComponent,
-    CreateCategoryComponent
+    CreateCategoryComponent,
+    AdminSectionComponent,
+    BreadcumbComponent,
+    InputComponent,
+    AdminNavbarComponent,
+    InputFormRowComponent,
+    CreateCategoryFormComponent,
+    TableHeaderComponent,
+    TableRowComponent,
+    TableComponent,
+    CategoryTableComponent
   ],
   imports: [
     BrowserModule,

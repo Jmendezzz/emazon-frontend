@@ -1,0 +1,14 @@
+@import "mixins";
+.heading{
+    @include text-base();
+    font-weight: 700;
+    &--sm{
+        @include text-sm();
+    }
+    &--lg{
+        @include text-lg();
+    }
+    &--xl{
+        @include text-3xl();
+    }
+}

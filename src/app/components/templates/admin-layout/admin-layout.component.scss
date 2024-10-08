@@ -1,9 +1,13 @@
 @import "mixins";
-.main{
+.admin-layout{
     @include flex(row,center,start,0);
     width: 100%;
-    &__content {
+    &__main{
         width: 100%;
-        flex: 1;
+    }
+    &__content {
+        @include padding-y(2rem);
+        @include padding-x(3rem);
+        width: 100%;
     }
 }

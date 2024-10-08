@@ -1,0 +1,7 @@
+@import "mixins";
+.table-header{
+    &__sorting{
+        @include flex(row,center,center,1rem);
+        cursor: pointer;
+    }
+}

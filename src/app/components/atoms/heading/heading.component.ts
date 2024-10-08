@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HeadingType } from './heading-types';
 import { Size } from 'src/app/shared/types/common-types';
 
@@ -8,11 +8,16 @@ import { Size } from 'src/app/shared/types/common-types';
   styleUrls: ['./heading.component.scss']
 })
 export class HeadingComponent implements OnInit {
-  type: HeadingType = 'h3';
-  size: Size = 'md';
+  @Input() type: HeadingType = 'h3';
+  @Input() size: Size = 'md';
+  @Input() text: string = '';
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  getHeadingClass(): string {
+    return `heading heading--${this.size}`;
   }
 
 }
