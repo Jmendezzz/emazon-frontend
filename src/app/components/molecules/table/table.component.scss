@@ -1,0 +1,72 @@
+@import "variables";
+@import "mixins";
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-x: auto;
+  table-layout: auto;
+  &__header {
+    &__cell {
+      padding: 12px 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: left;
+      color: #4f3f61;
+      background-color: $white-color;
+      border-top: 2px solid #e5e0eb;
+      border-bottom: 2px solid #e5e0eb;
+      position: relative;
+
+      &__sorting {
+        display: inline-flex;
+        flex-direction: column;
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+
+        button {
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 0px 4px;
+          font-size: 0.8rem;
+          color: #6c757d;
+
+          &.asc::after {
+            content: "▲";
+            font-size: 0.7rem;
+          }
+
+          &.desc::after {
+            content: "▼";
+            font-size: 0.7rem;
+          }
+          &:hover {
+            color: #4f3f61;
+          }
+        }
+      }
+    }
+  }
+
+  &__body {
+    &__row {
+      &:nth-child(odd) {
+        background-color: transparent;
+      }
+
+      &:nth-child(even) {
+        background-color: $white-color;
+      }
+    }
+
+    &__cell {
+      padding: 12px 16px;
+      font-size: 16px;
+      font-weight: 300;
+      color: #333;
+      border-bottom: 1px solid #e0e0e0;
+    }
+  }
+}

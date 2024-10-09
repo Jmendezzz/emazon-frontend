@@ -1,4 +1,4 @@
-export interface Header{
+export interface TableHeader{
     label: string;
     key: string;
     sortable: boolean;

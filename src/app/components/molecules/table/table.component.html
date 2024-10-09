@@ -1,7 +1,21 @@
-<table>
+<table class="table">
     <thead>
-        <app-table-header >
-
-        </app-table-header>
+        <tr class="table__header">
+            <th *ngFor="let header of headers" class="table__header__cell" scope="col">
+                <span>{{ header.label }}</span>
+                <span *ngIf="header.sortable" class="table__header__cell__sorting">
+                    <button class="sort-btn asc" (click)="onSort(header, 'asc')"></button>
+                    <button class="sort-btn desc" (click)="onSort(header, 'desc')"></button>
+                </span>
+            </th>
+        </tr>
     </thead>
+
+    <tbody>
+        <tr *ngFor="let row of data" class="table__body__row">
+            <td *ngFor="let key of getKeys(row)" class="table__body__cell">
+                {{ row[key] }}
+            </td>
+        </tr>
+    </tbody>
 </table>

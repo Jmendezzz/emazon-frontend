@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BreadcrumbService } from 'src/app/shared/services/breadcrumb.service';
+import { BreadcrumbService } from 'src/app/shared/services/ui/breadcrumb.service';
 import { Breadcrumb } from 'src/app/shared/types/common-types';
 
 @Component({

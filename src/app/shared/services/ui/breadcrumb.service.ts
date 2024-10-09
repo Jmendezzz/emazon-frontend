@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Breadcrumb } from '../types/common-types';
+import { Breadcrumb } from '../../types/common-types';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Injectable({

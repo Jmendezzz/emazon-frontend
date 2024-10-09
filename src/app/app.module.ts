@@ -21,10 +21,11 @@ import { InputComponent } from './components/atoms/input/input.component';
 import { AdminNavbarComponent } from './components/organisms/admin-navbar/admin-navbar.component';
 import { InputFormRowComponent } from './components/molecules/input-form-row/input-form-row.component';
 import { CreateCategoryFormComponent } from './components/organisms/create-category-form/create-category-form.component';
-import { TableHeaderComponent } from './components/atoms/table-header/table-header.component';
-import { TableRowComponent } from './components/atoms/table-row/table-row.component';
 import { TableComponent } from './components/molecules/table/table.component';
 import { CategoryTableComponent } from './components/organisms/category-table/category-table.component';
+import { ListCategoriesComponent } from './components/pages/list-categories/list-categories.component';
+import { ModalComponent } from './components/molecules/modal/modal.component';
+import { CreateCategoryModalComponent } from './components/organisms/create-category-modal/create-category-modal.component';
 
 @NgModule({
   declarations: [
@@ -47,10 +48,11 @@ import { CategoryTableComponent } from './components/organisms/category-table/ca
     AdminNavbarComponent,
     InputFormRowComponent,
     CreateCategoryFormComponent,
-    TableHeaderComponent,
-    TableRowComponent,
     TableComponent,
-    CategoryTableComponent
+    CategoryTableComponent,
+    ListCategoriesComponent,
+    ModalComponent,
+    CreateCategoryModalComponent
   ],
   imports: [
     BrowserModule,
