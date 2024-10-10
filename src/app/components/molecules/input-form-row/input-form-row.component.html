@@ -1,11 +1,10 @@
 <div class="input-form-row">
-    <label class="input-form-row__label">{{ label }}</label>
-    <app-input 
-      [type]="type"
-      [placeholder]="placeholder"
-      [value]="value">
-    </app-input>
-    <div *ngIf="errorMessage" class="input-form-row__error">
-      {{ errorMessage }}
-    </div>
+  <label class="input-form-row__label">{{ label }}</label>
+  <app-input *ngIf="type != 'textarea';" [type]="type" [placeholder]="placeholder" [formControl]="control">
+  </app-input>
+  <app-text-area *ngIf="type == 'textarea';" [placeholder]="placeholder" [value]="value">
+  </app-text-area>
+  <div *ngIf="errorMessage" class="input-form-row__error">
+    {{ errorMessage }}
   </div>
+</div>

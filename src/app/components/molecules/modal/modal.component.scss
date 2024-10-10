@@ -12,16 +12,21 @@
   background-color: rgba(0, 0, 0, 0.4);
 
   &__content {
-    @include flex(column, center, center, 2rem);
     background-color: $white-bg-color;
     margin: auto;
     @include padding-y(2rem);
     @include padding-x(4rem);
-    width: auto;
     @include border-radius-lg();
     @include shadow();
     animation: modal-fade-in 0.3s;
     position: relative;
+    min-width: 50%;
+    max-width: 80%;
+  }
+  &__title{
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
   }
 
   &__close {

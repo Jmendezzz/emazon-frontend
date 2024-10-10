@@ -1,0 +1,7 @@
+ @import "mixins";
+.text-area {
+  resize: vertical;
+  box-sizing: border-box;
+  width: 100%;
+  @include input();
+}

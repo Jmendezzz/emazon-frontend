@@ -117,3 +117,25 @@
 @mixin font-poppins() {
   font-family: "Poppins", sans-serif;
 }
+
+@mixin input(){
+  @include font-poppins();
+  display: block;
+  font-size: 14px;
+  border: 1.4px solid $gray-light-color;
+  font-weight:600;
+  @include padding-x(12px);
+  @include padding-y(8px);
+  @include border-radius-md();
+  transition: border 0.3s ease;
+  &:focus {
+    color: $black-color;
+    outline: none;
+    border-color: $primary-color;
+  }
+
+  &::placeholder {
+    font-weight: 400;
+    color: #aba7af;
+  }
+}

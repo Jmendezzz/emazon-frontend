@@ -26,6 +26,8 @@ import { CategoryTableComponent } from './components/organisms/category-table/ca
 import { ListCategoriesComponent } from './components/pages/list-categories/list-categories.component';
 import { ModalComponent } from './components/molecules/modal/modal.component';
 import { CreateCategoryModalComponent } from './components/organisms/create-category-modal/create-category-modal.component';
+import { TextAreaComponent } from './components/atoms/text-area/text-area.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -52,11 +54,13 @@ import { CreateCategoryModalComponent } from './components/organisms/create-cate
     CategoryTableComponent,
     ListCategoriesComponent,
     ModalComponent,
-    CreateCategoryModalComponent
+    CreateCategoryModalComponent,
+    TextAreaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

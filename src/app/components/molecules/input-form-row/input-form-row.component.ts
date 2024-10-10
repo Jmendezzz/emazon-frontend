@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { InputType } from '../../atoms/input/input-types';
+import { AbstractControl, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-input-form-row',
@@ -8,9 +10,10 @@ import { Component, Input, OnInit } from '@angular/core';
 export class InputFormRowComponent implements OnInit {
   @Input() label: string = '';
   @Input() errorMessage: string = '';
-  @Input() type: string = 'text';
+  @Input() type: InputType = 'text';
   @Input() placeholder: string = '';
   @Input() value: string = '';
+  @Input() control!: FormControl;
   constructor() { }
 
   ngOnInit(): void {
