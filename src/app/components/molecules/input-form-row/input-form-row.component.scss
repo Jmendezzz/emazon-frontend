@@ -10,9 +10,16 @@
   }
 
   &__error {
-    color: red;
-    font-size: 12px;
+    color: $error-color;
+    min-height: 20px;
+    display: block;
+    visibility: hidden;
     font-weight: 600;
     text-align: right;
+    &--visible{
+      visibility: visible;
+      font-size: 14px;
+
+    }
   }
 }

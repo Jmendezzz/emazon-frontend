@@ -5,6 +5,7 @@ import {
   NgControl,
 } from '@angular/forms';
 import { InputType } from 'zlib';
+import { InputVariant } from './input-types';
 
 @Component({
   selector: 'app-input',
@@ -15,6 +16,7 @@ export class InputComponent implements ControlValueAccessor {
   public ngControl: NgControl = Object.assign(inject(NgControl), {
     valueAccessor: this,
   });
+  @Input() variant : InputVariant = 'default';
   @Input() type: InputType = 'text';
   @Input() placeholder: string = '';
 

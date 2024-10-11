@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { InputType } from '../../atoms/input/input-types';
+import { InputType, InputVariant } from '../../atoms/input/input-types';
 import { AbstractControl, FormControl } from '@angular/forms';
 
 @Component({
@@ -17,6 +17,13 @@ export class InputFormRowComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  getInputVariant(): InputVariant {
+    if (this.control.invalid && this.control.touched) {
+      return 'error';
+    }
+    return 'default';
   }
 
 }

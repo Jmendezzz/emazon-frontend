@@ -28,6 +28,7 @@ import { ModalComponent } from './components/molecules/modal/modal.component';
 import { CreateCategoryModalComponent } from './components/organisms/create-category-modal/create-category-modal.component';
 import { TextAreaComponent } from './components/atoms/text-area/text-area.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PaginationComponent } from './components/molecules/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ListCategoriesComponent,
     ModalComponent,
     CreateCategoryModalComponent,
-    TextAreaComponent
+    TextAreaComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,
