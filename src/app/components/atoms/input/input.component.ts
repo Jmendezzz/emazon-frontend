@@ -1,7 +1,6 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input} from '@angular/core';
 import {
   ControlValueAccessor,
-  FormControl,
   NgControl,
 } from '@angular/forms';
 import { InputType } from 'zlib';

@@ -14,6 +14,6 @@ export const CATEGORY_TABLE_HEADERS: TableHeader[] = [
     {
         label: 'Description',
         key: 'description',
-        sortable: true
+        sortable: false
     }
 ]

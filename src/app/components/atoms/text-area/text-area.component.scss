@@ -1,7 +1,11 @@
  @import "mixins";
+ @import "variables";
 .text-area {
   resize: vertical;
   box-sizing: border-box;
   width: 100%;
   @include input();
+  &--error{
+    border-color: $error-color;
+  }
 }

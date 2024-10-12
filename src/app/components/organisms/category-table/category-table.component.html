@@ -1,3 +1,11 @@
-<app-table [headers]="headers" [data]="data">
-    
-</app-table>
+<ng-container *ngIf="categories == undefined">
+    <div>
+        Loading....
+    </div>
+</ng-container>
+
+<app-table *ngIf="categories !== undefined" [headers]="headers" [data]="categories.data"></app-table>
+
+<app-pagination *ngIf="categories !== undefined &&  categories.totalPages > 1" [totalItems]="categories.totalItems"
+    [currentPage]="categories.currentPage" [totalPages]="categories.totalPages">
+</app-pagination>

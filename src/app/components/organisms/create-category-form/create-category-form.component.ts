@@ -1,23 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  Category,
+  CreateCategoryRequestDTO,
+} from 'src/app/domain/models/Category';
+import { CategoryService } from 'src/app/shared/services/api/category.service';
 
 @Component({
   selector: 'app-create-category-form',
   templateUrl: './create-category-form.component.html',
-  styleUrls: ['./create-category-form.component.scss']
+  styleUrls: ['./create-category-form.component.scss'],
 })
 export class CreateCategoryFormComponent implements OnInit {
   form: FormGroup;
+  @Output() onCategoryCreated = new EventEmitter<Category>();
 
-  constructor() {
+  constructor(private categoryService: CategoryService) {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
     });
-   }
-
-  ngOnInit(): void {
   }
+
+  ngOnInit(): void {}
   getControl(name: string): FormControl {
     return this.form.get(name) as FormControl;
   }
@@ -30,8 +35,19 @@ export class CreateCategoryFormComponent implements OnInit {
     return '';
   }
 
-  onCreate(){
-    console.log(this.form.value);
+  onCreate() {
+    if (this.form.valid) {
+      const categoryToCreate: CreateCategoryRequestDTO = this.form.value;
+      this.categoryService.createCategory(categoryToCreate).subscribe({
+        next: (category: Category) => {
+          this.onCategoryCreated.emit(category);
+          this.categoryService.notifyCategoryCreated();
+          this.form.reset();
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      });
+    }
   }
-
 }

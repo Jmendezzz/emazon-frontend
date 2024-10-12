@@ -1,7 +1,7 @@
 <form class="form" [formGroup]="form">
     <app-input-form-row label="Name" [control]="getControl('name')" [errorMessage]="getErrorMessage('name')"></app-input-form-row>
-    <app-input-form-row label="Description" type="textarea"></app-input-form-row>
+    <app-input-form-row label="Description" [control]="getControl('description')" type="textarea"  [errorMessage]="getErrorMessage('description')"></app-input-form-row>
     <div class="form__button">
-        <app-button (click)="onCreate()">Create Category</app-button>
+        <app-button (click)="onCreate()" [disabled]="!form.valid">Create Category</app-button>
     </div>
 </form>

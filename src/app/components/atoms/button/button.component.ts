@@ -10,6 +10,7 @@ import { ButtonVariant } from './button-types';
 export class ButtonComponent implements OnInit {
   @Input() size: Size = 'md';
   @Input() variant: ButtonVariant = 'primary';
+  @Input() disabled: boolean = false;
 
   constructor() { }
 

@@ -29,6 +29,8 @@ import { CreateCategoryModalComponent } from './components/organisms/create-cate
 import { TextAreaComponent } from './components/atoms/text-area/text-area.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PaginationComponent } from './components/molecules/pagination/pagination.component';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -57,14 +59,20 @@ import { PaginationComponent } from './components/molecules/pagination/paginatio
     ModalComponent,
     CreateCategoryModalComponent,
     TextAreaComponent,
-    PaginationComponent
-  ],
+    PaginationComponent  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
