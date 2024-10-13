@@ -15,7 +15,7 @@ export class CreateCategoryFormComponent implements OnInit {
   form: FormGroup;
   @Output() onCategoryCreated = new EventEmitter<Category>();
 
-  constructor(private categoryService: CategoryService) {
+  constructor(private readonly categoryService: CategoryService) {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),

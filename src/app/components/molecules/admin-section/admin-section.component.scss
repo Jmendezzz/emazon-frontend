@@ -1,6 +1,7 @@
 @import "mixins";
 .admin-section {
   width: 100%;
+  min-height:100%;
   @include flex(column, center, start, 2rem);
   &__content {
     flex: 1;

@@ -14,10 +14,11 @@ import { PaginationService } from 'src/app/shared/services/ui/pagination.service
 export class CategoryTableComponent implements OnInit {
   headers: TableHeader[] = CATEGORY_TABLE_HEADERS;
   categories: Paginated<Category> | undefined = undefined;
+  isLoading: boolean = false;
 
 
-  constructor(private categoryService: CategoryService,
-    private paginationService: PaginationService,
+  constructor(private readonly categoryService: CategoryService,
+    private readonly paginationService: PaginationService,
   ) {}
 
   ngOnInit(): void {
@@ -26,9 +27,16 @@ export class CategoryTableComponent implements OnInit {
   }
 
   loadCategories(){
+    this.isLoading = true;
     this.paginationService.getPaginationParams().subscribe(({ pagination, sorting }) => {
-      this.categoryService.getCategories(pagination, sorting).subscribe((categories) => {
-        this.categories = categories;
+      this.categoryService.getCategories(pagination, sorting).subscribe({
+        next: (categories) => {
+          this.categories = categories;
+          this.isLoading = false;
+        },
+        error: (error) => {
+          this.isLoading = false;
+        }
       });
     });
   }

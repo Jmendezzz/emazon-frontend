@@ -8,14 +8,14 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 export class BreadcrumbService {
   breadcrumbs: Breadcrumb[] = [];
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private readonly router: Router, private readonly activatedRoute: ActivatedRoute) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root);
       }
     });
   }
-  private createBreadcrumbs(
+   createBreadcrumbs(
     route: ActivatedRoute,
     url: string = '',
     breadcrumbs: Breadcrumb[] = []

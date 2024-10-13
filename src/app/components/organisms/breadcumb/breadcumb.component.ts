@@ -10,7 +10,7 @@ import { Breadcrumb } from 'src/app/shared/types/common-types';
 export class BreadcumbComponent implements OnInit {
   breadcrumbs: Breadcrumb[] = [];
 
-  constructor(private breadcumbService: BreadcrumbService) { }
+  constructor(private readonly breadcumbService: BreadcrumbService) { }
 
   ngOnInit(): void {
     this.breadcrumbs = this.breadcumbService.breadcrumbs;

@@ -31,6 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { PaginationComponent } from './components/molecules/pagination/pagination.component';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
+import { LoaderComponent } from './components/atoms/loader/loader.component';
+import { ToastComponent } from './components/molecules/toast/toast.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,9 @@ import { TokenInterceptor } from './shared/interceptors/token.interceptor';
     ModalComponent,
     CreateCategoryModalComponent,
     TextAreaComponent,
-    PaginationComponent  ],
+    PaginationComponent,
+    LoaderComponent,
+    ToastComponent  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

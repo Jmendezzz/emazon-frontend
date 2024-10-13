@@ -1,23 +1,43 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { BreadcumbComponent } from './breadcumb.component';
+import { BreadcrumbService } from 'src/app/shared/services/ui/breadcrumb.service';
+import { Breadcrumb } from 'src/app/shared/types/common-types';
+import { of } from 'rxjs';
+
+class MockBreadcrumbService {
+  breadcrumbs: Breadcrumb[] = [
+    { label: 'Home', url: '/home' },
+    { label: 'Products', url: '/products' },
+  ];
+
+  get breadcrumbs$() {
+    return of(this.breadcrumbs);
+  }
+}
 
 describe('BreadcumbComponent', () => {
   let component: BreadcumbComponent;
   let fixture: ComponentFixture<BreadcumbComponent>;
+  let breadcrumbService: BreadcrumbService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ BreadcumbComponent ]
-    })
-    .compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [BreadcumbComponent],
+      providers: [{ provide: BreadcrumbService, useClass: MockBreadcrumbService }],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BreadcumbComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    breadcrumbService = TestBed.inject(BreadcrumbService);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should initialize breadcrumbs from the breadcrumb service', () => {
+    component.ngOnInit();
+    expect(component.breadcrumbs.length).toBe(2);
+    expect(component.breadcrumbs).toEqual(breadcrumbService.breadcrumbs);
   });
 });

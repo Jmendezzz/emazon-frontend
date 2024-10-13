@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { ModalService } from 'src/app/shared/services/ui/modal.service';
 
 @Component({
@@ -6,13 +6,11 @@ import { ModalService } from 'src/app/shared/services/ui/modal.service';
   templateUrl: './create-category-modal.component.html',
   styleUrls: ['./create-category-modal.component.scss']
 })
-export class CreateCategoryModalComponent implements OnInit {
+export class CreateCategoryModalComponent {
 
-  constructor(private modalService: ModalService) {
+  constructor(private readonly modalService: ModalService) {
    }
 
-  ngOnInit(): void {
-  }
   openModal() {
     this.modalService.openModal();
   }

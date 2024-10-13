@@ -62,9 +62,9 @@ describe('ButtonComponent', () => {
     component.size = 'lg';
     component.variant = 'outline';
     fixture.detectChanges();
-
+  
     const buttonElement = fixture.debugElement.query(By.css('button'));
-    expect(buttonElement.nativeElement.classList).toContain('lg');
-    expect(buttonElement.nativeElement.classList).toContain('outline');
+    expect(buttonElement.nativeElement.classList).toContain('btn--lg'); 
+    expect(buttonElement.nativeElement.classList).toContain('btn--outline');  
   });
 });

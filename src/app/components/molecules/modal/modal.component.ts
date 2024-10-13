@@ -10,7 +10,7 @@ export class ModalComponent implements OnInit {
   @Input() title: string = '';
   isOpen = false;
 
-  constructor(private modalService: ModalService) {
+  constructor(private readonly modalService: ModalService) {
    }
 
   ngOnInit(): void {

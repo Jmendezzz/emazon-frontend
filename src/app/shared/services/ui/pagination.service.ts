@@ -8,7 +8,7 @@ import { Sorting } from 'src/app/domain/models/Sorting';
   providedIn: 'root',
 })
 export class PaginationService {
-  constructor(private route: ActivatedRoute) {}
+  constructor(private readonly route: ActivatedRoute) {}
 
   getPaginationParams(): Observable<{
     pagination: Pagination;

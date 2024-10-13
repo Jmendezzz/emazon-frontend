@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input} from '@angular/core';
 import { Router } from '@angular/router';
 import { MIN_PAGE, PAGE_OFFSET } from 'src/app/domain/utils/constants/Pagination';
 
@@ -7,14 +7,13 @@ import { MIN_PAGE, PAGE_OFFSET } from 'src/app/domain/utils/constants/Pagination
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent {
   @Input() currentPage!: number;
   @Input() totalPages!: number;
   @Input() totalItems!: number;
 
-  constructor(private router: Router) {}
+  constructor(private readonly router: Router) {}
 
-  ngOnInit(): void {}
   get pages(): number[] {
     return Array(this.totalPages)
       .fill(0)

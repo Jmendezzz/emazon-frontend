@@ -11,13 +11,13 @@ import { Sorting } from 'src/app/domain/models/Sorting';
   providedIn: 'root',
 })
 export class CategoryService {
-  private apiURL = `${environment.stockServiceUrl}/api/v1/categories`;
+  private readonly apiURL = `${environment.stockServiceUrl}/api/v1/categories`;
 
-  private categoryCreatedSource = new Subject<void>();
+  private readonly categoryCreatedSource = new Subject<void>();
   onCategoryCreated$ = this.categoryCreatedSource.asObservable();  
 
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private readonly httpClient: HttpClient) {}
 
   getCategories(pagination: Pagination, sorting: Sorting): Observable<Paginated<Category>> {
     const params: { [key: string]: any } = {}
