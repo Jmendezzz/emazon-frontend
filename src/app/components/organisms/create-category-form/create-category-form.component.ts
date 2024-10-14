@@ -4,7 +4,9 @@ import {
   Category,
   CreateCategoryRequestDTO,
 } from 'src/app/domain/models/Category';
+import { ToastType } from 'src/app/domain/models/Toast';
 import { CategoryService } from 'src/app/shared/services/api/category.service';
+import { ToastService } from 'src/app/shared/services/ui/toast.service';
 
 @Component({
   selector: 'app-create-category-form',
@@ -13,9 +15,10 @@ import { CategoryService } from 'src/app/shared/services/api/category.service';
 })
 export class CreateCategoryFormComponent implements OnInit {
   form: FormGroup;
+  isLoading = false;
   @Output() onCategoryCreated = new EventEmitter<Category>();
 
-  constructor(private readonly categoryService: CategoryService) {
+  constructor(private readonly categoryService: CategoryService, private readonly toastService: ToastService) {
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
@@ -37,17 +40,30 @@ export class CreateCategoryFormComponent implements OnInit {
 
   onCreate() {
     if (this.form.valid) {
+      this.isLoading = true;
+
       const categoryToCreate: CreateCategoryRequestDTO = this.form.value;
       this.categoryService.createCategory(categoryToCreate).subscribe({
         next: (category: Category) => {
-          this.onCategoryCreated.emit(category);
-          this.categoryService.notifyCategoryCreated();
-          this.form.reset();
+          this.handleSuccess(category);
         },
         error: (error) => {
-          console.error(error);
-        }
-      });
+          this.handleError(error);
+      }});
     }
+  }
+  private handleSuccess(category: Category) {
+    this.onCategoryCreated.emit(category);
+    this.categoryService.notifyCategoryCreated();
+    this.form.reset();
+    this.isLoading = false;
+  }
+
+  private handleError(error: any) {
+    this.toastService.showToast({
+      message: 'An error occurred while creating the category',
+      type: ToastType.ERROR,
+    });
+    this.isLoading = false
   }
 }

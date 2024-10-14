@@ -1,1 +1,10 @@
-<p>toast works!</p>
+<div class="toast-container">
+    <div *ngFor="let toast of toasts" class="toast__item" [ngClass]="getToastClass(toast)">
+        <div class="toast__informer" [ngClass]="getToastInformerClass(toast)"></div>
+        <div class="toast__icon">
+            <img alt="Toast icon" [src]="getToastIcon(toast)" />
+        </div>
+        <span>{{ toast.message }}</span>
+        <button (click)="removeToast(toast)">&times;</button>
+    </div>
+</div>
