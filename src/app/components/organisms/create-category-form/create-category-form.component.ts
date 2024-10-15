@@ -1,9 +1,11 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   Category,
   CreateCategoryRequestDTO,
 } from 'src/app/domain/models/Category';
+import { Error } from 'src/app/domain/models/Error';
 import { ToastType } from 'src/app/domain/models/Toast';
 import { CategoryService } from 'src/app/shared/services/api/category.service';
 import { ToastService } from 'src/app/shared/services/ui/toast.service';
@@ -13,7 +15,7 @@ import { ToastService } from 'src/app/shared/services/ui/toast.service';
   templateUrl: './create-category-form.component.html',
   styleUrls: ['./create-category-form.component.scss'],
 })
-export class CreateCategoryFormComponent implements OnInit {
+export class CreateCategoryFormComponent {
   form: FormGroup;
   isLoading = false;
   @Output() onCategoryCreated = new EventEmitter<Category>();
@@ -25,7 +27,6 @@ export class CreateCategoryFormComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
   getControl(name: string): FormControl {
     return this.form.get(name) as FormControl;
   }
@@ -56,14 +57,30 @@ export class CreateCategoryFormComponent implements OnInit {
     this.onCategoryCreated.emit(category);
     this.categoryService.notifyCategoryCreated();
     this.form.reset();
+    this.toastService.showToast({
+      message: 'Category created successfully',
+      type: ToastType.SUCCESS
+    });
     this.isLoading = false;
   }
 
-  private handleError(error: any) {
-    this.toastService.showToast({
-      message: 'An error occurred while creating the category',
-      type: ToastType.ERROR,
-    });
+  private handleError(error: HttpErrorResponse) {
+    if(error.status === HttpStatusCode.InternalServerError) {
+      this.toastService.showToast({
+        message: 'An error occurred while creating the category',
+        type: ToastType.ERROR,
+      });
+    }
+
+    if(error.status === HttpStatusCode.BadRequest) {
+      const businessError = error.error as unknown as Error;
+
+      this.toastService.showToast({
+        message: businessError.message,
+        type: ToastType.ERROR,
+      });
+    }
+
     this.isLoading = false
   }
 }
