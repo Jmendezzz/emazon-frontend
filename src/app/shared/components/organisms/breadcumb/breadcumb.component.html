@@ -1,0 +1,9 @@
+<ng-container *ngFor="let breadcrumb of breadcrumbs; let isLast = last">
+    <ng-container *ngIf="!isLast">
+        <app-link href="{{breadcrumb.url}}">{{breadcrumb.label}}</app-link>
+        <span> &gt; </span>
+    </ng-container>
+    <ng-container *ngIf="isLast">
+        <app-link href="{{breadcrumb.url}}">{{breadcrumb.label}}</app-link>
+    </ng-container>
+</ng-container>

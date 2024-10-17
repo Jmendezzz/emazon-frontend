@@ -1,0 +1,7 @@
+<div class="modal" *ngIf="isOpen" (click)="closeModal()" (keydown)="handleKeyDown($event)">
+  <div class="modal__content" (click)="$event.stopPropagation()" (keydown)="handleKeyDown($event)">
+    <h3 class="modal__title">{{ title }}</h3>
+    <button class="modal__close" (click)="closeModal()">&times;</button>
+    <ng-content></ng-content>
+  </div>
+</div>
