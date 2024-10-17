@@ -44,6 +44,9 @@
 @mixin text-sm() {
   font-size: 0.875rem;
 }
+@mixin text-md() {
+  font-size: 1rem;
+}
 @mixin text-lg() {
   font-size: 1.125rem;
 }
@@ -61,6 +64,9 @@
 }
 @mixin text-light() {
   font-weight: 300;
+}
+@mixin text-base() {
+  font-size: 1rem;
 }
 
 @mixin padding-y($value) {
@@ -110,4 +116,27 @@
 
 @mixin font-poppins() {
   font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+@mixin input(){
+  @include font-poppins();
+  display: block;
+  font-size: 14px;
+  border: 1.4px solid $gray-light-color;
+  font-weight:600;
+  @include padding-x(12px);
+  @include padding-y(8px);
+  @include border-radius-md();
+  transition: border 0.3s ease;
+  &:focus {
+    color: $black-color;
+    outline: none;
+    border-color: $primary-color;
+  }
+
+  &::placeholder {
+    font-weight: 400;
+    color: #aba7af;
+  }
 }

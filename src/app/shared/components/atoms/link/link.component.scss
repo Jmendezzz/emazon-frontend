@@ -1,0 +1,16 @@
+@import "variables";
+@import "mixins";
+.link{
+    color: $black-color;
+    text-decoration: none;
+    @include text-lg();
+    @include text-bold();
+
+    @include transition();
+    &:hover{
+        color: $primary-color;
+    }
+    &--active{
+        color: $primary-color;
+    }
+}

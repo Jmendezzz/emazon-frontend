@@ -1,0 +1,39 @@
+@import "variables";
+@import "mixins";
+
+.btn {
+  background-color: $primary-color;
+  color: $white-color;
+  cursor: pointer;
+  border: none;
+  @include font-poppins();
+  @include border-radius-sm();
+  @include transition();
+
+  &--sm {
+    @include padding-x(0.5rem);
+    @include padding-y(0.25rem);
+    @include text-sm();
+  }
+  &--md {
+    @include padding-x(1rem);
+    @include padding-y(0.5rem);
+    @include text-lg();
+  }
+  &--lg {
+    @include padding-x(1.5rem);
+    @include padding-y(0.5rem);
+    @include text-xl();
+  }
+  &--rounded {
+    @include border-radius-full();
+  }
+
+  &:hover {
+    background-color: $primary-color-700;
+  }
+  &:disabled {
+    background-color:$disabled-color;
+    cursor: not-allowed;
+  }
+}

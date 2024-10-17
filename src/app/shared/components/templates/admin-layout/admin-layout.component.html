@@ -1,0 +1,12 @@
+<div class="admin-layout">
+    <app-sidebar [sidebarItems]="sidebarItems"></app-sidebar>
+    <div class="admin-layout__main">
+        <app-admin-navbar></app-admin-navbar>
+        <main class="admin-layout__content">
+            <app-breadcumb></app-breadcumb>
+            <div class="admin-layout__content__outlet">
+                <router-outlet></router-outlet>
+            </div>
+        </main>
+    </div>
+</div>

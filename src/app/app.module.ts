@@ -3,36 +3,27 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ButtonComponent } from './components/atoms/button/button.component';
-import { LinkComponent } from './components/atoms/link/link.component';
-import { LogoComponent } from './components/atoms/logo/logo.component';
-import { NavbarComponent } from './components/molecules/navbar/navbar.component';
-import { MainLayoutComponent } from './components/templates/main-layout/main-layout.component';
-import { HomeComponent } from './components/pages/home/home.component';
-import { SectionComponent } from './components/atoms/section/section.component';
-import { HeadingComponent } from './components/atoms/heading/heading.component';
-import { HamburgerIconComponent } from './components/atoms/hamburger-icon/hamburger-icon.component';
-import { SidebarComponent } from './components/molecules/sidebar/sidebar.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TokenInterceptor } from './shared/interceptors/token.interceptor';
+import { CategoryModule } from './features/category/category.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ButtonComponent,
-    LinkComponent,
-    LogoComponent,
-    NavbarComponent,
-    MainLayoutComponent,
-    HomeComponent,
-    SectionComponent,
-    HeadingComponent,
-    HamburgerIconComponent,
-    SidebarComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    CategoryModule,
+    SharedModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true,
+    },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

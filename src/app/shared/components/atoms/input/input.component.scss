@@ -1,0 +1,9 @@
+@import "mixins";
+@import "variables";
+.input {
+  min-width: 100%;
+  @include input();
+  &--error {
+    border-color: $error-color;
+  }
+}
