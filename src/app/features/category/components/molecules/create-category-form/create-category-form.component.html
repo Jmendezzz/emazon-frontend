@@ -4,7 +4,7 @@
     <app-input-form-row label="Description" [control]="getControl('description')" type="textarea"
         [errorMessage]="getErrorMessage('description')"></app-input-form-row>
     <div class="form__button">
-        <app-button (click)="onCreate()" [disabled]="!form.valid"> {{ isLoading ? 'Loading...' : 'Create Category' }}
+        <app-button (click)="onCreate()" [disabled]="!form.valid" [disabled]="isLoading"> {{ isLoading ? 'Loading...' : 'Create Category' }}
         </app-button>
     </div>
 </form>

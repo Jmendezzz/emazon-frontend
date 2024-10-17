@@ -17,7 +17,7 @@ import { BreadcumbComponent } from './components/organisms/breadcumb/breadcumb.c
 import { InputComponent } from './components/atoms/input/input.component';
 import { AdminNavbarComponent } from './components/organisms/admin-navbar/admin-navbar.component';
 import { InputFormRowComponent } from './components/molecules/input-form-row/input-form-row.component';
-import { TableComponent } from './components/molecules/table/table.component';
+import { TableComponent } from './components/organisms/table/table.component';
 import { ModalComponent } from './components/molecules/modal/modal.component';
 import { TextAreaComponent } from './components/atoms/text-area/text-area.component';
 import { PaginationComponent } from './components/molecules/pagination/pagination.component';
