@@ -34,17 +34,25 @@
     "@angular/compiler-cli": "^14.2.0",
     "typescript": "~4.7.2"
   },
-  "jest":{
+  "jest": {
     "preset": "jest-preset-angular",
     "testIgnorePatterns": [
       "<rootDir>/node_modules/",
       "<rootDir>/dist/"
-    ],  
+    ],
+    "coverageReporters": [
+      "html"
+    ],
+    "coverageDirectory": "./coverage",
     "moduleNameMapper": {
       "^src/(.*)$": "<rootDir>/src/$1"
     },
-    "setupFilesAfterEnv": ["<rootDir>/src/setup-jest.ts"],
-    "testMatch": ["<rootDir>/src/**/*.spec.ts"],
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setup-jest.ts"
+    ],
+    "testMatch": [
+      "<rootDir>/src/**/*.spec.ts"
+    ],
     "globals": {
       "ts-jest": {
         "tsconfig": "<rootDir>/tsconfig.spec.json",

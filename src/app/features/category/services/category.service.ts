@@ -6,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { Paginated } from 'src/app/domain/models/Paginated';
 import { Category, CreateCategoryRequestDTO } from 'src/app/domain/models/Category';
 import { Sorting } from 'src/app/domain/models/Sorting';
+import { PAGE_OFFSET } from 'src/app/domain/utils/constants/Pagination';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,7 @@ export class CategoryService {
   getCategories(pagination: Pagination, sorting: Sorting): Observable<Paginated<Category>> {
     const params: { [key: string]: any } = {}
     if (pagination.page) {
-      params['page'] = pagination.page;
+      params['page'] = (typeof pagination.page === 'number' ? pagination.page : parseInt(pagination.page, 10)) - PAGE_OFFSET;
     }
     if (pagination.size) {
       params['size'] = pagination.size;

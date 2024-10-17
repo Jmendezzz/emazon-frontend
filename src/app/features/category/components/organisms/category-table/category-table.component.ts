@@ -3,8 +3,8 @@ import { CATEGORY_TABLE_HEADERS } from 'src/app/domain/utils/constants/TableHead
 import { Category } from 'src/app/domain/models/Category';
 import { TableHeader } from 'src/app/domain/models/TableHeader';
 import { Paginated } from 'src/app/domain/models/Paginated';
-import { CategoryService } from 'src/app/shared/services/api/category.service';
 import { PaginationService } from 'src/app/shared/services/ui/pagination.service';
+import { CategoryService } from '../../../services/category.service';
 
 @Component({
   selector: 'app-category-table',
@@ -15,7 +15,6 @@ export class CategoryTableComponent implements OnInit {
   headers: TableHeader[] = CATEGORY_TABLE_HEADERS;
   categories: Paginated<Category> | undefined = undefined;
   isLoading: boolean = false;
-
 
   constructor(private readonly categoryService: CategoryService,
     private readonly paginationService: PaginationService,

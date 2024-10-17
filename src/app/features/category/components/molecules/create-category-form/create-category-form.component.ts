@@ -7,8 +7,8 @@ import {
 } from 'src/app/domain/models/Category';
 import { Error } from 'src/app/domain/models/Error';
 import { ToastType } from 'src/app/domain/models/Toast';
-import { CategoryService } from 'src/app/shared/services/api/category.service';
 import { ToastService } from 'src/app/shared/services/ui/toast.service';
+import { CategoryService } from '../../../services/category.service';
 
 @Component({
   selector: 'app-create-category-form',

@@ -1,6 +1,9 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { MIN_PAGE, PAGE_OFFSET } from 'src/app/domain/utils/constants/Pagination';
+import {
+  MIN_PAGE,
+  PAGE_OFFSET,
+} from 'src/app/domain/utils/constants/Pagination';
 
 @Component({
   selector: 'app-pagination',
@@ -12,7 +15,8 @@ export class PaginationComponent {
   @Input() totalPages!: number;
   @Input() totalItems!: number;
 
-  constructor(private readonly router: Router) {}
+  constructor(private readonly router: Router) { 
+   }
 
   get pages(): number[] {
     return Array(this.totalPages)
@@ -21,12 +25,12 @@ export class PaginationComponent {
   }
 
   changePage(page: number): void {
-    if (page >= MIN_PAGE && page <= this.totalPages && page !== this.currentPage) {
+    const pageOffset = page - PAGE_OFFSET;
+    if (page >= pageOffset && pageOffset <= this.totalPages) {
       this.router.navigate([], {
-        queryParams: { page: page  - PAGE_OFFSET },
+        queryParams: { page },
         queryParamsHandling: 'merge',
       });
     }
-    this.currentPage = page;
   }
 }

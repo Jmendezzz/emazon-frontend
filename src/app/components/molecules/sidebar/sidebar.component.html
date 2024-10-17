@@ -1,7 +1,12 @@
 <aside class="sidebar" [ngClass]="{'sidebar--collapsed': isCollapsed }">
     <app-logo></app-logo>
     <app-button variant="rounded" class="sidebar__toggle-btn" (click)="onToggleSidebar()">
-        >
-    </app-button>
-    <ng-content></ng-content>
+        {{isCollapsed ? '>' : '<'}} </app-button>
+            <nav class="sidebar__nav">
+                <ul *ngFor="let sidebarItem of sidebarItems" class="sidebar__nav__list">
+                    <li>
+                        <app-link [href]="sidebarItem.route">{{sidebarItem.title}}</app-link>
+                    </li>
+                </ul>
+            </nav>
 </aside>

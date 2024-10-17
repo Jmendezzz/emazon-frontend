@@ -1,4 +1,12 @@
-<table class="table">
+<div *ngIf="isLoading" class="loading-container">
+    <app-loader></app-loader>
+</div>
+
+<div *ngIf="!isLoading && data == undefined" class="loading-container">
+    <p>No data found</p>
+</div>
+
+<table class="table" *ngIf="!isLoading && data !== undefined">
     <thead>
         <tr class="table__header">
             <th *ngFor="let header of headers" class="table__header__cell" scope="col">
@@ -12,10 +20,13 @@
     </thead>
 
     <tbody>
-        <tr *ngFor="let row of data" class="table__body__row">
+        <tr *ngFor="let row of data.data" class="table__body__row">
             <td *ngFor="let key of getKeys(row)" class="table__body__cell">
                 {{ row[key] }}
             </td>
         </tr>
     </tbody>
 </table>
+<app-pagination *ngIf="data !== undefined &&  data.totalPages > 1 && isPaginated" [totalItems]="data.totalItems"
+    [currentPage]="data.currentPage + 1" [totalPages]="data.totalPages">
+</app-pagination>
