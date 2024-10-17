@@ -65,7 +65,7 @@ export class CreateCategoryFormComponent {
   }
 
   private handleError(error: HttpErrorResponse) {
-    if(error.status === HttpStatusCode.InternalServerError) {
+    if(error.status === HttpStatusCode.InternalServerError || error.status === 0) {
       this.toastService.showToast({
         message: 'An error occurred while creating the category',
         type: ToastType.ERROR,

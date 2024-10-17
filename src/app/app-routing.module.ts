@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainLayoutComponent } from './components/templates/main-layout/main-layout.component';
-import { HomeComponent } from './components/pages/home/home.component';
-import { AdminLayoutComponent } from './components/templates/admin-layout/admin-layout.component';
-import { CreateCategoryComponent } from './components/pages/categories/create-category/create-category.component';
-import { ListCategoriesComponent } from './components/pages/list-categories/list-categories.component';
+import { ListCategoriesComponent } from './features/category/components/pages/list-categories/list-categories.component';
+import { MainLayoutComponent } from './shared/components/templates/main-layout/main-layout.component';
+import { HomeComponent } from './shared/components/pages/home/home.component';
+import { AdminLayoutComponent } from './shared/components/templates/admin-layout/admin-layout.component';
 
 const routes: Routes = [
   {
@@ -29,11 +28,6 @@ const routes: Routes = [
         component: ListCategoriesComponent,
         data: { title: 'Categories', breadcrumb: 'Categories' },
       },
-      {
-        path: 'categories/create',
-        component: CreateCategoryComponent,
-        data: { title: 'Create Category', breadcrumb: 'Create Category' },
-      }
     ],
   },
 ];

@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of, throwError } from 'rxjs';
 import { CategoryTableComponent } from './category-table.component';
-import { CategoryService } from 'src/app/shared/services/api/category.service';
 import { PaginationService } from 'src/app/shared/services/ui/pagination.service';
 import { Paginated } from 'src/app/domain/models/Paginated';
 import { Category } from 'src/app/domain/models/Category';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { CategoryService } from '../../../services/category.service';
 
 jest.mock('src/app/shared/services/api/category.service');
 jest.mock('src/app/shared/services/ui/pagination.service');
