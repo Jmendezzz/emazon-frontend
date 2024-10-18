@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreateCategoryFormComponent } from './components/molecules/create-category-form/create-category-form.component';
-import { CategoryTableComponent } from './components/organisms/category-table/category-table.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ListCategoriesComponent } from './components/pages/list-categories/list-categories.component';
-import { CategoryService } from './services/category.service';
-import { ToastService } from 'src/app/shared/services/ui/toast.service';
-import { ModalService } from 'src/app/shared/services/ui/modal.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AtomsModule } from '@/components/atoms/atoms.module';
+import { MoleculesModule } from '@/components/molecules/molecules.module';
+import { OrganismsModule } from '@/components/organisms/organisms.module';
+import { CategoryTableComponent } from './components/organisms/category-table/category-table.component';
+import { ListCategoriesComponent } from '@/components/pages/categories/list-categories/list-categories.component';
+import { CreateCategoryFormComponent } from './components/molecules/create-category-form/create-category-form.component';
 import { CreateCategoryModalComponent } from './components/organisms/create-category-modal/create-category-modal.component';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { CategoryService } from './services/category.service';
+import { AdminModule } from '../admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -18,8 +19,16 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CreateCategoryModalComponent,
     ListCategoriesComponent,
   ],
-  imports: [CommonModule, HttpClientModule, SharedModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    MoleculesModule,
+    AtomsModule,
+    OrganismsModule,
+    AdminModule
+  ],
   exports: [ListCategoriesComponent],
-  providers: [CategoryService, ToastService, ModalService],
+  providers: [CategoryService],
 })
 export class CategoryModule {}

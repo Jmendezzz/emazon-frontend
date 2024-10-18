@@ -8,9 +8,7 @@ import { Category, CreateCategoryRequestDTO } from 'src/app/domain/models/Catego
 import { Sorting } from 'src/app/domain/models/Sorting';
 import { PAGE_OFFSET } from 'src/app/domain/utils/constants/Pagination';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class CategoryService {
   private readonly apiURL = `${environment.stockServiceUrl}/api/v1/categories`;
 
