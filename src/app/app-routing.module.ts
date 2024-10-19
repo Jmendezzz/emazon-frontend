@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListCategoriesComponent } from './features/category/components/pages/list-categories/list-categories.component';
-import { MainLayoutComponent } from './shared/components/templates/main-layout/main-layout.component';
-import { HomeComponent } from './shared/components/pages/home/home.component';
-import { AdminLayoutComponent } from './shared/components/templates/admin-layout/admin-layout.component';
+import { ListCategoriesComponent } from './components/pages/categories/list-categories/list-categories.component';
+import { MainLayoutComponent } from './components/templates';
+import { HomeComponent } from './components/pages/home/home.component';
+import { AdminLayoutComponent } from './features/admin/components';
 
 const routes: Routes = [
   {
