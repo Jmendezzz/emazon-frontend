@@ -10,12 +10,16 @@ export class ToastService {
   private toasts: Toast[] = [];
   private readonly toastsSubject = new BehaviorSubject<Toast[]>([]);
 
-  getToasts() {
+  get getToasts() {
+    return this.toasts;
+  }
+
+  getToastsObservable() {
     return this.toastsSubject.asObservable();
   }
 
   showToast(toast: Toast) {
-    this.toasts.push(toast);
+    this.toasts = [...this.toasts, toast];
     this.toastsSubject.next(this.toasts);
 
     setTimeout(() => {

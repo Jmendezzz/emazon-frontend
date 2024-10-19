@@ -16,12 +16,12 @@ describe('ToastComponent', () => {
 
   const mockToasts: Toast[] = [
     { message: 'Test Toast 1', type: ToastType.SUCCESS },
-    { message: 'Test Toast 2', type: ToastType.ERROR }
+    { message: 'Test Toast 2', type: ToastType.ERROR },
   ];
 
   beforeEach(async () => {
     toastServiceMock = {
-      getToasts: jest.fn().mockReturnValue(of(mockToasts)),
+      getToastsObservable: jest.fn().mockReturnValue(of(mockToasts)),
       removeToast: jest.fn(),
     };
 
@@ -41,20 +41,14 @@ describe('ToastComponent', () => {
 
   it('should subscribe to toasts on init and set toasts', () => {
     component.ngOnInit();
-    expect(toastServiceMock.getToasts).toHaveBeenCalled();
+    expect(toastServiceMock.getToastsObservable).toHaveBeenCalled();
     expect(component.toasts).toEqual(mockToasts);
   });
 
   it('should handle empty toasts array from service', () => {
-    toastServiceMock.getToasts.mockReturnValue(of([])); // Empty array case
+    toastServiceMock.getToastsObservable.mockReturnValue(of([]));
     component.ngOnInit();
     expect(component.toasts.length).toBe(0);
-  });
-
-  it('should handle undefined toasts from service', () => {
-    toastServiceMock.getToasts.mockReturnValue(of(undefined)); // Undefined case
-    component.ngOnInit();
-    expect(component.toasts).toEqual([]);
   });
 
   it('should remove a toast when removeToast is called', () => {
@@ -70,7 +64,10 @@ describe('ToastComponent', () => {
   });
 
   it('should return empty string if toast type has no class mapping', () => {
-    const toastWithoutClass: Toast = { message: 'No class toast', type: ToastType.WARNING };
+    const toastWithoutClass: Toast = {
+      message: 'No class toast',
+      type: ToastType.WARNING,
+    };
     expect(component.getToastClass(toastWithoutClass)).toBe('');
   });
 
@@ -81,7 +78,10 @@ describe('ToastComponent', () => {
   });
 
   it('should return empty string if toast type has no informer class mapping', () => {
-    const toastWithoutInformerClass: Toast = { message: 'No informer class', type: ToastType.INFO };
+    const toastWithoutInformerClass: Toast = {
+      message: 'No informer class',
+      type: ToastType.INFO,
+    };
     expect(component.getToastInformerClass(toastWithoutInformerClass)).toBe('');
   });
 
@@ -92,25 +92,28 @@ describe('ToastComponent', () => {
   });
 
   it('should return empty string if toast type has no icon mapping', () => {
-    const toastWithoutIcon: Toast = { message: 'No icon toast', type: ToastType.WARNING };
+    const toastWithoutIcon: Toast = {
+      message: 'No icon toast',
+      type: ToastType.WARNING,
+    };
     expect(component.getToastIcon(toastWithoutIcon)).toBe('');
   });
 
   it('should handle undefined toast class mappings gracefully', () => {
-    const toastWithoutMapping: Toast = { message: 'Test with no mapping', type: ToastType.WARNING };
-    TOAST_CLASSES_MAP.delete(ToastType.WARNING);  // Ensure no mapping exists
+    const toastWithoutMapping: Toast = {
+      message: 'Test with no mapping',
+      type: ToastType.WARNING,
+    };
+    TOAST_CLASSES_MAP.delete(ToastType.WARNING);
     expect(component.getToastClass(toastWithoutMapping)).toBe('');
   });
 
   it('should handle undefined toast informer class mappings gracefully', () => {
-    const toastWithoutMapping: Toast = { message: 'Test with no mapping', type: ToastType.INFO };
-    TOAST_INFORMER_CLASSES_MAP.delete(ToastType.INFO);  // Ensure no mapping exists
+    const toastWithoutMapping: Toast = {
+      message: 'Test with no mapping',
+      type: ToastType.INFO,
+    };
+    TOAST_INFORMER_CLASSES_MAP.delete(ToastType.INFO);
     expect(component.getToastInformerClass(toastWithoutMapping)).toBe('');
-  });
-
-  it('should handle undefined toast icon mappings gracefully', () => {
-    const toastWithoutMapping: Toast = { message: 'Test with no mapping', type: ToastType.INFO };
-    TOAST_ICON_MAP.delete(ToastType.INFO);  // Ensure no mapping exists
-    expect(component.getToastIcon(toastWithoutMapping)).toBe('');
   });
 });

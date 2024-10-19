@@ -1,43 +1,79 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavbarComponent } from './navbar.component';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+
+import { LogoComponent } from '@/components/atoms/logo/logo.component';
+import { LinkComponent } from '@/components/atoms/link/link.component';
+import { ButtonComponent } from '@/components/atoms/button/button.component';
+import { HamburgerIconComponent } from '@/components/atoms/hamburger-icon/hamburger-icon.component';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [NavbarComponent]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [
+        NavbarComponent,
+        LogoComponent,
+        LinkComponent,
+        ButtonComponent,
+        HamburgerIconComponent
+      ]
     }).compileComponents();
-
-    fixture = TestBed.createComponent(NavbarComponent);
-    component = fixture.componentInstance;
   });
 
-  it('should create', () => {
+  beforeEach(() => {
+    fixture = TestBed.createComponent(NavbarComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create the Navbar component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have isMenuOpen initialized to false', () => {
-    expect(component.isMenuOpen).toBe(false);
+  it('should render app-logo component', () => {
+    const logoDebugElement: DebugElement = fixture.debugElement.query(By.css('app-logo'));
+    expect(logoDebugElement).toBeTruthy();
+  });
+
+  it('should render three app-link components for navigation', () => {
+    const linkDebugElements: DebugElement[] = fixture.debugElement.queryAll(By.css('app-link'));
+    expect(linkDebugElements.length).toBe(3);
+  });
+
+  it('should render the app-button component for login', () => {
+    const buttonDebugElement: DebugElement = fixture.debugElement.query(By.css('app-button'));
+    expect(buttonDebugElement).toBeTruthy();
+    expect(buttonDebugElement.nativeElement.textContent.trim()).toBe('Login');
+  });
+
+  it('should render app-hamburger-icon component', () => {
+    const hamburgerDebugElement: DebugElement = fixture.debugElement.query(By.css('app-hamburger-icon'));
+    expect(hamburgerDebugElement).toBeTruthy();
   });
 
   it('should toggle isMenuOpen when onHamburgerClick is called', () => {
+    expect(component.isMenuOpen).toBe(false); // Initially false
     component.onHamburgerClick();
-    expect(component.isMenuOpen).toBe(true);
+    expect(component.isMenuOpen).toBe(true); // Should be true after the first click
     component.onHamburgerClick();
-    expect(component.isMenuOpen).toBe(false);
+    expect(component.isMenuOpen).toBe(false); // Should toggle back to false
   });
 
-  it('should set isMenuOpen to false when onCloseMenu is called', () => {
+  it('should apply the open class to nav__links when isMenuOpen is true', () => {
     component.isMenuOpen = true;
-    component.onCloseMenu();
-    expect(component.isMenuOpen).toBe(false);
+    fixture.detectChanges();
+    const linksElement: HTMLElement = fixture.debugElement.query(By.css('.nav__links')).nativeElement;
+    expect(linksElement.classList.contains('nav__links--open')).toBe(true);
   });
 
-  it('should not change isMenuOpen when onCloseMenu is called while it is already false', () => {
+  it('should not apply the open class to nav__links when isMenuOpen is false', () => {
     component.isMenuOpen = false;
-    component.onCloseMenu();
-    expect(component.isMenuOpen).toBe(false);
+    fixture.detectChanges();
+    const linksElement: HTMLElement = fixture.debugElement.query(By.css('.nav__links')).nativeElement;
+    expect(linksElement.classList.contains('nav__links--open')).toBe(false);
   });
 });

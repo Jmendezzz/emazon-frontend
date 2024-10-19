@@ -18,7 +18,7 @@ export class ToastComponent implements OnInit {
   constructor(private readonly toastService: ToastService) {}
 
   ngOnInit(): void {
-    this.toastService.getToasts().subscribe((toasts) => {
+    this.toastService.getToastsObservable().subscribe((toasts) => {
       this.toasts = toasts;
     });
   }

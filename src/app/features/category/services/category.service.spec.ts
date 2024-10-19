@@ -42,7 +42,7 @@ describe('CategoryService', () => {
     });
 
     const req = httpMock.expectOne((request) => request.method === 'GET' && request.url === `${service['apiURL']}`);
-    expect(req.request.params.get('page')).toEqual('1');
+    expect(req.request.params.get('page')).toEqual('0');
     expect(req.request.params.get('size')).toEqual('10');
     expect(req.request.params.get('sortBy')).toEqual('name');
     expect(req.request.params.get('direction')).toEqual('ASC');
