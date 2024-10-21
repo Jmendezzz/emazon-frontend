@@ -1,11 +1,8 @@
+import { Toast } from '@/domain/models/Toast';
+import { TOAST_CLASSES_MAP, TOAST_ICON_MAP, TOAST_INFORMER_CLASSES_MAP } from '@/domain/utils/constants/Toast';
+import { ToastService } from '@/shared/services/ui/toast.service';
 import { Component, OnInit } from '@angular/core';
-import { Toast } from 'src/app/domain/models/Toast';
-import {
-  TOAST_CLASSES_MAP,
-  TOAST_ICON_MAP,
-  TOAST_INFORMER_CLASSES_MAP,
-} from 'src/app/domain/utils/constants/Toast';
-import { ToastService } from 'src/app/shared/services/ui/toast.service';
+
 
 @Component({
   selector: 'app-toast',

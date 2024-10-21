@@ -2,11 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavbarComponent } from './navbar.component';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-
-import { LogoComponent } from '@/components/atoms/logo/logo.component';
-import { LinkComponent } from '@/components/atoms/link/link.component';
-import { ButtonComponent } from '@/components/atoms/button/button.component';
-import { HamburgerIconComponent } from '@/components/atoms/hamburger-icon/hamburger-icon.component';
+import { AtomsModule } from '@/components/atoms/atoms.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -16,11 +13,8 @@ describe('NavbarComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [
         NavbarComponent,
-        LogoComponent,
-        LinkComponent,
-        ButtonComponent,
-        HamburgerIconComponent
-      ]
+      ],
+      imports: [AtomsModule, RouterTestingModule],
     }).compileComponents();
   });
 

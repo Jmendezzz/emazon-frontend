@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ModalComponent } from './modal.component';
-import { ModalService } from 'src/app/shared/services/ui/modal.service';
 import { By } from '@angular/platform-browser';
-import { ESCAPE_KEY } from 'src/app/domain/utils/constants/Common';
 import { of } from 'rxjs';
+import { ModalService } from '@/shared/services/ui/modal.service';
+import { ESCAPE_KEY } from '@/domain/utils/constants/Common';
 
 describe('ModalComponent', () => {
   let component: ModalComponent;

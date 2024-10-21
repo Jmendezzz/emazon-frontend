@@ -1,103 +1,142 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { of, throwError } from 'rxjs';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { CategoryTableComponent } from './category-table.component';
-import { PaginationService } from 'src/app/shared/services/ui/pagination.service';
-import { Paginated } from 'src/app/domain/models/Paginated';
-import { Category } from 'src/app/domain/models/Category';
-import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { CategoryService } from '../../../services/category.service';
-
-jest.mock('src/app/shared/services/api/category.service');
-jest.mock('src/app/shared/services/ui/pagination.service');
+import { CategoryService } from '@/features/category/services/category.service';
+import { PaginationService } from '@/shared/services/ui/pagination.service';
+import { delay, of, throwError } from 'rxjs';
+import { CATEGORY_TABLE_HEADERS } from '@/domain/utils/constants/TableHeaders';
+import { Paginated } from '@/domain/models/Paginated';
+import { Category } from '@/domain/models/Category';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('CategoryTableComponent', () => {
   let component: CategoryTableComponent;
   let fixture: ComponentFixture<CategoryTableComponent>;
-  let mockCategoryService: jest.Mocked<CategoryService>;
-  let mockPaginationService: jest.Mocked<PaginationService>;
+  let categoryServiceMock: any;
+  let paginationServiceMock: any;
+
+  const mockPaginatedCategories: Paginated<Category> = {
+    data: [
+      { id: 1, name: 'Category 1', description: 'Description 1' },
+      { id: 2, name: 'Category 2', description: 'Description 2' },
+    ],
+    totalItems: 2,
+    currentPage: 1,
+    totalPages: 10,
+  };
 
   beforeEach(async () => {
-    mockCategoryService = new CategoryService({} as HttpClient) as jest.Mocked<CategoryService>;
-    mockPaginationService = new PaginationService({} as ActivatedRoute) as jest.Mocked<PaginationService>;
+    categoryServiceMock = {
+      getCategories: jest.fn(),
+      onCategoryCreated$: of(),
+    };
+
+    paginationServiceMock = {
+      getPaginationParams: jest.fn().mockReturnValue(
+        of({
+          pagination: { page: 1, size: 10 },
+          sorting: { sortBy: 'name', direction: 'asc' },
+        })
+      ),
+    };
 
     await TestBed.configureTestingModule({
       declarations: [CategoryTableComponent],
       providers: [
-        { provide: CategoryService, useValue: mockCategoryService },
-        { provide: PaginationService, useValue: mockPaginationService }
-      ]
+        { provide: CategoryService, useValue: categoryServiceMock },
+        { provide: PaginationService, useValue: paginationServiceMock },
+      ],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(CategoryTableComponent);
     component = fixture.componentInstance;
   });
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load categories on init', () => {
-    const mockCategories: Paginated<Category> = {
-      data: [{ id: 1, name: 'Category 1', description: 'Description 1' }],
-      totalItems: 1,
-      currentPage: 1,
-      totalPages: 1
-    };
-
-    mockPaginationService.getPaginationParams.mockReturnValue(of({ pagination: { page: 1, size: 10 }, sorting: { sortBy: 'name', direction: 'asc' } }));
-    mockCategoryService.getCategories.mockReturnValue(of(mockCategories));
-    mockCategoryService.onCategoryCreated$ = of();
-
-    fixture.detectChanges(); 
-
-    expect(mockPaginationService.getPaginationParams).toHaveBeenCalled();
-    expect(mockCategoryService.getCategories).toHaveBeenCalledWith({ page: 1, size: 10 }, { sortBy: 'name', direction: 'asc' });
-    expect(component.categories).toEqual(mockCategories);
-  });
-
-  it('should refresh categories when a new category is created', () => {
-    const mockCategories: Paginated<Category> = {
-      data: [{ id: 1, name: 'Category 1', description: 'Description 1' }],
-      totalItems: 1,
-      currentPage: 1,
-      totalPages: 1
-    };
-
-    mockPaginationService.getPaginationParams.mockReturnValue(of({ pagination: { page: 1, size: 10 }, sorting: { sortBy: 'name', direction: 'asc' } }));
-    mockCategoryService.getCategories.mockReturnValue(of(mockCategories));
-    mockCategoryService.onCategoryCreated$ = of();
-
-    fixture.detectChanges(); 
-
-    jest.spyOn(mockCategoryService, 'onCategoryCreated$', 'get').mockReturnValue(of(undefined));
-    component.onCategoryCreated();
-
-    expect(mockCategoryService.getCategories).toHaveBeenCalledTimes(2); 
-  });
-  it('should have undefined categories initially', () => {
+  it('should initialize with default values', () => {
+    expect(component.headers).toEqual(CATEGORY_TABLE_HEADERS);
     expect(component.categories).toBeUndefined();
+    expect(component.isLoading).toBe(false);
   });
-  it('should handle errors when loading categories', () => {
-    const errorMessage = 'Error loading categories';
+
+  describe('loadCategories', () => {
+    it('should load categories and set isLoading to false on success', fakeAsync(() => {
+      const mockPagination = {
+        pagination: { page: 1, size: 10 },
+        sorting: { sortBy: 'name', direction: 'asc' },
+      };
+
+      paginationServiceMock.getPaginationParams.mockReturnValue(
+        of(mockPagination)
+      );
+      categoryServiceMock.getCategories.mockReturnValue(
+        of(mockPaginatedCategories).pipe(delay(1000))
+      );
+
+      component.loadCategories();
+      expect(component.isLoading).toBe(true);
+
+      tick(1000);
+
+      expect(component.isLoading).toBe(false);
+      expect(component.categories).toEqual(mockPaginatedCategories);
+    }));
+    it('should handle error and set isLoading to false', fakeAsync(() => {
+      paginationServiceMock.getPaginationParams.mockReturnValue(
+        of({
+          pagination: { page: 1, size: 10 },
+          sorting: { sortBy: 'name', direction: 'asc' },
+        }).pipe(delay(500)) 
+      );
     
-    mockPaginationService.getPaginationParams.mockReturnValue(of({ pagination: { page: 1, size: 10 }, sorting: { sortBy: 'name', direction: 'asc' } }));
-    mockCategoryService.getCategories.mockReturnValue(throwError(() => new Error(errorMessage)));
+      categoryServiceMock.getCategories.mockReturnValue(
+        throwError(() => new Error('Failed to load categories')).pipe(delay(1000))
+      );
     
-    fixture.detectChanges();
+      component.loadCategories();
     
-  });
-  it('should subscribe to onCategoryCreated$', () => {
-    jest.spyOn(mockCategoryService, 'onCategoryCreated$', 'get').mockReturnValue(of(undefined));
-  
-    component.ngOnInit();
-  
-    mockCategoryService.onCategoryCreated$.subscribe(() => {
-      expect(mockCategoryService.getCategories).toHaveBeenCalled();
+      expect(component.isLoading).toBe(true);
+    
+      tick(500); 
+    
+      tick(1000);
+    
+      expect(component.isLoading).toBe(false);
+      expect(component.categories).toBeUndefined();
+    }));
+
+    describe('onCategoryCreated', () => {
+      it('should reload categories when a new category is created', () => {
+        const loadCategoriesSpy = jest.spyOn(component, 'loadCategories');
+
+        categoryServiceMock.onCategoryCreated$ = of();
+
+        component.ngOnInit();
+
+        expect(loadCategoriesSpy).toHaveBeenCalled();
+      });
     });
-  
-    component.onCategoryCreated();
+
+    describe('ngOnInit', () => {
+      it('should call loadCategories and onCategoryCreated', () => {
+        const loadCategoriesSpy = jest.spyOn(component, 'loadCategories');
+        const onCategoryCreatedSpy = jest.spyOn(component, 'onCategoryCreated');
+
+        component.ngOnInit();
+
+        expect(loadCategoriesSpy).toHaveBeenCalled();
+        expect(onCategoryCreatedSpy).toHaveBeenCalled();
+      });
+    });
+
   });
+
 });

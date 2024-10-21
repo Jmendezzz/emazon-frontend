@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Pagination } from 'src/app/domain/models/Pagination';
 import { Observable, Subject } from 'rxjs';
-import { Paginated } from 'src/app/domain/models/Paginated';
-import { Category, CreateCategoryRequestDTO } from 'src/app/domain/models/Category';
-import { Sorting } from 'src/app/domain/models/Sorting';
-import { PAGE_OFFSET } from 'src/app/domain/utils/constants/Pagination';
-
+import { Pagination } from '@/domain/models/Pagination';
+import { Sorting } from '@/domain/models/Sorting';
+import { Paginated } from '@/domain/models/Paginated';
+import { Category, CreateCategoryRequestDTO } from '@/domain/models/Category';
+import { PAGE_OFFSET } from '@/domain/utils/constants/Pagination';
+import { environment } from '../../../../environments/environment';
 @Injectable()
 export class CategoryService {
   private readonly apiURL = `${environment.stockServiceUrl}/api/v1/categories`;

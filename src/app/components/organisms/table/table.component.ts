@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { Paginated } from 'src/app/domain/models/Paginated';
 import { TableHeader } from 'src/app/domain/models/TableHeader';
@@ -14,13 +14,18 @@ export class TableComponent<T extends object> {
   @Input() isLoading: boolean = false;
   @Input() isPaginated: boolean = true;
 
-  constructor(private readonly router: Router) {}
+  constructor(
+    private readonly router: Router,
+    private readonly ngZone: NgZone
+  ) {}
 
   onSort(header: TableHeader, direction: string) {
     if (header.sortable) {
-      this.router.navigate([], {
-        queryParams: { sortBy: header.key, direction },
-        queryParamsHandling: 'merge',
+      this.ngZone.run(() => {
+        this.router.navigate([], {
+          queryParams: { sortBy: header.key, direction },
+          queryParamsHandling: 'merge',
+        });
       });
     }
   }

@@ -1,13 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
+
 import { ToastComponent } from './toast.component';
-import { ToastService } from 'src/app/shared/services/ui/toast.service';
-import { Toast, ToastType } from 'src/app/domain/models/Toast';
-import {
-  TOAST_CLASSES_MAP,
-  TOAST_ICON_MAP,
-  TOAST_INFORMER_CLASSES_MAP,
-} from 'src/app/domain/utils/constants/Toast';
+import { Toast, ToastType } from '@/domain/models/Toast';
+import { ToastService } from '@/shared/services/ui/toast.service';
+import { TOAST_CLASSES_MAP, TOAST_ICON_MAP, TOAST_INFORMER_CLASSES_MAP } from '@/domain/utils/constants/Toast';
 
 describe('ToastComponent', () => {
   let component: ToastComponent;
@@ -66,7 +63,7 @@ describe('ToastComponent', () => {
   it('should return empty string if toast type has no class mapping', () => {
     const toastWithoutClass: Toast = {
       message: 'No class toast',
-      type: ToastType.WARNING,
+      type: 'invalid' as unknown as ToastType,
     };
     expect(component.getToastClass(toastWithoutClass)).toBe('');
   });
@@ -80,7 +77,7 @@ describe('ToastComponent', () => {
   it('should return empty string if toast type has no informer class mapping', () => {
     const toastWithoutInformerClass: Toast = {
       message: 'No informer class',
-      type: ToastType.INFO,
+      type: 'invalid' as unknown as ToastType,
     };
     expect(component.getToastInformerClass(toastWithoutInformerClass)).toBe('');
   });
@@ -94,7 +91,7 @@ describe('ToastComponent', () => {
   it('should return empty string if toast type has no icon mapping', () => {
     const toastWithoutIcon: Toast = {
       message: 'No icon toast',
-      type: ToastType.WARNING,
+      type: 'invalid' as unknown as ToastType,
     };
     expect(component.getToastIcon(toastWithoutIcon)).toBe('');
   });

@@ -1,6 +1,6 @@
+import { ESCAPE_KEY } from '@/domain/utils/constants/Common';
+import { ModalService } from '@/shared/services/ui/modal.service';
 import { Component, HostListener, Input, OnInit } from '@angular/core';
-import { ESCAPE_KEY } from 'src/app/domain/utils/constants/Common';
-import { ModalService } from 'src/app/shared/services/ui/modal.service';
 
 @Component({
   selector: 'app-modal',

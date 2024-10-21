@@ -1,8 +1,9 @@
+import { Toast, ToastType } from '@/domain/models/Toast';
 import { ToastService } from './toast.service';
-import { Toast, ToastType } from 'src/app/domain/models/Toast';
-import { TOAST_DURATION } from 'src/app/domain/utils/constants/Toast';
+
 import { fakeAsync, tick, TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs';
+import { TOAST_DURATION } from '@/domain/utils/constants/Toast';
 
 describe('ToastService', () => {
   let service: ToastService;

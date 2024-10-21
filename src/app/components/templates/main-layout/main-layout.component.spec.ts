@@ -2,6 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MainLayoutComponent } from './main-layout.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NavbarComponent } from '@/components/molecules';
+import { AtomsModule } from '@/components/atoms/atoms.module';
+import { MoleculesModule } from '@/components/molecules/molecules.module';
 
 describe('MainLayoutComponent', () => {
   let component: MainLayoutComponent;
@@ -10,8 +12,8 @@ describe('MainLayoutComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MainLayoutComponent, NavbarComponent],
-      imports: [RouterTestingModule]    })
-    .compileComponents();
+      imports: [RouterTestingModule, AtomsModule, MoleculesModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MainLayoutComponent);
     component = fixture.componentInstance;

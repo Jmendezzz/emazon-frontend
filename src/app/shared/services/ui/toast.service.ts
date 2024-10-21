@@ -1,7 +1,7 @@
+import { Toast } from '@/domain/models/Toast';
+import { TOAST_DURATION } from '@/domain/utils/constants/Toast';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Toast } from 'src/app/domain/models/Toast';
-import { TOAST_DURATION } from 'src/app/domain/utils/constants/Toast';
 
 @Injectable({
   providedIn: 'root'

@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BreadcumbComponent } from './breadcumb.component';
-import { BreadcrumbService } from 'src/app/shared/services/ui/breadcrumb.service';
-import { Breadcrumb } from 'src/app/shared/types/common-types';
 import { of } from 'rxjs';
+import { Breadcrumb } from '@/shared/types/common-types';
+import { BreadcrumbService } from '@/shared/services/ui/breadcrumb.service';
 
 class MockBreadcrumbService {
   breadcrumbs: Breadcrumb[] = [

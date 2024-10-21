@@ -2,9 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminLayoutComponent } from './admin-layout.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AdminNavbarComponent } from '../../molecules/admin-navbar/admin-navbar.component';
-import { BreadcumbComponent } from '@/components/organisms';
-import { SidebarComponent } from '@/components/molecules';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('AdminLayoutComponent', () => {
   let component: AdminLayoutComponent;
@@ -12,8 +10,9 @@ describe('AdminLayoutComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdminLayoutComponent, AdminNavbarComponent, BreadcumbComponent, SidebarComponent ],
-      imports: [RouterTestingModule]
+      declarations: [ AdminLayoutComponent],
+      imports: [RouterTestingModule],
+      schemas: [NO_ERRORS_SCHEMA],
     })
     .compileComponents();
     fixture = TestBed.createComponent(AdminLayoutComponent);
