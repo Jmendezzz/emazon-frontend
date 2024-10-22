@@ -1,14 +1,11 @@
+import { Category, CreateCategoryRequestDTO } from '@/domain/models/Category';
+import { ToastType } from '@/domain/models/Toast';
+import { CategoryService } from '@/features/category/services/category.service';
+import { ToastService } from '@/shared/services/ui/toast.service';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Component, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {
-  Category,
-  CreateCategoryRequestDTO,
-} from 'src/app/domain/models/Category';
-import { Error } from 'src/app/domain/models/Error';
-import { ToastType } from 'src/app/domain/models/Toast';
-import { ToastService } from 'src/app/shared/services/ui/toast.service';
-import { CategoryService } from '../../../services/category.service';
+
 
 @Component({
   selector: 'app-create-category-form',
@@ -43,7 +40,7 @@ export class CreateCategoryFormComponent {
     if (this.form.valid) {
       this.isLoading = true;
 
-      const categoryToCreate: CreateCategoryRequestDTO = this.form.value;
+      const categoryToCreate: CreateCategoryRequestDTO= this.form.value;
       this.categoryService.createCategory(categoryToCreate).subscribe({
         next: (category: Category) => {
           this.handleSuccess(category);
@@ -64,7 +61,7 @@ export class CreateCategoryFormComponent {
     this.isLoading = false;
   }
 
-  private handleError(error: HttpErrorResponse) {
+handleError(error: HttpErrorResponse) {
     if(error.status === HttpStatusCode.InternalServerError || error.status === 0) {
       this.toastService.showToast({
         message: 'An error occurred while creating the category',

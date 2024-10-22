@@ -1,8 +1,8 @@
+import { Pagination } from '@/domain/models/Pagination';
+import { Sorting } from '@/domain/models/Sorting';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import { map, Observable } from 'rxjs';
-import { Pagination } from 'src/app/domain/models/Pagination';
-import { Sorting } from 'src/app/domain/models/Sorting';
 
 @Injectable({
   providedIn: 'root',

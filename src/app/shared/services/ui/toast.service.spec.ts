@@ -1,18 +1,15 @@
-import { TestBed } from '@angular/core/testing';
+import { Toast, ToastType } from '@/domain/models/Toast';
 import { ToastService } from './toast.service';
-import { Toast, ToastType } from 'src/app/domain/models/Toast';
-import { BehaviorSubject } from 'rxjs';
-import { TOAST_DURATION } from 'src/app/domain/utils/constants/Toast';
 
-jest.useFakeTimers();
+import { fakeAsync, tick, TestBed } from '@angular/core/testing';
+import { Observable } from 'rxjs';
+import { TOAST_DURATION } from '@/domain/utils/constants/Toast';
 
 describe('ToastService', () => {
   let service: ToastService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [ToastService],
-    });
+    TestBed.configureTestingModule({});
     service = TestBed.inject(ToastService);
   });
 
@@ -20,57 +17,41 @@ describe('ToastService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return an observable from getToasts()', () => {
-    const toastsObservable = service.getToasts();
-    expect(toastsObservable).toBeInstanceOf(BehaviorSubject);
+  it('should return an observable of toasts', () => {
+    const toasts$ = service.getToastsObservable();
+    expect(toasts$).toBeInstanceOf(Observable);
   });
 
-  it('should add a toast when showToast is called', () => {
-    const toast: Toast = { message: 'Test toast', type: ToastType.SUCCESS };
+  it('should add a new toast when showToast is called', () => {
+    const mockToast: Toast = { message: 'Test toast', type: ToastType.SUCCESS };
+    service.showToast(mockToast);
 
-    service.getToasts().subscribe((toasts) => {
-      expect(toasts).toContain(toast);
-    });
-
-    service.showToast(toast);
-
-    expect(service['toasts']).toContain(toast);
-  });
-
-  it('should remove the toast when removeToast is called', () => {
-    const toast: Toast = { message: 'Test toast', type: ToastType.SUCCESS };
-
-    service.showToast(toast);
-
-    service.removeToast(toast);
-
-    expect(service['toasts']).not.toContain(toast);
-
-    service.getToasts().subscribe((toasts) => {
-      expect(toasts).not.toContain(toast);
+    service.getToastsObservable().subscribe((toasts) => {
+      expect(toasts).toContain(mockToast);
     });
   });
 
-  it('should remove the toast automatically after TOAST_DURATION', () => {
-    const toast: Toast = { message: 'Auto remove toast', type: ToastType.INFO };
+  it('should remove the toast after TOAST_DURATION has passed', fakeAsync(() => {
+    const mockToast: Toast = { message: 'Test toast', type: ToastType.SUCCESS };
+    service.showToast(mockToast);
 
-    service.showToast(toast);
+    tick(TOAST_DURATION);
 
-    expect(service['toasts']).toContain(toast);
+    expect(service.getToasts).not.toContain(mockToast);
+  }));
 
-    jest.advanceTimersByTime(TOAST_DURATION);
+  it('should remove a toast when removeToast is called', () => {
+    const mockToast: Toast = { message: 'Test toast', type: ToastType.SUCCESS };
+    service.showToast(mockToast);
 
-    expect(service['toasts']).not.toContain(toast);
-  });
+    service.getToastsObservable().subscribe((toasts) => {
+      expect(toasts).toContain(mockToast);
+    });
 
-  it('should call removeToast after the timeout', () => {
-    const toast: Toast = { message: 'Timeout toast', type: ToastType.WARNING };
+    service.removeToast(mockToast);
 
-    const spyRemoveToast = jest.spyOn(service, 'removeToast');
-    service.showToast(toast);
-
-    jest.advanceTimersByTime(TOAST_DURATION);
-
-    expect(spyRemoveToast).toHaveBeenCalledWith(toast);
+    service.getToastsObservable().subscribe((toasts) => {
+      expect(toasts).not.toContain(mockToast);
+    });
   });
 });

@@ -1,6 +1,6 @@
+import { BreadcrumbService } from '@/shared/services/ui/breadcrumb.service';
+import { Breadcrumb } from '@/shared/types/common-types';
 import { Component, OnInit } from '@angular/core';
-import { BreadcrumbService } from 'src/app/shared/services/ui/breadcrumb.service';
-import { Breadcrumb } from 'src/app/shared/types/common-types';
 
 @Component({
   selector: 'app-breadcumb',

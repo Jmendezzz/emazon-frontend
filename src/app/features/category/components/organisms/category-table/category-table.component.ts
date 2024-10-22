@@ -1,10 +1,11 @@
+import { Category } from '@/domain/models/Category';
+import { Paginated } from '@/domain/models/Paginated';
+import { TableHeader } from '@/domain/models/TableHeader';
+import { CATEGORY_TABLE_HEADERS } from '@/domain/utils/constants/TableHeaders';
+import { CategoryService } from '@/features/category/services/category.service';
+import { PaginationService } from '@/shared/services/ui/pagination.service';
 import { Component, OnInit } from '@angular/core';
-import { CATEGORY_TABLE_HEADERS } from 'src/app/domain/utils/constants/TableHeaders';
-import { Category } from 'src/app/domain/models/Category';
-import { TableHeader } from 'src/app/domain/models/TableHeader';
-import { Paginated } from 'src/app/domain/models/Paginated';
-import { PaginationService } from 'src/app/shared/services/ui/pagination.service';
-import { CategoryService } from '../../../services/category.service';
+
 
 @Component({
   selector: 'app-category-table',

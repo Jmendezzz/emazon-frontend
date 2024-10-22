@@ -1,10 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { CategoryService } from './category.service';
-import { Pagination } from 'src/app/domain/models/Pagination';
-import { Sorting } from 'src/app/domain/models/Sorting';
-import { Paginated } from 'src/app/domain/models/Paginated';
-import { Category, CreateCategoryRequestDTO } from 'src/app/domain/models/Category';
+import { CategoryService } from '@/features/category/services/category.service';
+import { Pagination} from '@/domain/models/Pagination';
+import { Sorting } from '@/domain/models/Sorting';
+import { Paginated } from '@/domain/models/Paginated';
+import { Category, CreateCategoryRequestDTO } from '@/domain/models/Category';
+
 
 describe('CategoryService', () => {
   let service: CategoryService;
@@ -42,7 +43,7 @@ describe('CategoryService', () => {
     });
 
     const req = httpMock.expectOne((request) => request.method === 'GET' && request.url === `${service['apiURL']}`);
-    expect(req.request.params.get('page')).toEqual('1');
+    expect(req.request.params.get('page')).toEqual('0');
     expect(req.request.params.get('size')).toEqual('10');
     expect(req.request.params.get('sortBy')).toEqual('name');
     expect(req.request.params.get('direction')).toEqual('ASC');

@@ -1,5 +1,5 @@
+import { Breadcrumb } from '@/shared/types/common-types';
 import { Injectable } from '@angular/core';
-import { Breadcrumb } from '../../types/common-types';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Injectable({
@@ -21,7 +21,6 @@ export class BreadcrumbService {
     breadcrumbs: Breadcrumb[] = []
   ): Breadcrumb[] {
     const children: ActivatedRoute[] = route.children;
-
     if (children.length === 0) {
       return breadcrumbs;
     }
@@ -35,9 +34,9 @@ export class BreadcrumbService {
       }
 
       breadcrumbs.push({ label: this.createLabel(child), url: url });
-      return this.createBreadcrumbs(child, url, breadcrumbs);
+      this.createBreadcrumbs(child, url, breadcrumbs);
     }
-    return breadcrumbs;
+    return breadcrumbs.filter((breadcrumb) => breadcrumb.label !== '');
   }
   private createLabel(route: ActivatedRoute): string {
     const routeData = route.snapshot.data;

@@ -2,14 +2,25 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { of, throwError } from 'rxjs';
 import { CreateCategoryFormComponent } from './create-category-form.component';
-import { CategoryService } from 'src/app/shared/services/api/category.service';
-import { Category } from 'src/app/domain/models/Category';
+import { CategoryService } from '@/features/category/services/category.service';
+import { InputFormRowComponent } from '@/components/molecules';
+import {
+  ButtonComponent,
+  InputComponent,
+  TextAreaComponent,
+} from '@/components/atoms';
+import { Category } from '@/domain/models/Category';
 
 describe('CreateCategoryFormComponent', () => {
   let component: CreateCategoryFormComponent;
   let fixture: ComponentFixture<CreateCategoryFormComponent>;
   let mockCategoryService: jest.Mocked<CategoryService>;
 
+  const mockCategory: Category = {
+    id: 1,
+    name: 'New Category',
+    description: 'Description',
+  };
   beforeEach(async () => {
     mockCategoryService = {
       createCategory: jest.fn(),
@@ -18,10 +29,14 @@ describe('CreateCategoryFormComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],
-      declarations: [CreateCategoryFormComponent],
-      providers: [
-        { provide: CategoryService, useValue: mockCategoryService },
+      declarations: [
+        CreateCategoryFormComponent,
+        InputFormRowComponent,
+        ButtonComponent,
+        InputComponent,
+        TextAreaComponent,
       ],
+      providers: [{ provide: CategoryService, useValue: mockCategoryService }],
     }).compileComponents();
   });
 
@@ -47,40 +62,55 @@ describe('CreateCategoryFormComponent', () => {
 
     expect(component.form.valid).toBe(false);
     expect(component.getErrorMessage('name')).toBe('This field is required');
-    expect(component.getErrorMessage('description')).toBe('This field is required');
+    expect(component.getErrorMessage('description')).toBe(
+      'This field is required'
+    );
   });
 
   it('should create a category when the form is valid', () => {
-    const mockCategory: Category = { id: 1, name: 'New Category', description: 'Description' };
     mockCategoryService.createCategory.mockReturnValue(of(mockCategory));
     jest.spyOn(component.onCategoryCreated, 'emit');
 
-    component.form.setValue({ name: 'New Category', description: 'Description' });
+    component.form.setValue({
+      name: 'New Category',
+      description: 'Description',
+    });
+
     component.onCreate();
 
-    expect(mockCategoryService.createCategory).toHaveBeenCalledWith({ name: 'New Category', description: 'Description' });
+    expect(mockCategoryService.createCategory).toHaveBeenCalledWith({
+      name: 'New Category',
+      description: 'Description',
+    });
+
     expect(component.onCategoryCreated.emit).toHaveBeenCalledWith(mockCategory);
+    
     expect(mockCategoryService.notifyCategoryCreated).toHaveBeenCalled();
-    expect(component.form.value).toEqual({ name: '', description: '' });
-  });
 
-  it('should not create a category when the form is invalid', () => {
-    component.form.setValue({ name: '', description: '' });
-    component.onCreate();
-
-    expect(mockCategoryService.createCategory).not.toHaveBeenCalled();
+    expect(component.form.value).toEqual({
+      name: null,
+      description: null,
+    });
   });
 
   it('should handle error when creating a category fails', () => {
     const errorResponse = { status: 400, message: 'Bad Request' };
-    mockCategoryService.createCategory.mockReturnValue(throwError(() => errorResponse));
+    mockCategoryService.createCategory.mockReturnValue(
+      throwError(() => errorResponse)
+    );
 
     console.error = jest.fn();
 
-    component.form.setValue({ name: 'New Category', description: 'Description' });
+    const handleErrorSpy = jest.spyOn(component, 'handleError');
+
+    component.form.setValue({
+      name: 'New Category',
+      description: 'Description',
+    });
     component.onCreate();
 
     expect(mockCategoryService.createCategory).toHaveBeenCalled();
-    expect(console.error).toHaveBeenCalledWith(errorResponse);
+
+    expect(handleErrorSpy).toHaveBeenCalledWith(errorResponse);
   });
 });

@@ -1,5 +1,5 @@
+import { InputType, InputVariant } from '@/components/atoms/input/input-types';
 import { Component, Input } from '@angular/core';
-import { InputType, InputVariant } from '../../atoms/input/input-types';
 import { FormControl } from '@angular/forms';
 
 @Component({

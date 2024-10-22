@@ -1,7 +1,7 @@
+import { Toast } from '@/domain/models/Toast';
+import { TOAST_DURATION } from '@/domain/utils/constants/Toast';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Toast } from 'src/app/domain/models/Toast';
-import { TOAST_DURATION } from 'src/app/domain/utils/constants/Toast';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +10,16 @@ export class ToastService {
   private toasts: Toast[] = [];
   private readonly toastsSubject = new BehaviorSubject<Toast[]>([]);
 
-  getToasts() {
+  get getToasts() {
+    return this.toasts;
+  }
+
+  getToastsObservable() {
     return this.toastsSubject.asObservable();
   }
 
   showToast(toast: Toast) {
-    this.toasts.push(toast);
+    this.toasts = [...this.toasts, toast];
     this.toastsSubject.next(this.toasts);
 
     setTimeout(() => {
