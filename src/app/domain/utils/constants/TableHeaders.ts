@@ -17,3 +17,21 @@ export const CATEGORY_TABLE_HEADERS: TableHeader[] = [
         sortable: false
     }
 ]
+
+export const BRAND_TABLE_HEADERS: TableHeader[] = [
+    {
+        label: 'ID',
+        key: 'id',
+        sortable: false
+    },
+    {
+        label: 'Name',
+        key: 'name',
+        sortable: true
+    },
+    {
+        label: 'Description',
+        key: 'description',
+        sortable: false
+    }
+]

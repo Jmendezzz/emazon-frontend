@@ -26,6 +26,10 @@ const routes: Routes = [
         path: 'categories',
         loadChildren: () => import('./features/category/category.module').then(m => m.CategoryModule),
       },
+      {
+        path: 'brands',
+        loadChildren: () => import('./features/brand/brand.module').then(m => m.BrandModule),
+      }
     ],
   },
 ];

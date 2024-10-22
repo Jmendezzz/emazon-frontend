@@ -13,7 +13,9 @@ export class BreadcumbComponent implements OnInit {
   constructor(private readonly breadcumbService: BreadcrumbService) { }
 
   ngOnInit(): void {
-    this.breadcrumbs = this.breadcumbService.breadcrumbs;
+    this.breadcumbService.breadcrumbs$.subscribe((breadcrumbs) => {
+      this.breadcrumbs = breadcrumbs;
+    });
   }
 
 }
