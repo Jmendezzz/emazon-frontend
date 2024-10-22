@@ -11,6 +11,7 @@ import { CreateCategoryFormComponent } from './components/molecules/create-categ
 import { CreateCategoryModalComponent } from './components/organisms/create-category-modal/create-category-modal.component';
 import { CategoryService } from './services/category.service';
 import { AdminModule } from '../admin/admin.module';
+import { CategotyRoutingModule } from './categoty-routing.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AdminModule } from '../admin/admin.module';
     MoleculesModule,
     AtomsModule,
     OrganismsModule,
-    AdminModule
+    AdminModule,
+    CategotyRoutingModule
   ],
   exports: [ListCategoriesComponent],
   providers: [CategoryService],
