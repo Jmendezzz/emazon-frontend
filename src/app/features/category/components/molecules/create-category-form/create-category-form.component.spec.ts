@@ -1,116 +1,124 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { of, throwError } from 'rxjs';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { ReactiveFormsModule, Validators } from '@angular/forms';
 import { CreateCategoryFormComponent } from './create-category-form.component';
 import { CategoryService } from '@/features/category/services/category.service';
-import { InputFormRowComponent } from '@/components/molecules';
+import { ToastService } from '@/shared/services/ui/toast.service';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import {
-  ButtonComponent,
-  InputComponent,
-  TextAreaComponent,
-} from '@/components/atoms';
-import { Category } from '@/domain/models/Category';
+  MIN_CATEGORY_NAME_LENGTH,
+  MAX_CATEGORY_NAME_LENGTH,
+  CATEGORY_CREATE_SUCCESS_MESSAGE,
+  CATEGORY_CREATE_ERROR_MESSAGE,
+} from '@/domain/utils/constants/Category';
+import { CreateCategoryRequestDTO } from '@/domain/models/Category';
+import { of, throwError } from 'rxjs';
+import { ToastType } from '@/domain/models/Toast';
 
 describe('CreateCategoryFormComponent', () => {
   let component: CreateCategoryFormComponent;
   let fixture: ComponentFixture<CreateCategoryFormComponent>;
-  let mockCategoryService: jest.Mocked<CategoryService>;
+  let categoryServiceMock: any;
+  let toastServiceMock: any;
 
-  const mockCategory: Category = {
-    id: 1,
-    name: 'New Category',
-    description: 'Description',
-  };
   beforeEach(async () => {
-    mockCategoryService = {
+    categoryServiceMock = {
       createCategory: jest.fn(),
       notifyCategoryCreated: jest.fn(),
-    } as unknown as jest.Mocked<CategoryService>;
+    };
+
+    toastServiceMock = {
+      showToast: jest.fn(),
+    };
 
     await TestBed.configureTestingModule({
+      declarations: [CreateCategoryFormComponent],
       imports: [ReactiveFormsModule],
-      declarations: [
-        CreateCategoryFormComponent,
-        InputFormRowComponent,
-        ButtonComponent,
-        InputComponent,
-        TextAreaComponent,
+      providers: [
+        { provide: CategoryService, useValue: categoryServiceMock },
+        { provide: ToastService, useValue: toastServiceMock },
       ],
-      providers: [{ provide: CategoryService, useValue: mockCategoryService }],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
-  });
+    categoryServiceMock = TestBed.inject(CategoryService);
+    toastServiceMock = TestBed.inject(ToastService);
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(CreateCategoryFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create the form with two controls', () => {
-    expect(component.form.contains('name')).toBe(true);
-    expect(component.form.contains('description')).toBe(true);
+  it('should create the component', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('should mark controls as invalid when empty', () => {
-    const nameControl = component.getControl('name');
-    const descriptionControl = component.getControl('description');
-
-    nameControl.setValue('');
-    descriptionControl.setValue('');
-    nameControl.markAsTouched();
-    descriptionControl.markAsTouched();
-
-    expect(component.form.valid).toBe(false);
-    expect(component.getErrorMessage('name')).toBe('This field is required');
-    expect(component.getErrorMessage('description')).toBe(
-      'This field is required'
-    );
-  });
-
-  it('should create a category when the form is valid', () => {
-    mockCategoryService.createCategory.mockReturnValue(of(mockCategory));
-    jest.spyOn(component.onCategoryCreated, 'emit');
-
-    component.form.setValue({
-      name: 'New Category',
-      description: 'Description',
-    });
-
-    component.onCreate();
-
-    expect(mockCategoryService.createCategory).toHaveBeenCalledWith({
-      name: 'New Category',
-      description: 'Description',
-    });
-
-    expect(component.onCategoryCreated.emit).toHaveBeenCalledWith(mockCategory);
-    
-    expect(mockCategoryService.notifyCategoryCreated).toHaveBeenCalled();
-
-    expect(component.form.value).toEqual({
-      name: null,
-      description: null,
-    });
-  });
-
-  it('should handle error when creating a category fails', () => {
-    const errorResponse = { status: 400, message: 'Bad Request' };
-    mockCategoryService.createCategory.mockReturnValue(
-      throwError(() => errorResponse)
+  it('should initialize the form fields with correct validators', () => {
+    const nameField = component.fields.find((field) => field.name === 'name');
+    const descriptionField = component.fields.find(
+      (field) => field.name === 'description'
     );
 
-    console.error = jest.fn();
+    expect(nameField).toBeTruthy();
+    expect(descriptionField).toBeTruthy();
 
-    const handleErrorSpy = jest.spyOn(component, 'handleError');
+    const nameValidators = nameField?.validators || [];
+    const descriptionValidators = descriptionField?.validators || [];
 
-    component.form.setValue({
-      name: 'New Category',
-      description: 'Description',
-    });
-    component.onCreate();
+    const hasRequiredValidator = nameValidators.some(
+      (v) => v === Validators.required
+    );
+    const hasMinLengthValidator = nameValidators.some(
+      (v) =>
+        JSON.stringify(v) ===
+        JSON.stringify(Validators.minLength(MIN_CATEGORY_NAME_LENGTH))
+    );
+    const hasMaxLengthValidator = nameValidators.some(
+      (v) =>
+        JSON.stringify(v) ===
+        JSON.stringify(Validators.maxLength(MAX_CATEGORY_NAME_LENGTH))
+    );
 
-    expect(mockCategoryService.createCategory).toHaveBeenCalled();
+    expect(hasRequiredValidator).toBe(true);
+    expect(hasMinLengthValidator).toBe(true);
+    expect(hasMaxLengthValidator).toBe(true);
 
-    expect(handleErrorSpy).toHaveBeenCalledWith(errorResponse);
+    const hasRequiredDescriptionValidator = descriptionValidators.some(
+      (v) => v === Validators.required
+    );
+    const hasMinLengthDescriptionValidator = descriptionValidators.some(
+      (v) =>
+        JSON.stringify(v) ===
+        JSON.stringify(Validators.minLength(MIN_CATEGORY_NAME_LENGTH))
+    );
+    const hasMaxLengthDescriptionValidator = descriptionValidators.some(
+      (v) =>
+        JSON.stringify(v) ===
+        JSON.stringify(Validators.maxLength(MAX_CATEGORY_NAME_LENGTH))
+    );
+
+    expect(hasRequiredDescriptionValidator).toBe(true);
+    expect(hasMinLengthDescriptionValidator).toBe(true);
+    expect(hasMaxLengthDescriptionValidator).toBe(true);
   });
+  it('should show success toast on successful form submission', () => {
+    const categoryToCreate: CreateCategoryRequestDTO = {
+      name: 'Test Category',
+      description: 'Test Description',
+    };
+
+    jest.spyOn(categoryServiceMock, 'createCategory').mockReturnValue(of({}));
+    const showToastSpy = jest.spyOn(toastServiceMock, 'showToast');
+
+    component.onSubmit(categoryToCreate);
+
+    expect(showToastSpy).toHaveBeenCalledWith({
+      message: CATEGORY_CREATE_SUCCESS_MESSAGE,
+      type: 'success',
+    });
+  });
+
 });

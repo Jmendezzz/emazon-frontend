@@ -8,8 +8,12 @@ import {
   MAX_BRAND_NAME_LENGTH,
   MIN_BRAND_DESCRIPTION_LENGTH,
   MAX_BRAND_DESCRIPTION_LENGTH,
+  BRAND_CREATE_SUCCESS_MESSAGE,
 } from '@/domain/utils/constants/Brand';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { CreateBrandRequestDTO } from '@/domain/models/Brand';
+import { of } from 'rxjs';
+import { ToastType } from '@/domain/models/Toast';
 
 describe('CreateBrandFormComponent', () => {
   let component: CreateBrandFormComponent;
@@ -35,6 +39,9 @@ describe('CreateBrandFormComponent', () => {
       ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
+
+    brandServiceMock = TestBed.inject(BrandService);
+    toastServiceMock = TestBed.inject(ToastService);
 
     fixture = TestBed.createComponent(CreateBrandFormComponent);
     component = fixture.componentInstance;
@@ -92,5 +99,21 @@ describe('CreateBrandFormComponent', () => {
     expect(hasRequiredDescriptionValidator).toBe(true);
     expect(hasMinLengthDescriptionValidator).toBe(true);
     expect(hasMaxLengthDescriptionValidator).toBe(true);
+  });
+  it('should show success toast on successful form submission', () => {
+    const brandToCreate: CreateBrandRequestDTO = {
+      name: 'Test Brand',
+      description: 'Test Description',
+    };
+
+    jest.spyOn(brandServiceMock, 'createBrand').mockReturnValue(of({}));
+    const showToastSpy = jest.spyOn(toastServiceMock, 'showToast');
+
+    component.onSubmit(brandToCreate);
+
+    expect(showToastSpy).toHaveBeenCalledWith({
+      message: BRAND_CREATE_SUCCESS_MESSAGE,
+      type: ToastType.SUCCESS,
+    });
   });
 });
