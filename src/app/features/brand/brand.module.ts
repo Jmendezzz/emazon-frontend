@@ -10,22 +10,27 @@ import { OrganismsModule } from '@/components/organisms/organisms.module';
 import { AdminModule } from '../admin/admin.module';
 import { ListBrandsComponent } from '@/components/pages/brands/list-brands/list-brands.component';
 import { BrandRoutingModule } from './brand-routing.module';
-
-
+import { CreateBrandFormComponent } from './components/create-brand-form/create-brand-form.component';
+import { CreateBrandModalComponent } from './components/create-brand-modal/create-brand-modal.component';
 
 @NgModule({
-  declarations: [BrandTableComponent, ListBrandsComponent],
+  declarations: [
+    BrandTableComponent,
+    ListBrandsComponent,
+    CreateBrandFormComponent,
+    CreateBrandModalComponent,
+    CreateBrandModalComponent,
+  ],
   imports: [
     CommonModule,
-    HttpClientModule,
     ReactiveFormsModule,
     MoleculesModule,
     AtomsModule,
     OrganismsModule,
     AdminModule,
-    BrandRoutingModule
+    BrandRoutingModule,
   ],
-  providers:[BrandService],
-  exports:[ListBrandsComponent]
+  providers: [BrandService],
+  exports: [ListBrandsComponent],
 })
-export class BrandModule { }
+export class BrandModule {}

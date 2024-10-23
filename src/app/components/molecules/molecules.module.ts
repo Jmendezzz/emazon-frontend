@@ -9,6 +9,7 @@ import {
 } from '@/components/molecules';
 import { AtomsModule } from '../atoms/atoms.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormComponent } from './form/form.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     PaginationComponent,
     SidebarComponent,
     NavbarComponent,
+    FormComponent,
   ],
   imports: [CommonModule, AtomsModule, ReactiveFormsModule],
   exports: [
@@ -25,6 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     PaginationComponent,
     SidebarComponent,
     NavbarComponent,
+    FormComponent
   ],
 })
 export class MoleculesModule {}

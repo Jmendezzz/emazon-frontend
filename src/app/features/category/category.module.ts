@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AtomsModule } from '@/components/atoms/atoms.module';
 import { MoleculesModule } from '@/components/molecules/molecules.module';
@@ -22,7 +21,6 @@ import { CategoryRoutingModule } from './category-routing.module';
   ],
   imports: [
     CommonModule,
-    HttpClientModule,
     ReactiveFormsModule,
     MoleculesModule,
     AtomsModule,
