@@ -10,6 +10,7 @@ import {
 import { AtomsModule } from '../atoms/atoms.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from './form/form.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { FormComponent } from './form/form.component';
     SidebarComponent,
     NavbarComponent,
     FormComponent,
+    DropdownComponent,
   ],
   imports: [CommonModule, AtomsModule, ReactiveFormsModule],
   exports: [

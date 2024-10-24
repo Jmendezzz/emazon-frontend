@@ -1,12 +1,21 @@
 <aside class="sidebar" [ngClass]="{'sidebar--collapsed': isCollapsed }">
-    <app-logo></app-logo>
-    <app-button variant="rounded" class="sidebar__toggle-btn" (click)="onToggleSidebar()">
-        {{isCollapsed ? '>' : '<'}} </app-button>
-            <nav class="sidebar__nav">
-                <ul *ngFor="let sidebarItem of sidebarItems" class="sidebar__nav__list">
-                    <li>
-                        <app-link [href]="sidebarItem.route">{{sidebarItem.title}}</app-link>
-                    </li>
-                </ul>
-            </nav>
+    <div class="sidebar__content">
+        <div class="sidebar__logo">
+            <app-logo></app-logo>
+        </div>
+        <app-button variant="rounded" class="sidebar__toggle-btn" (click)="onToggleSidebar()">
+            {{isCollapsed ? '<' : '>' }} </app-button>
+                <nav class="sidebar__nav">
+                    <ul *ngFor="let sidebarItem of sidebarItems" class="sidebar__nav__list">
+                        <li>
+                            <app-link [href]="sidebarItem.route">{{sidebarItem.title}}</app-link>
+                        </li>
+                    </ul>
+                </nav>
+    </div>
 </aside>
+<app-button variant="rounded" class="sidebar__toggle-btn--mobile"
+    [ngClass]="{'sidebar__toggle-btn--mobile--collapsed': isCollapsed}" (click)="onToggleSidebar()">
+    >
+</app-button>
+<div class="sidebar-overlay" [ngClass]="{'sidebar-overlay--active': isCollapsed}" (click)="onToggleSidebar()"></div>
