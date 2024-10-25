@@ -1,1 +1,22 @@
-<p>dropdown works!</p>
+<div class="dropdown">
+    <span class="dropdown__label" *ngIf="selectedOptions.length == 0">{{placeholder}}</span>
+    <button class="dropdown__toggle" (click)="toggleDropdown()"></button>
+
+    <div class="dropdown__body" *ngIf="dropdownOpened">
+        <header class="dropdown__body__header">
+            <app-input placeholder="Search..."></app-input>
+        </header>
+
+        <ul class="dropdown__body__content">
+            <li>
+                <button *ngFor="let option of options" (click)="selectOption(option)"
+                    [ngClass]="selectedOptions.includes(option) ? 'dropdown__body__content--selected' : ''">
+                    <span>{{option}}</span>
+                    <span *ngIf="selectedOptions.includes(option)" class="selected">✓</span>
+                </button>
+            </li>
+
+        </ul>
+
+    </div>
+</div>

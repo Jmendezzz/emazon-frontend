@@ -1,0 +1,94 @@
+@import 'variables';
+@import 'mixins';
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+
+    &__label {
+        display: block;
+        padding: 10px;
+        background-color: $white-bg-color;
+        border: 1px solid $gray-light-color;
+        @include border-radius-md();
+        cursor: pointer;
+    }
+
+    &__toggle {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: $primary-color;
+        color: $white-color;
+        border: none;
+        @include border-radius-md();
+        cursor: pointer;
+        text-align: left;
+        @include transition();
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &__body {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: $white-color;
+        border: 1px solid $gray-light-color;
+        @include border-radius-md();
+        @include shadow();
+        z-index: 1000;
+
+        &__header {
+            padding: 10px;
+            border-bottom: 1px solid $gray-light-color;
+        }
+
+        &__content {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            max-height: 200px;
+            overflow-y: auto;
+
+            li {
+                margin: 0;
+
+                button {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                    padding: 10px;
+                    background-color: $white-color;
+                    border: none;
+                    border-bottom: 1px solid $gray-light-color;
+                    cursor: pointer;
+                    text-align: left;
+                    @include transition();
+
+                    &:hover {
+                        background-color: $gray-light-color;
+                    }
+
+                    &.dropdown__body__content--selected {
+                        background-color: $primary-color;
+                        color: $white-color;
+                    }
+
+                    &:focus {
+                        outline: none;
+                    }
+
+                    .selected {
+                        margin-left: 10px;
+                        color: $primary-color;
+                    }
+                }
+            }
+        }
+    }
+}

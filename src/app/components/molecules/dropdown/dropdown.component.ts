@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
+import { DropdownOption } from './dropdown-types';
 
 @Component({
   selector: 'app-dropdown',
@@ -7,6 +8,13 @@ import { ControlValueAccessor } from '@angular/forms';
   styleUrls: ['./dropdown.component.scss']
 })
 export class DropdownComponent implements OnInit, ControlValueAccessor {
+  @Input() options: DropdownOption[] = [];
+  @Input() placeholder: string = '';
+  @Input() maxSelectedOptions: number = 1;
+
+  selectedOptions: DropdownOption[] = [];
+  filteredOptions: DropdownOption[] = [];
+  dropdownOpened: boolean = false;
 
   constructor() { }
   writeValue(obj: any): void {
@@ -23,6 +31,16 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
   }
 
   ngOnInit(): void {
+  }
+
+  toggleDropdown(): void {
+    this.dropdownOpened = !this.dropdownOpened;
+  }
+
+  selectOption(option: DropdownOption): void {
+    if (this.selectedOptions.length < this.maxSelectedOptions) {
+      this.selectedOptions.push(option);
+    }
   }
 
 }
