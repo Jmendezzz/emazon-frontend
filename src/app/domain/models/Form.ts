@@ -10,4 +10,5 @@ export interface FormField {
     validators?: ValidatorFn[];
     options?: string[];
     dropdownOptions?: DropdownOption[];
+    maxDropdownSelections?: number;
 }

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrandTableComponent } from './components/brand-table/brand-table.component';
 import { BrandService } from './services/brand.service';
-import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MoleculesModule } from '@/components/molecules/molecules.module';
 import { AtomsModule } from '@/components/atoms/atoms.module';

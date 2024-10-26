@@ -1,4 +1,4 @@
-import { Component, inject, Input} from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output} from '@angular/core';
 import {
   ControlValueAccessor,
   NgControl,
@@ -19,6 +19,9 @@ export class InputComponent implements ControlValueAccessor {
   @Input() type: InputType = 'text';
   @Input() placeholder: string = '';
 
+  @Output() valueChange: EventEmitter<string | number> = new EventEmitter<string | number>();
+
+
   constructor() {}
 
   value: string = '';
@@ -37,5 +40,6 @@ export class InputComponent implements ControlValueAccessor {
   onInput(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
     this.onChange(value); 
+    this.valueChange.emit(value);
   }
 }

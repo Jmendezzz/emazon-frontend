@@ -1,17 +1,20 @@
-<div class="dropdown">
+<div class="dropdown" [ngClass]="{'dropdown--opened': dropdownOpened}">
     <span class="dropdown__label" *ngIf="selectedOptions.length == 0">{{placeholder}}</span>
-    <button class="dropdown__toggle" (click)="toggleDropdown()"></button>
+    <span class="dropdown__label" *ngIf="selectedOptions.length > 0">{{selectedOptions.length}} Options selected</span>
+    <button class="dropdown__toggle" (click)="toggleDropdown()">
+        <img src="assets/ui/search.svg" alt="Search" >
+    </button>
 
-    <div class="dropdown__body" *ngIf="dropdownOpened">
+    <div class="dropdown__body" *ngIf="dropdownOpened" [ngClass]="{'dropdown__body--opened': dropdownOpened}">
         <header class="dropdown__body__header">
-            <app-input placeholder="Search..."></app-input>
+            <app-input placeholder="Search..."  (valueChange)="onSearch($event)"></app-input>
         </header>
 
         <ul class="dropdown__body__content">
             <li>
-                <button *ngFor="let option of options" (click)="selectOption(option)"
+                <button *ngFor="let option of filteredOptions" (click)="selectOption(option)"
                     [ngClass]="selectedOptions.includes(option) ? 'dropdown__body__content--selected' : ''">
-                    <span>{{option}}</span>
+                    <span>{{option.label}}</span>
                     <span *ngIf="selectedOptions.includes(option)" class="selected">✓</span>
                 </button>
             </li>
