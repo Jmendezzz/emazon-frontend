@@ -12,6 +12,7 @@ import { ListBrandsComponent } from '@/components/pages/brands/list-brands/list-
 import { BrandRoutingModule } from './brand-routing.module';
 import { CreateBrandFormComponent } from './components/create-brand-form/create-brand-form.component';
 import { CreateBrandModalComponent } from './components/create-brand-modal/create-brand-modal.component';
+import { PaginationService } from '@/shared/services/ui/pagination.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { CreateBrandModalComponent } from './components/create-brand-modal/creat
     AdminModule,
     BrandRoutingModule,
   ],
-  providers: [BrandService],
+  providers: [BrandService, PaginationService],
   exports: [ListBrandsComponent],
 })
 export class BrandModule {}

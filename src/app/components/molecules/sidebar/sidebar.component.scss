@@ -11,6 +11,7 @@
   @include shadow();
 
   @include laptop() {
+    z-index: 0;
     display: block;
     position: relative;
     min-height: 100vh;
