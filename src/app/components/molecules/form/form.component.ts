@@ -56,6 +56,8 @@ export class FormComponent<T> implements OnInit{
     if (this.form.valid) {
       this.onSubmit.emit(this.form.value);
       this.form.reset();
+      this.form.markAsPristine();
+      this.form.markAsUntouched();
     }
   }
 }

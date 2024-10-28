@@ -40,21 +40,6 @@ export class CreateBrandFormComponent extends AbstractFormHandler<CreateBrandReq
         Validators.minLength(MIN_BRAND_DESCRIPTION_LENGTH),
         Validators.maxLength(MAX_BRAND_DESCRIPTION_LENGTH),
       ],
-    },
-    {
-      name:'Dropdown',
-      label: 'Dropdown',
-      type: 'dropdown',
-      placeholder: 'Select an option',
-      maxDropdownSelections: 3,
-      dropdownOptions: [
-        { label: 'Option 1', value: 'option1' },
-        { label: 'Option 2', value: 'option2' },
-        { label: 'Option 3', value: 'option3' },
-      ],
-      validators: [
-        Validators.required
-      ]
     }
   ];
 

@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit} from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { DropdownOption } from './dropdown-types';
 
@@ -7,7 +7,7 @@ import { DropdownOption } from './dropdown-types';
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
 })
-export class DropdownComponent implements OnInit, ControlValueAccessor {
+export class DropdownComponent implements OnInit, ControlValueAccessor, OnDestroy {
   public ngControl: NgControl = Object.assign(inject(NgControl), {
     valueAccessor: this,
   });
@@ -47,6 +47,8 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
 
   toggleDropdown(): void {
     this.dropdownOpened = !this.dropdownOpened;
+    this.filteredOptions = this.options;
+    this.onTouched();
   }
 
   selectOption(option: DropdownOption): void {
@@ -55,14 +57,23 @@ export class DropdownComponent implements OnInit, ControlValueAccessor {
     } else if (this.selectedOptions.length < this.maxSelectedOptions) {
       this.selectedOptions.push(option);
     }
-    this.onChange(this.selectedOptions);
+    this.onChange(this.selectedOptions.map((o) => o.value));
   }
 
   onSearch(searchTerm: string | number): void {
     const searchTermString = searchTerm.toString().toLowerCase();
-
     this.filteredOptions = this.options.filter((option) =>
       option.label.toLowerCase().includes(searchTermString)
     );
+  }
+
+  ngOnDestroy(): void {
+    this.filteredOptions = [];
+    this.selectedOptions = [];
+    this.dropdownOpened = false;
+  }
+
+  getSelectedOptionsLabel(): string {
+    return this.selectedOptions.map((o) => o.label).join(', ');
   }
 }

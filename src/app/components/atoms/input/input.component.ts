@@ -20,8 +20,7 @@ export class InputComponent implements ControlValueAccessor {
   @Input() placeholder: string = '';
 
   @Output() valueChange: EventEmitter<string | number> = new EventEmitter<string | number>();
-
-
+  
   constructor() {}
 
   value: string = '';
