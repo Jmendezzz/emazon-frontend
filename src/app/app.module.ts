@@ -8,11 +8,8 @@ import { OrganismsModule } from './components/organisms/organisms.module';
 import { CategoryModule } from './features/category/category.module';
 import { TemplatesModule } from './components/templates/templates.module';
 import { BrandModule } from './features/brand/brand.module';
-import { AricleTableComponent } from './features/article/components/aricle-table/aricle-table.component';
-import { ArticleTableComponent } from './features/article/components/article-table/article-table.component';
-
 @NgModule({
-  declarations: [AppComponent, AricleTableComponent, ArticleTableComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
