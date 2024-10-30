@@ -17,6 +17,8 @@ export class InputFormRowComponent {
   @Input() control!: FormControl;
   @Input() dropdownOptions?: DropdownOption[] = [];
   @Input() maxDropdownSelections?: number;
+  @Input() minValue?: number;
+  @Input() maxValue?: number;
 
   constructor() {}
 

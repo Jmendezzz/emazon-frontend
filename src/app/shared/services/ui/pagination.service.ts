@@ -28,7 +28,7 @@ export class PaginationService {
           },
         };
       }),
-      shareReplay(1) // Shares the latest result with all subscribers
+      shareReplay(1) 
     );
   }
 

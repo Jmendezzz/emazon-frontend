@@ -20,8 +20,8 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, OnDestro
   filteredOptions: DropdownOption[] = [];
   dropdownOpened: boolean = false;
 
-  private onChange: (value: any) => void = () => {};
-  private onTouched: () => void = () => {};
+  onChange: (value: any) => void = () => {};
+  onTouched: () => void = () => {};
 
   ngOnInit(): void {
     this.filteredOptions = this.options;
