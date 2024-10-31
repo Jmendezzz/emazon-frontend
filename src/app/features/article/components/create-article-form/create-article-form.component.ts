@@ -2,9 +2,9 @@ import { Article, CreateArticleRequestDTO } from '@/domain/models/Article';
 import { AbstractFormHandler } from '@/shared/abstracts/AbstractFormHandler';
 import { ToastService } from '@/shared/services/ui/toast.service';
 import { Component} from '@angular/core';
-import { ArticleService } from '../../services/article.service';
 import { FormField } from '@/domain/models/Form';
 import { Validators } from '@angular/forms';
+import { ArticleService } from '../../services/article.service';
 
 @Component({
   selector: 'app-create-article-form',

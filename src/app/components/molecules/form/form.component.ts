@@ -53,6 +53,7 @@ export class FormComponent<T> implements OnInit{
   }
 
   submitForm() {
+    console.log(this.form.value);
     if (this.form.valid) {
       this.onSubmit.emit(this.form.value);
       this.form.reset();
