@@ -10,6 +10,8 @@ import { ArticleRoutingModule } from './article-routing.module';
 import { ArticleService } from './services/article.service';
 import { CreateArticleFormComponent } from './components/create-article-form/create-article-form.component';
 import { CreateArticleModalComponent } from './components/create-article-modal/create-article-modal.component';
+import { BrandService } from '../brand/services/brand.service';
+import { CategoryService } from '../category/services/category.service';
 
 
 
@@ -28,6 +30,6 @@ import { CreateArticleModalComponent } from './components/create-article-modal/c
   exports: [
     ListArticlesComponent
   ],
-  providers: [ArticleService]
+  providers: [ArticleService, BrandService, CategoryService]
 })
 export class ArticleModule { }

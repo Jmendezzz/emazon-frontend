@@ -24,7 +24,14 @@
     &--opened {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
+        border: 1px solid $primary-color;
+        &--above{
+            border: 1px solid $primary-color;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
     }
+
 
     &__label {
         max-width:100%;
@@ -62,10 +69,13 @@
         width: 100%;
         background-color: $white-color;
         z-index: 1000;
-        box-shadow: 0 0 0 1px $gray-light-color, 1px 0 0 0 $gray-light-color, 0 1px 0 0 $gray-light-color;
+        box-shadow: 0 0 0 1px $primary-color, 1px 0 0 0 $primary-color, 0 1px 0 0 $primary-color;
         &--opened{
-            border:1px 0 1px 1px solid $gray-light-color;
-
+            border:1px 0 1px 1px solid $primary-color;
+        }
+        &--above{
+            top: auto;
+            bottom: 100%;
         }
 
         &__header {

@@ -1,11 +1,11 @@
-<div class="dropdown" [ngClass]="{'dropdown--opened': dropdownOpened}">
+<div class="dropdown" [ngClass]="{'dropdown--opened': dropdownOpened, 'dropdown--opened--above': dropdownAbove && dropdownOpened}">
     <span class="dropdown__placeholder" *ngIf="selectedOptions.length == 0" (click)="toggleDropdown()" (keydown)="toggleDropdown()">{{placeholder}}</span>
     <span class="dropdown__label" *ngIf="selectedOptions.length > 0">{{getSelectedOptionsLabel()}}</span>
     <button type="button" class="dropdown__toggle" (click)="toggleDropdown()">
         <img src="assets/ui/search.svg" alt="Search">
     </button>
 
-    <div class="dropdown__body" *ngIf="dropdownOpened" [ngClass]="{'dropdown__body--opened': dropdownOpened}">
+    <div class="dropdown__body" *ngIf="dropdownOpened" [ngClass]="{'dropdown__body--opened': dropdownOpened}"  [ngClass]="{'dropdown__body--above': dropdownAbove}">
         <header class="dropdown__body__header">
             <app-input placeholder="Search..." (valueChange)="onSearch($event)"></app-input>
         </header>

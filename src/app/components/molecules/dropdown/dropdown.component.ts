@@ -1,38 +1,39 @@
-import { Component, inject, Input, OnDestroy, OnInit} from '@angular/core';
-import { ControlValueAccessor, NgControl } from '@angular/forms';
+import { Component, forwardRef,Input, OnDestroy, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 import { DropdownOption } from './dropdown-types';
 
 @Component({
   selector: 'app-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DropdownComponent),
+      multi: true,
+    },
+  ],
 })
-export class DropdownComponent implements OnInit, ControlValueAccessor, OnDestroy {
-  public ngControl: NgControl = Object.assign(inject(NgControl), {
-    valueAccessor: this,
-  });
-
-  @Input() options: DropdownOption[] = [];
+export class DropdownComponent
+  implements OnInit, ControlValueAccessor, OnDestroy
+{
+  @Input() options: DropdownOption[] | undefined = [];
   @Input() placeholder: string = '';
   @Input() maxSelectedOptions: number = 1;
 
   selectedOptions: DropdownOption[] = [];
   filteredOptions: DropdownOption[] = [];
   dropdownOpened: boolean = false;
+  dropdownAbove: boolean = false;
 
   onChange: (value: any) => void = () => {};
   onTouched: () => void = () => {};
 
   ngOnInit(): void {
-    this.filteredOptions = this.options;
+    this.filteredOptions = this.options || [];
   }
-
   writeValue(value: any): void {
-    if (value) {
-      this.selectedOptions = value;
-    } else {
-      this.selectedOptions = [];
-    }
+    this.filteredOptions = value;
   }
 
   registerOnChange(fn: any): void {
@@ -47,7 +48,8 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, OnDestro
 
   toggleDropdown(): void {
     this.dropdownOpened = !this.dropdownOpened;
-    this.filteredOptions = this.options;
+    this.filteredOptions = this.options || [];
+    this.calculateDropdownPosition();
     this.onTouched();
   }
 
@@ -57,14 +59,17 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, OnDestro
     } else if (this.selectedOptions.length < this.maxSelectedOptions) {
       this.selectedOptions.push(option);
     }
-    this.onChange(this.selectedOptions.map((o) => o.value));
+    const value = this.maxSelectedOptions == 1 ? this.selectedOptions.map((o) => o.value)[0] : this.selectedOptions.map((o) => o.value);
+    this.onChange(value);
   }
 
   onSearch(searchTerm: string | number): void {
     const searchTermString = searchTerm.toString().toLowerCase();
-    this.filteredOptions = this.options.filter((option) =>
-      option.label.toLowerCase().includes(searchTermString)
-    );
+    if (this.options) {
+      this.filteredOptions = this.options.filter((option) =>
+        option.label.toLowerCase().includes(searchTermString)
+      );
+    }
   }
 
   ngOnDestroy(): void {
@@ -75,5 +80,15 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, OnDestro
 
   getSelectedOptionsLabel(): string {
     return this.selectedOptions.map((o) => o.label).join(', ');
+  }
+
+  calculateDropdownPosition(): void {
+    const dropdownElement = document.querySelector('.dropdown');
+    if (dropdownElement) {
+      const rect = dropdownElement.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const spaceBelow = viewportHeight - rect.bottom;
+      this.dropdownAbove = spaceBelow < 280;
+    }
   }
 }

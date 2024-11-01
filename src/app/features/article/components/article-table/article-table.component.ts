@@ -36,6 +36,7 @@ export class ArticleTableComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadArticles();
+    this.onArticleCreated();
   }
 
   ngOnDestroy(): void {
@@ -78,5 +79,11 @@ export class ArticleTableComponent implements OnInit, OnDestroy {
         categories: article.categories.map((category) => category.name).join(', '),
       })),
     };
+  }
+
+  private onArticleCreated(): void {
+    this.articleService.onArticleCreated$.subscribe(() => {
+      this.loadArticles();
+    });
   }
 }

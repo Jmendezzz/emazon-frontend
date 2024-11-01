@@ -27,7 +27,7 @@ export class ArticleService {
   }
 
   createArticle(article: CreateArticleRequestDTO): Observable<Article> {
-    return this.httpClient.post<Article>(this.apiURL, article);
+    return this.httpClient.post<Article>(`${this.apiURL}/create`, article);
   }
 
   notifyArticleCreated() {

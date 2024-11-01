@@ -1,17 +1,24 @@
 import { Article, CreateArticleRequestDTO } from '@/domain/models/Article';
 import { AbstractFormHandler } from '@/shared/abstracts/AbstractFormHandler';
 import { ToastService } from '@/shared/services/ui/toast.service';
-import { Component} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormField } from '@/domain/models/Form';
 import { Validators } from '@angular/forms';
 import { ArticleService } from '../../services/article.service';
+import { BrandService } from '@/features/brand/services/brand.service';
+import { CategoryService } from '@/features/category/services/category.service';
+import { DropdownOption } from '@/components/molecules/dropdown/dropdown-types';
+import { ARTICLE_CREATE_ERROR_MESSAGE, ARTICLE_CREATE_SUCCESS_MESSAGE, MAX_BRAND_ARTICLE, MAX_CATEGORIES_ARTICLE, MIN_CATEGORIES_ARTICLE} from '@/domain/utils/constants/Article';
 
 @Component({
   selector: 'app-create-article-form',
   templateUrl: './create-article-form.component.html',
   styleUrls: ['./create-article-form.component.scss']
 })
-export class CreateArticleFormComponent extends AbstractFormHandler<Article> {
+export class CreateArticleFormComponent extends AbstractFormHandler<Article> implements OnInit {
+  categorieDropdownOptions: DropdownOption[] = [];
+  brandDropdownOptions: DropdownOption[] = [];
+
   fields: FormField[] = [
     {
       name: 'name',
@@ -42,43 +49,83 @@ export class CreateArticleFormComponent extends AbstractFormHandler<Article> {
       label: 'Brand',
       type: 'dropdown',
       validators: [Validators.required],
-      maxDropdownSelections: 1,
-      dropdownOptions: [
-        { label: 'Brand 1', value: 1 },
-        { label: 'Brand 2', value: 2 },
-        { label: 'Brand 3', value: 3 }
-      ]
+      maxDropdownSelections: MAX_BRAND_ARTICLE,
+      dropdownOptions: this.brandDropdownOptions
     },
     {
       name: 'categoriesIds',
       label: 'Categories',
       type: 'dropdown',
-      validators: [Validators.required, Validators.minLength(1), Validators.maxLength(3)],
-      maxDropdownSelections: 3,
-      dropdownOptions: [
-        { label: 'Category 1', value: 1 },
-        { label: 'Category 2', value: 2 },
-        { label: 'Category 3', value: 3 },
-        { label: 'Category 4', value: 4 },
-        { label: 'Category 5', value: 5 }
-      ]
+      validators: [Validators.required, Validators.minLength(MIN_CATEGORIES_ARTICLE), Validators.maxLength(MAX_CATEGORIES_ARTICLE)],
+      maxDropdownSelections: MAX_CATEGORIES_ARTICLE,
+      dropdownOptions: this.categorieDropdownOptions
     }
   ]
 
   constructor(
     private readonly articleService: ArticleService,
+    private readonly categoryService: CategoryService,
+    private readonly brandService: BrandService,
     toastService: ToastService
   ) {
     super(toastService);
   }
 
+
+
+  ngOnInit(): void {
+    this.loadCategoryDropdownOptions();
+    this.loadBrandDropdownOptions();
+  }
+  
+  private loadCategoryDropdownOptions() {
+    this.categoryService.getAllCategories().subscribe((categories) => {
+      this.categorieDropdownOptions = categories.map((category) => ({
+        label: category.name,
+        value: category.id
+      }));
+      this.updateFieldsWithOptions();
+    });
+  }
+  
+  private loadBrandDropdownOptions() {
+    this.brandService.getAllBrands().subscribe((brands) => {
+      this.brandDropdownOptions = brands.map((brand) => ({
+        label: brand.name,
+        value: brand.id
+      }));
+      this.updateFieldsWithOptions();
+    });
+  }
+  
+  private updateFieldsWithOptions() {
+    this.fields = this.fields.map((field) => {
+      if (field.name === 'brandId') {
+        return {
+          ...field,
+          dropdownOptions: this.brandDropdownOptions
+        };
+      }
+      if (field.name === 'categoriesIds') {
+        return {
+          ...field,
+          dropdownOptions: this.categorieDropdownOptions
+        };
+      }
+      return field;
+    });
+  }
+  
+
+  
   onSubmit(articleToCreate: CreateArticleRequestDTO) {
     this.handleFormSubmit(
       () => this.articleService.createArticle(articleToCreate),
-      'Article created successfully',
-      'Error creating article',
+      ARTICLE_CREATE_SUCCESS_MESSAGE,
+      ARTICLE_CREATE_ERROR_MESSAGE,
       () => this.articleService.notifyArticleCreated()
     );
   }
+
 
 }
