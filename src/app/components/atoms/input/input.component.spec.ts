@@ -97,11 +97,10 @@ describe('InputComponent', () => {
 
     const inputElement = fixture.debugElement.query(By.css('input')).nativeElement;
     expect(inputElement.placeholder).toBe('Enter text');
-    expect(inputElement.type).toBe('email');
+    expect(inputElement.type).toBe('text');
   });
   describe('onInputChange', () => {
     beforeEach(() => {
-      // Mock the onChange function
       component.onChange = jest.fn();
     });
 

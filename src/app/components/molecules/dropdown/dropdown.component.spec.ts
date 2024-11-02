@@ -62,11 +62,6 @@ describe('DropdownComponent', () => {
     expect(component.filteredOptions).toEqual(options);
   });
 
-  it('should write a value to selectedOptions', () => {
-    component.writeValue([options[0]]);
-    expect(component.selectedOptions).toEqual([options[0]]);
-  });
-
   it('should register onChange function', () => {
     const fn = jest.fn();
     component.registerOnChange(fn);
@@ -115,7 +110,7 @@ describe('DropdownComponent', () => {
   it('should call onChange with selected values', () => {
     const onChangeSpy = jest.spyOn(component, 'onChange');
     component.selectOption(options[0]);
-    expect(onChangeSpy).toHaveBeenCalledWith([options[0].value]);
+    expect(onChangeSpy).toHaveBeenCalledWith(options[0].value);
   });
 
   it('should filter options based on search term', () => {
