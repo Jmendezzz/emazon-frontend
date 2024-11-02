@@ -1,4 +1,5 @@
 import { InputType } from "@/components/atoms/input/input-types";
+import { DropdownOption } from "@/components/molecules/dropdown/dropdown-types";
 import { ValidatorFn} from "@angular/forms";
 
 export interface FormField {
@@ -8,4 +9,6 @@ export interface FormField {
     type: InputType,
     validators?: ValidatorFn[];
     options?: string[];
+    dropdownOptions?: DropdownOption[];
+    maxDropdownSelections?: number;
 }

@@ -8,5 +8,9 @@ export const ADMIN_SIDEBAR_ITEMS: SidebarItem[] = [
     {
         title: 'Brands',
         route: '/admin/brands'
+    },
+    {
+        title: 'Articles',
+        route: '/admin/articles'
     }
 ]

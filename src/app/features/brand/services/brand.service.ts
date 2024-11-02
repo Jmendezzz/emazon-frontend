@@ -22,6 +22,10 @@ export class BrandService {
     return this.httpClient.get<Paginated<Brand>>(this.apiURL, { params });
   }
 
+  getAllBrands(): Observable<Brand[]> {
+    return this.httpClient.get<Brand[]>(`${this.apiURL}/all`);
+  }
+
   createBrand(brand: CreateBrandRequestDTO): Observable<Brand> {
     return this.httpClient.post<Brand>(`${this.apiURL}/create`, brand);
   }

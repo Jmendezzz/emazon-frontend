@@ -40,7 +40,7 @@ export class CreateBrandFormComponent extends AbstractFormHandler<CreateBrandReq
         Validators.minLength(MIN_BRAND_DESCRIPTION_LENGTH),
         Validators.maxLength(MAX_BRAND_DESCRIPTION_LENGTH),
       ],
-    },
+    }
   ];
 
   constructor(

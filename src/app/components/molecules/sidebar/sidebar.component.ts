@@ -1,5 +1,5 @@
+import { SidebarItem } from '@/domain/models/Sidebar';
 import { Component, Input } from '@angular/core';
-import { SidebarItem } from 'src/app/domain/models/Sidebar';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,10 +9,15 @@ import { SidebarItem } from 'src/app/domain/models/Sidebar';
 export class SidebarComponent {
   @Input() sidebarItems: SidebarItem[] = [];
   isCollapsed = false;
+  isVisible = false; 
 
   constructor() {}
 
   onToggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
+  }
+
+  toggleVisibility() {
+    this.isVisible = !this.isVisible;
   }
 }

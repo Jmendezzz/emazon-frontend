@@ -1,20 +1,14 @@
 <form [formGroup]="form" (ngSubmit)="submitForm()" class="form">
     <ng-container *ngFor="let field of fields">
-        <ng-container [ngSwitch]="field.type">
 
-            <app-input-form-row *ngSwitchCase="'text'" [label]="field.label" [control]="getControl(field.name)"
-                [errorMessage]="getErrorMessage(field.name)" [placeholder]="field.placeholder || ''">
-            </app-input-form-row>
-
-            <app-input-form-row *ngSwitchCase="'textarea'" [label]="field.label" [control]="getControl(field.name)"
-                [errorMessage]="getErrorMessage(field.name)" [placeholder]="field.placeholder || ''" type="textarea">
-            </app-input-form-row>
-
-        </ng-container>
+        <app-input-form-row [label]="field.label" [control]="getControl(field.name)" [type]="field.type"
+            [errorMessage]="getErrorMessage(field.name)" [placeholder]="field.placeholder || ''"
+            [dropdownOptions]="field.dropdownOptions" [maxDropdownSelections]="field.maxDropdownSelections">
+        </app-input-form-row>
 
     </ng-container>
 
-    <div class="form__button">
+    <div class=" form__button">
         <app-button [disabled]="form.invalid || isLoading" type="submit">
             {{ isLoading ? 'Loading...' : 'Submit' }}
         </app-button>

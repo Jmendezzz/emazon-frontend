@@ -54,10 +54,12 @@ describe('PaginationService', () => {
       activatedRouteMock.queryParamMap = of({
         get: (key: string) => null,
       });
-
+    
+      TestBed.overrideProvider(ActivatedRoute, { useValue: activatedRouteMock });
+    
       const expectedPagination: Pagination = { page: null, size: null };
       const expectedSorting: Sorting = { sortBy: null, direction: null };
-
+    
       service.getPaginationParams().subscribe(({ pagination, sorting }) => {
         expect(pagination).toEqual(expectedPagination);
         expect(sorting).toEqual(expectedSorting);

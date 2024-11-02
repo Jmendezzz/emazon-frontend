@@ -8,7 +8,6 @@ import { OrganismsModule } from './components/organisms/organisms.module';
 import { CategoryModule } from './features/category/category.module';
 import { TemplatesModule } from './components/templates/templates.module';
 import { BrandModule } from './features/brand/brand.module';
-
 @NgModule({
   declarations: [AppComponent],
   imports: [

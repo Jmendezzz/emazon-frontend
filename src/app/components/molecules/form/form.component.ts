@@ -23,6 +23,10 @@ export class FormComponent<T> implements OnInit{
   ngOnInit(): void {
     this.form = this.fb.group(
       this.fields.reduce((acc: { [key: string]: FormControl }, field) => {
+        if(field.type === 'dropdown') {
+          acc[field.name] = new FormControl([], field.validators || []);
+          return acc;
+        }
         acc[field.name] = new FormControl('', field.validators || []);
         return acc;
       }, {})

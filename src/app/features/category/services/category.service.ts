@@ -21,6 +21,10 @@ export class CategoryService {
     return this.httpClient.get<Paginated<Category>>(this.apiURL, { params });
   }
 
+  getAllCategories(): Observable<Category[]> {
+    return this.httpClient.get<Category[]>(`${this.apiURL}/all`);
+  }
+
   createCategory(category: CreateCategoryRequestDTO): Observable<Category> {
     return this.httpClient.post<Category>(`${this.apiURL}/create`, category);
   }
