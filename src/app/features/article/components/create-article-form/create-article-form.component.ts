@@ -78,7 +78,7 @@ export class CreateArticleFormComponent extends AbstractFormHandler<Article> imp
     this.loadBrandDropdownOptions();
   }
   
-  private loadCategoryDropdownOptions() {
+  loadCategoryDropdownOptions() {
     this.categoryService.getAllCategories().subscribe((categories) => {
       this.categorieDropdownOptions = categories.map((category) => ({
         label: category.name,
@@ -88,7 +88,7 @@ export class CreateArticleFormComponent extends AbstractFormHandler<Article> imp
     });
   }
   
-  private loadBrandDropdownOptions() {
+  loadBrandDropdownOptions() {
     this.brandService.getAllBrands().subscribe((brands) => {
       this.brandDropdownOptions = brands.map((brand) => ({
         label: brand.name,
@@ -98,7 +98,7 @@ export class CreateArticleFormComponent extends AbstractFormHandler<Article> imp
     });
   }
   
-  private updateFieldsWithOptions() {
+  updateFieldsWithOptions() {
     this.fields = this.fields.map((field) => {
       if (field.name === 'brandId') {
         return {

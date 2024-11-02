@@ -12,7 +12,6 @@ describe('CreateBrandModalComponent', () => {
   let brandServiceMock: any;
 
   beforeEach(async () => {
-    // Crear mocks para ModalService y BrandService
     modalServiceMock = {
       openModal: jest.fn(),
       closeModal: jest.fn()

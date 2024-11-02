@@ -22,7 +22,7 @@ export class InputComponent implements ControlValueAccessor {
 
   @Output() valueChange: EventEmitter<string | number> = new EventEmitter<string | number>();
 
-  private lastValidNumber: number | null = null;
+  lastValidNumber: number | null = null;
   
   constructor() {}
 

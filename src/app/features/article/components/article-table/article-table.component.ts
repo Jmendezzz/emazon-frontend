@@ -66,7 +66,7 @@ export class ArticleTableComponent implements OnInit, OnDestroy {
       });
   }
 
-  private formatArticles(articles: Paginated<Article>): Paginated<ArticleTableData> {
+  formatArticles(articles: Paginated<Article>): Paginated<ArticleTableData> {
     return {
       ...articles,
       data: articles.data.map((article) => ({
@@ -81,7 +81,7 @@ export class ArticleTableComponent implements OnInit, OnDestroy {
     };
   }
 
-  private onArticleCreated(): void {
+  onArticleCreated(): void {
     this.articleService.onArticleCreated$.subscribe(() => {
       this.loadArticles();
     });
