@@ -1,8 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CreateCategoryModalComponent } from './create-category-modal.component';
-import { CategoryService } from 'src/app/shared/services/api/category.service';
-import { ModalService } from 'src/app/shared/services/ui/modal.service';
 import { of } from 'rxjs';
+import { CategoryService } from '@/features/category/services/category.service';
+import { ModalService } from '@/shared/services/ui/modal.service';
+import { MoleculesModule } from '@/components/molecules/molecules.module';
+import { AtomsModule } from '@/components/atoms/atoms.module';
+import { OrganismsModule } from '@/components/organisms/organisms.module';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('CreateCategoryModalComponent', () => {
   let component: CreateCategoryModalComponent;
@@ -17,7 +21,7 @@ describe('CreateCategoryModalComponent', () => {
     } as unknown as jest.Mocked<ModalService>;
 
     categoryServiceMock = {
-      onCategoryCreated$: of(null), 
+      onCategoryCreated$: of(null),
     } as unknown as jest.Mocked<CategoryService>;
 
     await TestBed.configureTestingModule({
@@ -26,6 +30,7 @@ describe('CreateCategoryModalComponent', () => {
         { provide: ModalService, useValue: modalServiceMock },
         { provide: CategoryService, useValue: categoryServiceMock },
       ],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 

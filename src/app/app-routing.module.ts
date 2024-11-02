@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ListCategoriesComponent } from './features/category/components/pages/list-categories/list-categories.component';
-import { MainLayoutComponent } from './shared/components/templates/main-layout/main-layout.component';
-import { HomeComponent } from './shared/components/pages/home/home.component';
-import { AdminLayoutComponent } from './shared/components/templates/admin-layout/admin-layout.component';
+import { MainLayoutComponent } from './components/templates';
+import { HomeComponent } from './components/pages/home/home.component';
+import { AdminLayoutComponent } from './features/admin/components';
 
 const routes: Routes = [
   {
@@ -25,9 +24,16 @@ const routes: Routes = [
     children: [
       {
         path: 'categories',
-        component: ListCategoriesComponent,
-        data: { title: 'Categories', breadcrumb: 'Categories' },
+        loadChildren: () => import('./features/category/category.module').then(m => m.CategoryModule),
       },
+      {
+        path: 'brands',
+        loadChildren: () => import('./features/brand/brand.module').then(m => m.BrandModule),
+      },
+      {
+        path: 'articles',
+        loadChildren: () => import('./features/article/article.module').then(m => m.ArticleModule),
+      }
     ],
   },
 ];

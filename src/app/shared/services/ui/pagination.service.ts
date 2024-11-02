@@ -1,20 +1,17 @@
+import { Pagination } from '@/domain/models/Pagination';
+import { Sorting } from '@/domain/models/Sorting';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
-import { map, Observable } from 'rxjs';
-import { Pagination } from 'src/app/domain/models/Pagination';
-import { Sorting } from 'src/app/domain/models/Sorting';
+import { map, Observable, shareReplay } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PaginationService {
-  constructor(private readonly route: ActivatedRoute) {}
+  private readonly paginationParams$: Observable<{ pagination: Pagination; sorting: Sorting }>;
 
-  getPaginationParams(): Observable<{
-    pagination: Pagination;
-    sorting: Sorting;
-  }> {
-    return this.route.queryParamMap.pipe(
+  constructor(private readonly route: ActivatedRoute) {
+    this.paginationParams$ = this.route.queryParamMap.pipe(
       map((params) => {
         const page = params.get('page'),
           size = params.get('size'),
@@ -30,7 +27,15 @@ export class PaginationService {
             direction,
           },
         };
-      })
+      }),
+      shareReplay(1) 
     );
+  }
+
+  getPaginationParams(): Observable<{
+    pagination: Pagination;
+    sorting: Sorting;
+  }> {
+    return this.paginationParams$;
   }
 }

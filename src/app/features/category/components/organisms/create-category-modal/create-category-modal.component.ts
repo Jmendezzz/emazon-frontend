@@ -1,6 +1,6 @@
+import { CategoryService } from '@/features/category/services/category.service';
+import { ModalService } from '@/shared/services/ui/modal.service';
 import { Component, OnInit} from '@angular/core';
-import { ModalService } from 'src/app/shared/services/ui/modal.service';
-import { CategoryService } from '../../../services/category.service';
 
 @Component({
   selector: 'app-create-category-modal',

@@ -36,28 +36,22 @@
   },
   "jest": {
     "preset": "jest-preset-angular",
-    "testIgnorePatterns": [
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setup-jest.ts"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/app/$1"
+    },
+    "testPathIgnorePatterns": [
       "<rootDir>/node_modules/",
       "<rootDir>/dist/"
     ],
     "coverageReporters": [
       "html"
     ],
-    "coverageDirectory": "./coverage",
-    "moduleNameMapper": {
-      "^src/(.*)$": "<rootDir>/src/$1"
-    },
-    "setupFilesAfterEnv": [
-      "<rootDir>/src/setup-jest.ts"
+    "roots": [
+      "<rootDir>"
     ],
-    "testMatch": [
-      "<rootDir>/src/**/*.spec.ts"
-    ],
-    "globals": {
-      "ts-jest": {
-        "tsconfig": "<rootDir>/tsconfig.spec.json",
-        "stringifyContentPathRegex": "\\.html$"
-      }
-    }
+    "coverageDirectory": "./coverage"
   }
 }
