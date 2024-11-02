@@ -12,7 +12,6 @@ import { environment } from '../../../../environments/environment';
   providedIn: 'root'
 })
 export class ArticleService {
-
   private readonly apiURL = `${environment.stockServiceUrl}/api/v1/articles`;
   private readonly articleCreatedSource = new Subject<void>();
 
