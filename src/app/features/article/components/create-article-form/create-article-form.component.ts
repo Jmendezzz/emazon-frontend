@@ -8,7 +8,7 @@ import { ArticleService } from '../../services/article.service';
 import { BrandService } from '@/features/brand/services/brand.service';
 import { CategoryService } from '@/features/category/services/category.service';
 import { DropdownOption } from '@/components/molecules/dropdown/dropdown-types';
-import { ARTICLE_CREATE_ERROR_MESSAGE, ARTICLE_CREATE_SUCCESS_MESSAGE, MAX_BRAND_ARTICLE, MAX_CATEGORIES_ARTICLE, MIN_CATEGORIES_ARTICLE} from '@/domain/utils/constants/Article';
+import { ARTICLE_CREATE_ERROR_MESSAGE, ARTICLE_CREATE_SUCCESS_MESSAGE, MAX_BRAND_ARTICLE, MAX_CATEGORIES_ARTICLE, MAX_LENGTH_ARTICLE_DESCRIPTION, MAX_LENGTH_ARTICLE_NAME, MIN_CATEGORIES_ARTICLE, MIN_LENGTH_ARTICLE_DESCRIPTION, MIN_LENGTH_ARTICLE_NAME, MIN_PRICE_ARTICLE, MIN_STOCK_ARTICLE} from '@/domain/utils/constants/Article';
 
 @Component({
   selector: 'app-create-article-form',
@@ -24,25 +24,25 @@ export class CreateArticleFormComponent extends AbstractFormHandler<Article> imp
       name: 'name',
       label: 'Name',
       type: 'text',
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.minLength(MIN_LENGTH_ARTICLE_NAME), Validators.maxLength(MAX_LENGTH_ARTICLE_NAME)],
     },
     {
       name: 'description',
       label: 'Description',
       type: 'textarea',
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.minLength(MIN_LENGTH_ARTICLE_DESCRIPTION), Validators.maxLength(MAX_LENGTH_ARTICLE_DESCRIPTION)],
     },
     {
       name: 'price',
       label: 'Price',
       type: 'number',
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.min(MIN_PRICE_ARTICLE)], 
     },
     {
       name: 'stock',
       label: 'Stock',
       type: 'number',
-      validators: [Validators.required],
+      validators: [Validators.required, Validators.min(MIN_STOCK_ARTICLE)],
     },
     {
       name: 'brandId',

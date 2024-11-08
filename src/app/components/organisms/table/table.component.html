@@ -6,27 +6,29 @@
     <p>No data found</p>
 </div>
 
-<table class="table" *ngIf="!isLoading && data !== undefined">
-    <thead>
-        <tr class="table__header">
-            <th *ngFor="let header of headers" class="table__header__cell" scope="col">
-                <span>{{ header.label }}</span>
-                <span *ngIf="header.sortable" class="table__header__cell__sorting">
-                    <button class="sort-btn asc" (click)="onSort(header, 'asc')"></button>
-                    <button class="sort-btn desc" (click)="onSort(header, 'desc')"></button>
-                </span>
-            </th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <tr *ngFor="let row of data.data" class="table__body__row">
-            <td *ngFor="let key of getKeys(row)" class="table__body__cell">
-                {{ row[key] }}
-            </td>
-        </tr>
-    </tbody>
-</table>
-<app-pagination *ngIf="data !== undefined &&  data.totalPages > 1 && isPaginated" [totalItems]="data.totalItems"
-    [currentPage]="data.currentPage + 1" [totalPages]="data.totalPages">
-</app-pagination>
+<div class="table-container">
+    <table class="table" *ngIf="!isLoading && data !== undefined">
+        <thead>
+            <tr class="table__header">
+                <th *ngFor="let header of headers" class="table__header__cell" scope="col">
+                    <span>{{ header.label }}</span>
+                    <span *ngIf="header.sortable" class="table__header__cell__sorting">
+                        <button class="sort-btn asc" (click)="onSort(header, 'asc')"></button>
+                        <button class="sort-btn desc" (click)="onSort(header, 'desc')"></button>
+                    </span>
+                </th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <tr *ngFor="let row of data.data" class="table__body__row">
+                <td *ngFor="let key of getKeys(row)" class="table__body__cell">
+                    {{ row[key] }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <app-pagination *ngIf="data !== undefined &&  data.totalPages > 1 && isPaginated" [totalItems]="data.totalItems"
+        [currentPage]="data.currentPage + 1" [totalPages]="data.totalPages">
+    </app-pagination>
+</div>

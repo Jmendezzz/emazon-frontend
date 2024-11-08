@@ -5,6 +5,10 @@ type LengthError = {
   requiredLength: number;
   actualLength: number;
 };
+type MinError = {
+  min: number;
+  actual: number;
+};
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -52,7 +56,10 @@ export class FormComponent<T> implements OnInit{
       const error = control.getError('maxlength') as LengthError;
       return `This field must be at most ${error.requiredLength} characters long`;
     }
-
+    if(control.hasError('min') && control.touched) {
+      const error = control.getError('min') as MinError;
+      return `This field must be greater than ${error.min}`;
+    }
     return '';
   }
 

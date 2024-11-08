@@ -19,7 +19,6 @@ import { PaginationService } from '@/shared/services/ui/pagination.service';
     ListBrandsComponent,
     CreateBrandFormComponent,
     CreateBrandModalComponent,
-    CreateBrandModalComponent,
   ],
   imports: [
     CommonModule,
