@@ -77,13 +77,22 @@
             top: auto;
             bottom: 100%;
         }
-
+        &__count{
+            @include padding-x(1rem);
+            @include padding-y(1rem);
+            font-size: 1rem;
+            font-weight: 400;
+            color:$gray-light-color;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
         &__header {
             display: flex;
             justify-content: center;
             width: 100%;
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding-top: 30px;
+            padding-bottom: 30px;
         }
 
         &__content {

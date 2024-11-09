@@ -14,6 +14,7 @@ export class InputFormRowComponent {
   @Input() type: InputType = 'text';
   @Input() placeholder: string = '';
   @Input() value: string = '';
+  @Input() prefix?: string;
   @Input() control!: FormControl;
   @Input() dropdownOptions?: DropdownOption[] = [];
   @Input() maxDropdownSelections?: number;

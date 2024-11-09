@@ -5,6 +5,11 @@ type LengthError = {
   requiredLength: number;
   actualLength: number;
 };
+type MinError = {
+  min: number;
+  actual: number;
+};
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -52,7 +57,19 @@ export class FormComponent<T> implements OnInit{
       const error = control.getError('maxlength') as LengthError;
       return `This field must be at most ${error.requiredLength} characters long`;
     }
-
+    if(control.hasError('min') && control.touched) {
+      const error = control.getError('min') as MinError;
+      return `This field must be greater than ${error.min}`;
+    }
+    if(control.hasError('invalidPassword') && control.touched) {
+      return `Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character`;
+    }
+    if(control.hasError('email') && control.touched) {
+      return `Email format must be valid`;
+    }
+    if(control.hasError('minAge') && control.touched) {
+      return `Age must be greater than 18`;
+    }
     return '';
   }
 

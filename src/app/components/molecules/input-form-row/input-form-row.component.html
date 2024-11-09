@@ -2,9 +2,19 @@
   <label class="input-form-row__label">{{ label }}</label>
   <div [ngSwitch]="type">
     <app-input *ngSwitchCase="'text'" [type]="type" [variant]="getInputVariant()" [placeholder]="placeholder"
-      [formControl]="control"></app-input>
+      [formControl]="control" [prefix]="prefix"></app-input>
+
       <app-input *ngSwitchCase="'number'" [type]="type" [variant]="getInputVariant()" [placeholder]="placeholder"
-      [formControl]="control"></app-input>
+      [formControl]="control"  [prefix]="prefix"></app-input>
+
+      <app-input *ngSwitchCase="'password'" [type]="type" [variant]="getInputVariant()" [placeholder]="placeholder"
+      [formControl]="control"  [prefix]="prefix"></app-input>
+
+      <app-input *ngSwitchCase="'email'" [type]="type" [variant]="getInputVariant()" [placeholder]="placeholder"
+      [formControl]="control"  [prefix]="prefix"></app-input>
+
+      <app-input-date *ngSwitchCase="'date'" [variant]="getInputVariant()" [placeholder]="placeholder" [formControl]="control"></app-input-date>
+
     <app-text-area *ngSwitchCase="'textarea'" [placeholder]="placeholder" [formControl]="control"
       [variant]="getInputVariant()"></app-text-area>
     <app-dropdown *ngSwitchCase="'dropdown'" [placeholder]="placeholder" [formControl]="control"

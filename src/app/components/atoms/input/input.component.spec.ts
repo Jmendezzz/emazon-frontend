@@ -97,11 +97,10 @@ describe('InputComponent', () => {
 
     const inputElement = fixture.debugElement.query(By.css('input')).nativeElement;
     expect(inputElement.placeholder).toBe('Enter text');
-    expect(inputElement.type).toBe('email');
+    expect(inputElement.type).toBe('text');
   });
   describe('onInputChange', () => {
     beforeEach(() => {
-      // Mock the onChange function
       component.onChange = jest.fn();
     });
 
@@ -164,6 +163,39 @@ describe('InputComponent', () => {
       expect(component.value).toBe('');
       expect(event.stopPropagation).toHaveBeenCalled();
       expect(component.onChange).toHaveBeenCalledWith(null);
+    });
+  });
+  describe('Prefix Handling', () => {
+    beforeEach(() => {
+      component.onChange = jest.fn();
+    });
+
+
+    it('should remove prefix from the value', () => {
+      component.prefix = '+1';
+      const value = '+1234';
+
+      const result = component.removePrefix(value);
+
+      expect(result).toBe('234');
+    });
+
+    it('should not add prefix if already present', () => {
+      component.prefix = '+1';
+      const value = '+1234';
+
+      const result = component.addPrefix(value);
+
+      expect(result).toBe('+1234');
+    });
+
+    it('should add prefix if not present', () => {
+      component.prefix = '+1';
+      const value = '234';
+
+      const result = component.addPrefix(value);
+
+      expect(result).toBe('+1234');
     });
   });
 

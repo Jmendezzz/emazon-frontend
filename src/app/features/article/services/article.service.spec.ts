@@ -5,6 +5,11 @@ import { Article, ArticleSearchCriteria, CreateArticleRequestDTO } from '@/domai
 import { Paginated } from '@/domain/models/Paginated';
 import { Pagination } from '@/domain/models/Pagination';
 import { Sorting } from '@/domain/models/Sorting';
+import { buildPaginationParams } from '@/domain/utils/functions/pagination-utils';
+
+jest.mock('@/domain/utils/functions/pagination-utils', () => ({
+  buildPaginationParams: jest.fn(),
+}));
 
 describe('ArticleService', () => {
   let service: ArticleService;
@@ -37,6 +42,15 @@ describe('ArticleService', () => {
       totalItems: 2,
       totalPages: 1
     };
+
+    const mockParams = {
+      page: '0',
+      size: '10',
+      sortBy: 'name',
+      direction: 'ASC'
+    };
+
+    (buildPaginationParams as jest.Mock).mockReturnValue(mockParams);
 
     service.getArticles(pagination, sorting, searchCriteria).subscribe((response) => {
       expect(response).toEqual(mockArticles);

@@ -12,6 +12,7 @@ import {
   LoaderComponent,
 } from '@/components/atoms';
 import { RouterModule } from '@angular/router';
+import { InputDateComponent } from './input-date/input-date.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { RouterModule } from '@angular/router';
     HamburgerIconComponent,
     TextAreaComponent,
     LoaderComponent,
+    InputDateComponent,
   ],
   imports: [CommonModule, RouterModule],
   exports: [
@@ -36,6 +38,7 @@ import { RouterModule } from '@angular/router';
     HamburgerIconComponent,
     TextAreaComponent,
     LoaderComponent,
+    InputDateComponent
   ],
 })
 export class AtomsModule {}
