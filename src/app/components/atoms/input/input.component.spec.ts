@@ -165,5 +165,38 @@ describe('InputComponent', () => {
       expect(component.onChange).toHaveBeenCalledWith(null);
     });
   });
+  describe('Prefix Handling', () => {
+    beforeEach(() => {
+      component.onChange = jest.fn();
+    });
+
+
+    it('should remove prefix from the value', () => {
+      component.prefix = '+1';
+      const value = '+1234';
+
+      const result = component.removePrefix(value);
+
+      expect(result).toBe('234');
+    });
+
+    it('should not add prefix if already present', () => {
+      component.prefix = '+1';
+      const value = '+1234';
+
+      const result = component.addPrefix(value);
+
+      expect(result).toBe('+1234');
+    });
+
+    it('should add prefix if not present', () => {
+      component.prefix = '+1';
+      const value = '234';
+
+      const result = component.addPrefix(value);
+
+      expect(result).toBe('+1234');
+    });
+  });
 
 });

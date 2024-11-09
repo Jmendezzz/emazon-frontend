@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateWarehouseButtonComponent } from './create-warehouse-button.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('CreateWarehouseButtonComponent', () => {
   let component: CreateWarehouseButtonComponent;
@@ -8,7 +9,8 @@ describe('CreateWarehouseButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateWarehouseButtonComponent ]
+      declarations: [ CreateWarehouseButtonComponent ],
+      schemas: [NO_ERRORS_SCHEMA],
     })
     .compileComponents();
 

@@ -1,4 +1,4 @@
-import { CreateWarehousePageComponent } from '@/components/pages/create-warehouse-page/create-warehouse-page.component';
+import { CreateWarehousePageComponent } from '@/components/pages/users/create-warehouse-page/create-warehouse-page.component';
 import { WarehouseListPageComponent } from '@/components/pages/users/warehouse-list-page/warehouse-list-page.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';

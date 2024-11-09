@@ -19,6 +19,7 @@ export class InputComponent implements ControlValueAccessor {
   @Input() variant : InputVariant = 'default';
   @Input() type: InputType = 'text';
   @Input() placeholder: string = '';
+  @Input() prefix?: string;
 
   @Output() valueChange: EventEmitter<string | number> = new EventEmitter<string | number>();
 
@@ -38,20 +39,27 @@ export class InputComponent implements ControlValueAccessor {
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
+
   onInput(event: Event): void {
-    const value = (event.target as HTMLInputElement).value;
-    this.onChange(value); 
+    const input = event.target as HTMLInputElement;
+    const value = input.value;
+  
+    this.value = this.addPrefix(value);
+    this.onChange(this.value);
     this.valueChange.emit(value);
   }
+
   @HostListener('input', ['$event'])
   onInputChange(event: Event): void {
     if (this.type !== 'number') return;
 
     const input = event.target as HTMLInputElement;
-    const value = input.value;
+    let value = input.value;
 
-    if(!value) {
-      this.value = '';
+    value = this.removePrefix(value);
+
+    if (!value) {
+      this.value = this.prefix ?? '';
       this.lastValidNumber = null;
       this.onChange(null);
       return;
@@ -59,14 +67,35 @@ export class InputComponent implements ControlValueAccessor {
 
     if (/^\d+$/.test(value)) {
       const numericValue = parseInt(value, 10);
-      this.value = value;
+      this.value = this.addPrefix(value);
       this.lastValidNumber = numericValue;
       this.onChange(numericValue);
     } else {
-      this.value = this.lastValidNumber?.toString() ?? '';
+      this.value = this.addPrefix(this.lastValidNumber?.toString() ?? '');
       this.onChange(this.lastValidNumber);
       event.stopPropagation();
-      input.value = this.lastValidNumber ? this.lastValidNumber.toString() : '';
+      input.value = this.value;
     }
+  }
+
+  removePrefix(value: string): string {
+    if (this.prefix && value.startsWith(this.prefix)) {
+      return value.slice(this.prefix.length);
+    }
+    return value;
+  }
+
+  addPrefix(value: string): string {
+    if (this.prefix && !value.startsWith(this.prefix)) {
+      return this.prefix + value;
+    }
+    return value;
+  }
+
+  getType(): string {
+    if(this.type === 'password') {
+      return 'password';
+    }
+    return 'text';
   }
 }

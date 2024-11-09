@@ -3,7 +3,7 @@
 
         <app-input-form-row [label]="field.label" [control]="getControl(field.name)" [type]="field.type"
             [errorMessage]="getErrorMessage(field.name)" [placeholder]="field.placeholder || ''"
-            [dropdownOptions]="field.dropdownOptions" [maxDropdownSelections]="field.maxDropdownSelections">
+            [dropdownOptions]="field.dropdownOptions" [maxDropdownSelections]="field.maxDropdownSelections" [prefix]="field.prefix">
         </app-input-form-row>
 
     </ng-container>

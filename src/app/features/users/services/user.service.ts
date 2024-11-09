@@ -1,11 +1,11 @@
 import { Paginated } from '@/domain/models/Paginated';
 import { Pagination } from '@/domain/models/Pagination';
-import { User } from '@/domain/models/User';
+import { CreateUserRequestDTO, User } from '@/domain/models/User';
 import { buildPaginationParams } from '@/domain/utils/functions/pagination-utils';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +19,9 @@ export class UserService {
     const params = buildPaginationParams(pagination);
 
     return this.httpClient.get<Paginated<User>>(`${this.apiURL}/warehouse-assistants`, { params });
+  }
+
+  createWarehouseAssistant(user: CreateUserRequestDTO): Observable<User>{
+    return this.httpClient.post<User>(`${this.apiURL}/create/warehouse-assistant`, user);
   }
 }
