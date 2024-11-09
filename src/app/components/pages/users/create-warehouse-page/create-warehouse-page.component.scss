@@ -1,0 +1,17 @@
+@import 'mixins';
+.form{
+    width: 100%;
+
+    @include tablet(){
+        width: 100%;
+    }
+
+    @include laptop(){
+        width: 80%;
+    }
+
+    @include desktop(){
+        width: 40%;
+    }
+
+}
