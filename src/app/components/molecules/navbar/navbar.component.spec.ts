@@ -42,7 +42,7 @@ describe('NavbarComponent', () => {
   it('should render the app-button component for login', () => {
     const buttonDebugElement: DebugElement = fixture.debugElement.query(By.css('app-button'));
     expect(buttonDebugElement).toBeTruthy();
-    expect(buttonDebugElement.nativeElement.textContent.trim()).toBe('Login');
+    expect(buttonDebugElement.nativeElement.textContent.trim()).toBe('Sign in');
   });
 
   it('should render app-hamburger-icon component', () => {

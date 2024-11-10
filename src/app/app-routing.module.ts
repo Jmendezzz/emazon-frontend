@@ -4,6 +4,10 @@ import { MainLayoutComponent } from './components/templates';
 import { HomeComponent } from './components/pages/home/home.component';
 import { AdminLayoutComponent } from './features/admin/components';
 import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
+import { Role } from './domain/models/Auth';
+import { RoleGuard } from './shared/guards/role.guard';
+import { AuthGuard } from './shared/guards/auth.guard';
+import { AnonymousGuard } from './shared/guards/anonymous.guard';
 
 const routes: Routes = [
   {
@@ -18,6 +22,7 @@ const routes: Routes = [
       },
       {
         path: 'login',
+        canActivate: [AnonymousGuard],
         loadChildren: () => import('./features/authentication/auth.module').then(m => m.AuthModule),
         data: { title: 'Login', breadcrumb: 'Login' },
       }
@@ -26,7 +31,8 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    data: { title: 'Admin', breadcrumb: 'Admin' },
+    canActivate: [AuthGuard, RoleGuard],
+    data: { title: 'Admin', breadcrumb: 'Admin', role: Role.ADMIN },
     children: [
       {
         path: 'categories',
