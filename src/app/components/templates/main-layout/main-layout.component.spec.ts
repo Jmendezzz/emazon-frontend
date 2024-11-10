@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NavbarComponent } from '@/components/molecules';
 import { AtomsModule } from '@/components/atoms/atoms.module';
 import { MoleculesModule } from '@/components/molecules/molecules.module';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('MainLayoutComponent', () => {
   let component: MainLayoutComponent;
@@ -12,7 +13,7 @@ describe('MainLayoutComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MainLayoutComponent, NavbarComponent],
-      imports: [RouterTestingModule, AtomsModule, MoleculesModule],
+      imports: [RouterTestingModule, AtomsModule, MoleculesModule,HttpClientModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MainLayoutComponent);

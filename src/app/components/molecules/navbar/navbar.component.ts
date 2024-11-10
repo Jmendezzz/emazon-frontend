@@ -1,4 +1,6 @@
+import { AuthService } from '@/features/authentication/services/auth.service';
 import { Component} from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +10,7 @@ import { Component} from '@angular/core';
 export class NavbarComponent {
   isMenuOpen = false;
 
-  constructor() { }
+  constructor(private readonly authService: AuthService, private readonly router: Router) { }
   onHamburgerClick() {
     this.isMenuOpen = !this.isMenuOpen;
   }
@@ -17,4 +19,7 @@ export class NavbarComponent {
     this.isMenuOpen = false;
   }
 
+  isAuthenticated(): boolean {
+    return this.authService.userDetails() != null;
+  }
 }
