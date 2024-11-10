@@ -15,7 +15,7 @@
     </ul>
     <div class="nav__actions" [ngClass]="{'nav__actions-open': isMenuOpen}">
         <a [routerLink]="'/login'">
-            <app-button *ngIf="!isAuthenticated()" size="lg" variant="primary">Login</app-button>
+            <app-button *ngIf="!isAuthenticated()" size="lg" variant="primary">Sign in</app-button>
         </a>
         <app-logout-button *ngIf="isAuthenticated()"></app-logout-button>
     </div>
