@@ -17,6 +17,5 @@ export enum Role{
 export interface UserDetails{
     id: number;
     role: Role;
-
   }
   
