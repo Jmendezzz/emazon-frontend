@@ -14,6 +14,7 @@ import {
 import { RouterModule } from '@angular/router';
 import { InputDateComponent } from './input-date/input-date.component';
 import { LogoutButtonComponent } from './logout-button/logout-button.component';
+import { NotFoundPageComponent } from '../pages/not-found-page/not-found-page.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { LogoutButtonComponent } from './logout-button/logout-button.component';
     LoaderComponent,
     InputDateComponent,
     LogoutButtonComponent,
+    NotFoundPageComponent
   ],
   imports: [CommonModule, RouterModule],
   exports: [
