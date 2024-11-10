@@ -1,54 +1,41 @@
+import { ToastType } from "@/domain/models/Toast";
 import { Observable } from "rxjs";
 import { ToastService } from "../services/ui/toast.service";
-import { HttpErrorResponse, HttpStatusCode } from "@angular/common/http";
-import { ToastType } from "@/domain/models/Toast";
+import { HttpErrorResponse } from "@angular/common/http";
 
 export abstract class AbstractFormHandler<T> {
     isLoading = false;
     constructor(private readonly toastService: ToastService) {}
 
-    handleFormSubmit(submitFunction: () => Observable<T>, successMessage: string, errorMessage?: string, onSuccess?: () => void) {
+    handleFormSubmit(submitFunction: () => Observable<T>, successMessage: string, errorMessage?: string, onSuccess?: (response: T) => void) {
         this.isLoading = true;
         submitFunction().subscribe({
             next: (response: T) => {
-                this.handleSuccess(successMessage, onSuccess);
+                this.handleSuccess(successMessage, response, onSuccess);
             },
             error: (error) => {
                 this.handleError(error, errorMessage);
             }
-        })
+        });
     }
 
-    protected handleSuccess(message: string, onSuccess?: () => void) {
+    protected handleSuccess(message: string, response: T, onSuccess?: (response: T) => void) {
         this.toastService.showToast({
             message: message,
-            type: ToastType.SUCCESS
+            type: ToastType.SUCCESS,
         });
-        if (onSuccess) {
-            onSuccess();
-        }
         this.isLoading = false;
+        if (onSuccess) {
+            onSuccess(response);
+        }
     }
 
-    private handleError(error: HttpErrorResponse, errorMessage?: string) {
+    protected handleError(error: HttpErrorResponse, errorMessage?: string) {
+        const message = errorMessage || 'An error occurred. Please try again.';
+        this.toastService.showToast({
+            message: message,
+            type: ToastType.ERROR,
+        });
         this.isLoading = false;
-        if (
-          error.status === HttpStatusCode.InternalServerError ||
-          error.status === 0
-        ) {
-          this.toastService.showToast({
-            message: errorMessage ?? 'An error occurred',
-            type: ToastType.ERROR,
-          });
-        }
-    
-        if (error.status === HttpStatusCode.BadRequest) {
-          const businessError = error.error as unknown as Error;
-          this.toastService.showToast({
-            message: businessError.message,
-            type: ToastType.ERROR,
-          });
-        }
-      }
+    }
 }
-

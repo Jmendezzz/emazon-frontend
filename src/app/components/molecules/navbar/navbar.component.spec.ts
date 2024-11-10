@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { AtomsModule } from '@/components/atoms/atoms.module';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -14,7 +15,7 @@ describe('NavbarComponent', () => {
       declarations: [
         NavbarComponent,
       ],
-      imports: [AtomsModule, RouterTestingModule],
+      imports: [AtomsModule, RouterTestingModule, HttpClientModule],
     }).compileComponents();
   });
 

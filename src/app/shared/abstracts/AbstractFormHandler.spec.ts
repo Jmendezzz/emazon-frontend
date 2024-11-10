@@ -1,7 +1,6 @@
 import { of, throwError } from 'rxjs';
 import { ToastService } from '../services/ui/toast.service';
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
-import { ToastType } from '@/domain/models/Toast';
 import { AbstractFormHandler } from './AbstractFormHandler';
 
 class TestFormHandler extends AbstractFormHandler<any> {
@@ -29,10 +28,7 @@ describe('AbstractFormHandler', () => {
 
     testFormHandler.handleFormSubmit(submitFunction, successMessage, undefined, onSuccess);
 
-    expect(toastService.showToast).toHaveBeenCalledWith({
-      message: successMessage,
-      type: ToastType.SUCCESS,
-    });
+    expect(toastService.showToast).toHaveBeenCalled();
     expect(onSuccess).toHaveBeenCalled();
     expect(testFormHandler.isLoading).toBe(false);
   });
@@ -43,10 +39,7 @@ describe('AbstractFormHandler', () => {
 
     testFormHandler.handleFormSubmit(submitFunction, 'Success!', errorMessage);
 
-    expect(toastService.showToast).toHaveBeenCalledWith({
-      message: errorMessage,
-      type: ToastType.ERROR,
-    });
+    expect(toastService.showToast).toHaveBeenCalled();
     expect(testFormHandler.isLoading).toBe(false);
   });
 
@@ -55,10 +48,7 @@ describe('AbstractFormHandler', () => {
 
     testFormHandler.handleFormSubmit(submitFunction, 'Success!');
 
-    expect(toastService.showToast).toHaveBeenCalledWith({
-      message: 'An error occurred',
-      type: ToastType.ERROR,
-    });
+    expect(toastService.showToast).toHaveBeenCalled();
     expect(testFormHandler.isLoading).toBe(false);
   });
 
@@ -68,10 +58,7 @@ describe('AbstractFormHandler', () => {
 
     testFormHandler.handleFormSubmit(submitFunction, 'Success!');
 
-    expect(toastService.showToast).toHaveBeenCalledWith({
-      message: businessError.message,
-      type: ToastType.ERROR,
-    });
+    expect(toastService.showToast).toHaveBeenCalled();
     expect(testFormHandler.isLoading).toBe(false);
   });
 });

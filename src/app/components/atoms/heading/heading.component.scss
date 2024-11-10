@@ -2,6 +2,9 @@
 .heading{
     @include text-base();
     font-weight: 700;
+    &--md{
+        @include text-md();
+    }
     &--sm{
         @include text-sm();
     }
