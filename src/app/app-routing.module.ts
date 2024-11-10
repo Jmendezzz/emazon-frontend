@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './components/templates';
 import { HomeComponent } from './components/pages/home/home.component';
 import { AdminLayoutComponent } from './features/admin/components';
+import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,11 @@ const routes: Routes = [
         component: HomeComponent,
         data: { title: 'Home', breadcrumb: 'Home' },
       },
+      {
+        path: 'login',
+        loadChildren: () => import('./features/authentication/auth.module').then(m => m.AuthModule),
+        data: { title: 'Login', breadcrumb: 'Login' },
+      }
     ],
   },
   {
@@ -39,6 +45,11 @@ const routes: Routes = [
         loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule),
       }
     ],
+  },
+  {
+    path: '**',
+    component: NotFoundPageComponent,
+    data: { title: '404', breadcrumb: '404' },
   },
 ];
 

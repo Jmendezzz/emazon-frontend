@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AtomsComponent } from './atoms.component';
+import { LogoutButtonComponent } from './logout-button.component';
 
-describe('AtomsComponent', () => {
-  let component: AtomsComponent;
-  let fixture: ComponentFixture<AtomsComponent>;
+describe('LogoutButtonComponent', () => {
+  let component: LogoutButtonComponent;
+  let fixture: ComponentFixture<LogoutButtonComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AtomsComponent ]
+      declarations: [ LogoutButtonComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(AtomsComponent);
+    fixture = TestBed.createComponent(LogoutButtonComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

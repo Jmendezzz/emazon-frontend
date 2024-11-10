@@ -11,6 +11,7 @@ import { AtomsModule } from '../atoms/atoms.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormComponent } from './form/form.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
     FormComponent,
     DropdownComponent,
   ],
-  imports: [CommonModule, AtomsModule, ReactiveFormsModule],
+  imports: [CommonModule, AtomsModule, ReactiveFormsModule, RouterModule],
   exports: [
     InputFormRowComponent,
     ModalComponent,

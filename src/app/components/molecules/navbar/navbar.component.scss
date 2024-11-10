@@ -15,21 +15,28 @@
     flex: 1;
   }
   &__links {
-    @include flex(row, center, center, 4rem);
-    @include mobile() {
-      flex-direction: column;
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      top: 0;
-      background-color: $white-color;
-      @include shadow();
-      z-index: 1000;
-      visibility: hidden;
-      opacity: 0;
-      transform: translateY(-100%);
-      transition: opacity 0s, visibility 0s, transform 0.3s;
+    @include laptop() {
+      @include flex(row, center, center, 4rem);
+      position: relative;
+      transform: translateY(0);
+      visibility: visible;
+      opacity: 1;
+      width: auto;
+
     }
+    @include flex(column, center, center, 4rem);
+
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    background-color: $white-color;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-100%);
+    transition: opacity 0s, visibility 0s, transform 0.3s;
+
     &--open {
       display: flex;
       visibility: visible;
@@ -42,15 +49,21 @@
   }
   &__actions {
     flex: 1;
-    @include flex-end();
-    @include mobile() {
-      display: none;
+    display: none;
+    @include laptop() {
+      @include flex-end();
+    }
+
+    &__logout{
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
     }
   }
   &__hamburguer {
-    display: none;
-    @include mobile() {
-      display: block;
+    display: block;
+    @include laptop() {
+      display: none;
     }
   }
 }

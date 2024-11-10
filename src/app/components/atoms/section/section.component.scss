@@ -1,16 +1,18 @@
 @import "mixins";
 
 .section{
-    height: auto;
+    height: 100%;
     width: 100%;
-    padding: 4rem 0;
+    padding: 1rem 0;
+
     @include tablet(){
         padding: 2rem 0;
     }
-    @include mobile(){
-        padding: 1rem 0;
+    @include laptop(){
+        padding: 4rem 0;
     }
     &__content{
+        height: 100%;
         @include container();
     }
 }
