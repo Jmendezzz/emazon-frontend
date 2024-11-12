@@ -17,6 +17,7 @@
                         <button class="sort-btn desc" (click)="onSort(header, 'desc')"></button>
                     </span>
                 </th>
+                <th *ngIf="actions && actions.length > 0" class="table__header__cell" scope="col">Actions</th>
             </tr>
         </thead>
     
@@ -25,6 +26,11 @@
                 <td *ngFor="let key of getKeys(row)" class="table__body__cell">
                     {{ row[key] }}
                 </td>
+                <td *ngIf="actions && actions.length > 0" class="table__body__cell">
+                    <button *ngFor="let action of actions" (click)="action.action(row)" class="action-btn">
+                      <img [src]="action.icon"  alt="{{ action.label }}"> 
+                    </button>
+                  </td>
             </tr>
         </tbody>
     </table>

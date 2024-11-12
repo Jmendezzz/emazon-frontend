@@ -1,27 +1,23 @@
 import { ESCAPE_KEY } from '@/domain/utils/constants/Common';
 import { ModalService } from '@/shared/services/ui/modal.service';
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent implements OnInit{
+export class ModalComponent  {
   @Input() title: string = '';
-  isOpen = false;
+  @Input() modalId!: string; 
+  @Input() isOpen = false;
 
   constructor(private readonly modalService: ModalService) {}
 
-  ngOnInit(): void {
-    this.modalService.getModalObservable().subscribe((isOpen) => {
-      this.isOpen = isOpen;
-    });
+  closeModal() {
+    this.modalService.closeModal(this.modalId); 
   }
 
-  closeModal() {
-    this.modalService.closeModal();
-  }
   @HostListener('document:keydown', ['$event'])
   handleKeyDown($event: KeyboardEvent) {
     if ($event.key === ESCAPE_KEY) {

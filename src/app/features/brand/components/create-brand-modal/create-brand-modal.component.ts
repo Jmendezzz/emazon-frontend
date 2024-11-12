@@ -1,24 +1,27 @@
+import { Component } from '@angular/core';
 import { ModalService } from '@/shared/services/ui/modal.service';
-import { Component, OnInit} from '@angular/core';
 import { BrandService } from '../../services/brand.service';
+import { BaseModalComponent } from '@/shared/abstracts/AbstractModalComponent';
 
 @Component({
   selector: 'app-create-brand-modal',
   templateUrl: './create-brand-modal.component.html',
   styleUrls: ['./create-brand-modal.component.scss']
 })
-export class CreateBrandModalComponent implements OnInit{
+export class CreateBrandModalComponent extends BaseModalComponent {
+  constructor(
+    modalService: ModalService,
+    private readonly brandService: BrandService
+  ) {
+    super(modalService);
+    this.modalId = 'createBrandModal'; 
+  }
 
-  constructor(private readonly modalService:ModalService, private readonly brandService: BrandService) { }
+  override ngOnInit(): void {
+    super.ngOnInit(); 
 
-  ngOnInit(): void {
     this.brandService.onBrandCreated$.subscribe(() => {
-      this.modalService.closeModal();
+      this.closeModal();
     });
   }
-
-  openModal(){
-    this.modalService.openModal();
-  }
-
 }

@@ -6,6 +6,10 @@ import { Subject, takeUntil } from 'rxjs';
 import { PaginationService } from '@/shared/services/ui/pagination.service';
 import { ARTICLE_TABLE_HEADERS } from '@/domain/utils/constants/TableHeaders';
 import { ArticleService } from '../../services/article.service';
+import { TableAction } from '@/domain/models/Table';
+import { ModalService } from '@/shared/services/ui/modal.service';
+import { AuthService } from '@/features/authentication/services/auth.service';
+import { Role } from '@/domain/models/Auth';
 
 interface ArticleTableData {
   id: number;
@@ -28,10 +32,13 @@ export class ArticleTableComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
 
   private readonly destroy$ = new Subject<void>();
+   selectedArticle: ArticleTableData | undefined = undefined;
 
   constructor(
     private readonly articleService: ArticleService,
-    private readonly paginationService: PaginationService
+    private readonly paginationService: PaginationService,
+    private readonly modalService: ModalService,
+    private readonly authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -85,5 +92,23 @@ export class ArticleTableComponent implements OnInit, OnDestroy {
     this.articleService.onArticleCreated$.subscribe(() => {
       this.loadArticles();
     });
+  }
+
+  getActions(): TableAction<ArticleTableData>[] | undefined {
+
+    if(this.authService.userDetails()?.role == Role.WAREHOUSE_ASSISTANT){
+      return [
+        {
+          label: 'Add Supply',
+          icon: '/assets/ui/add-supply.svg',
+          action: (article) => {
+            this.modalService.openModal('addArticleSupplyModal');
+            this.selectedArticle = article;
+          }
+        }
+      ]
+    }
+
+    return undefined;
   }
 }

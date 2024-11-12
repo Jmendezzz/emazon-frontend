@@ -12,6 +12,7 @@ import { BrandRoutingModule } from './brand-routing.module';
 import { CreateBrandFormComponent } from './components/create-brand-form/create-brand-form.component';
 import { CreateBrandModalComponent } from './components/create-brand-modal/create-brand-modal.component';
 import { PaginationService } from '@/shared/services/ui/pagination.service';
+import { SharedModule } from '@/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { PaginationService } from '@/shared/services/ui/pagination.service';
     OrganismsModule,
     AdminModule,
     BrandRoutingModule,
+    SharedModule
   ],
   providers: [BrandService, PaginationService],
   exports: [ListBrandsComponent],
