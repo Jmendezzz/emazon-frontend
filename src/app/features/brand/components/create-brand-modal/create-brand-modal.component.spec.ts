@@ -1,52 +1,64 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CreateBrandModalComponent } from './create-brand-modal.component';
 import { ModalService } from '@/shared/services/ui/modal.service';
-import { of } from 'rxjs'; 
-import { NO_ERRORS_SCHEMA } from '@angular/core'; // Para evitar errores con componentes no declarados
 import { BrandService } from '@/features/brand/services/brand.service';
+import { of, Subject } from 'rxjs';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('CreateBrandModalComponent', () => {
   let component: CreateBrandModalComponent;
   let fixture: ComponentFixture<CreateBrandModalComponent>;
   let modalServiceMock: any;
   let brandServiceMock: any;
+  const brandCreatedSubject = new Subject<void>();
 
   beforeEach(async () => {
     modalServiceMock = {
+      getModalObservable: jest.fn().mockReturnValue(of(false)),
       openModal: jest.fn(),
-      closeModal: jest.fn()
+      closeModal: jest.fn(),
     };
 
     brandServiceMock = {
-      onBrandCreated$: of(null)
+      onBrandCreated$: brandCreatedSubject.asObservable(),
     };
 
     await TestBed.configureTestingModule({
       declarations: [CreateBrandModalComponent],
       providers: [
         { provide: ModalService, useValue: modalServiceMock },
-        { provide: BrandService, useValue: brandServiceMock }
+        { provide: BrandService, useValue: brandServiceMock },
       ],
-      schemas: [NO_ERRORS_SCHEMA] 
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateBrandModalComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges(); //
+    component.modalId = 'createBrandModal';
+    fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should subscribe to onBrandCreated$ and close the modal', () => {
-    expect(modalServiceMock.closeModal).toHaveBeenCalled();
+  it('should initialize modalId and subscribe to brand creation event', () => {
+    const closeModalSpy = jest.spyOn(component, 'closeModal');
+
+    brandCreatedSubject.next();
+
+    expect(closeModalSpy).toHaveBeenCalled();
   });
 
-  it('should call openModal when openModal() is called', () => {
+  it('should open the modal by calling modalService.openModal', () => {
     component.openModal();
-    expect(modalServiceMock.openModal).toHaveBeenCalled();
+    expect(modalServiceMock.openModal).toHaveBeenCalledWith(component.modalId);
+  });
+
+  it('should close the modal by calling modalService.closeModal', () => {
+    component.closeModal();
+    expect(modalServiceMock.closeModal).toHaveBeenCalledWith(component.modalId);
   });
 });

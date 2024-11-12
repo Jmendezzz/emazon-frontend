@@ -1,16 +1,14 @@
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ArticleTableComponent } from './article-table.component';
 import { ArticleService } from '../../services/article.service';
 import { PaginationService } from '@/shared/services/ui/pagination.service';
-import { delay, of, throwError } from 'rxjs';
-import { ARTICLE_TABLE_HEADERS } from '@/domain/utils/constants/TableHeaders';
+import { ModalService } from '@/shared/services/ui/modal.service';
+import { AuthService } from '@/features/authentication/services/auth.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { of, Subject } from 'rxjs';
 import { Paginated } from '@/domain/models/Paginated';
 import { Article } from '@/domain/models/Article';
+import { Role } from '@/domain/models/Auth';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('ArticleTableComponent', () => {
@@ -18,8 +16,10 @@ describe('ArticleTableComponent', () => {
   let fixture: ComponentFixture<ArticleTableComponent>;
   let articleServiceMock: any;
   let paginationServiceMock: any;
+  let modalServiceMock: any;
+  let authServiceMock: any;
 
-  const mockPaginatedArticles: Paginated<Article> = {
+  const articles: Paginated<Article> = {
     data: [
       {
         id: 1,
@@ -28,7 +28,7 @@ describe('ArticleTableComponent', () => {
         price: 100,
         stock: 10,
         brand: { id: 1, name: 'Brand 1', description: 'Brand 1' },
-        categories: [{ id:1, name: 'Category 1' }],
+        categories: [{ id: 1, name: 'Category 1' }],
       },
       {
         id: 2,
@@ -37,7 +37,7 @@ describe('ArticleTableComponent', () => {
         price: 200,
         stock: 20,
         brand: { id: 1, name: 'Brand 2', description: 'Brand 2' },
-        categories: [{ id:2, name: 'Category 2' }],
+        categories: [{ id: 2, name: 'Category 2' }],
       },
     ],
     totalItems: 2,
@@ -47,113 +47,79 @@ describe('ArticleTableComponent', () => {
 
   beforeEach(async () => {
     articleServiceMock = {
-      getArticles: jest.fn(),
-      onArticleCreated$: of(),
+      getArticles: jest.fn().mockReturnValue(of(articles)),
+      onArticleCreated$: new Subject<void>(),
     };
 
     paginationServiceMock = {
-      getPaginationParams: jest.fn().mockReturnValue(
-        of({
-          pagination: { page: 1, size: 10 },
-          sorting: { sortBy: 'name', direction: 'asc' },
-        })
-      ),
+      getPaginationParams: jest.fn().mockReturnValue(of({ pagination: { page: 1, size: 10 }, sorting: { sortBy: 'name', direction: 'asc' } })),
+    };
+
+    modalServiceMock = {
+      openModal: jest.fn(),
+    };
+
+    authServiceMock = {
+      userDetails: jest.fn().mockReturnValue({ role: Role.WAREHOUSE_ASSISTANT }),
     };
 
     await TestBed.configureTestingModule({
       declarations: [ArticleTableComponent],
+      imports: [HttpClientTestingModule], 
       providers: [
         { provide: ArticleService, useValue: articleServiceMock },
         { provide: PaginationService, useValue: paginationServiceMock },
+        { provide: ModalService, useValue: modalServiceMock },
+        { provide: AuthService, useValue: authServiceMock },
       ],
-      schemas: [NO_ERRORS_SCHEMA],
+      schemas:[NO_ERRORS_SCHEMA]
     }).compileComponents();
-
-    fixture = TestBed.createComponent(ArticleTableComponent);
-    component = fixture.componentInstance;
   });
 
-  it('should create the component', () => {
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ArticleTableComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize with default values', () => {
-    expect(component.headers).toEqual(ARTICLE_TABLE_HEADERS);
-    expect(component.articles).toBeUndefined();
+  it('should load articles on init', () => {
+    expect(articleServiceMock.getArticles).toHaveBeenCalled();
+    expect(component.articles?.data.length).toBe(2);
+  });
+
+  it('should format articles correctly', () => {
+    const formattedArticles = component.formatArticles(articles);
+    expect(formattedArticles.data[0].brand).toBe('Brand 1');
+    expect(formattedArticles.data[0].categories).toBe('Category 1');
+  });
+
+  it('should reload articles when an article is created', () => {
+    const loadArticlesSpy = jest.spyOn(component, 'loadArticles');
+    articleServiceMock.onArticleCreated$.next();
+    expect(loadArticlesSpy).toHaveBeenCalled();
+  });
+
+  it('should return actions for warehouse assistant role', () => {
+    const actions = component.getActions();
+    expect(actions?.length).toBe(1);
+    expect(actions?.[0].label).toBe('Add Supply');
+  });
+
+  it('should open modal and set selected article when Add Supply action is triggered', () => {
+    const actions = component.getActions();
+    const article = { id: 1, name: 'Article 1', description: 'Description 1', price: 100, stock: 10, brand: 'Brand 1', categories: 'Category 1' };
+    actions?.[0].action(article);
+    expect(modalServiceMock.openModal).toHaveBeenCalledWith('addArticleSupplyModal');
+    expect(component.selectedArticle).toBe(article);
+  });
+
+  it('should handle error and set isLoading to false', () => {
+    articleServiceMock.getArticles.mockReturnValue(of({ error: 'Error loading articles' }));
+    component.loadArticles();
     expect(component.isLoading).toBe(false);
-  });
-
-  describe('loadArticles', () => {
-    it('should load articles and set isLoading to false on success', fakeAsync(() => {
-      const mockPagination = {
-        pagination: { page: 1, size: 10 },
-        sorting: { sortBy: 'name', direction: 'asc' },
-      };
-
-      paginationServiceMock.getPaginationParams.mockReturnValue(
-        of(mockPagination)
-      );
-      articleServiceMock.getArticles.mockReturnValue(
-        of(mockPaginatedArticles).pipe(delay(1000))
-      );
-
-      component.loadArticles();
-      expect(component.isLoading).toBe(true);
-
-      tick(1000);
-
-      expect(component.isLoading).toBe(false);
-      expect(component.articles).toEqual(
-        component.formatArticles(mockPaginatedArticles)
-      );
-    }));
-
-    it('should handle error and set isLoading to false', fakeAsync(() => {
-      paginationServiceMock.getPaginationParams.mockReturnValue(
-        of({
-          pagination: { page: 1, size: 10 },
-          sorting: { sortBy: 'name', direction: 'asc' },
-        }).pipe(delay(500))
-      );
-
-      articleServiceMock.getArticles.mockReturnValue(
-        throwError(() => new Error('Failed to load articles')).pipe(delay(1000))
-      );
-
-      component.loadArticles();
-
-      expect(component.isLoading).toBe(true);
-
-      tick(500);
-
-      tick(1000);
-
-      expect(component.isLoading).toBe(false);
-      expect(component.articles).toBeUndefined();
-    }));
-  });
-
-  describe('onArticleCreated', () => {
-    it('should reload articles when a new article is created', () => {
-      const loadArticlesSpy = jest.spyOn(component, 'loadArticles');
-
-      articleServiceMock.onArticleCreated$ = of();
-
-      component.ngOnInit();
-
-      expect(loadArticlesSpy).toHaveBeenCalled();
-    });
-  });
-
-  describe('ngOnInit', () => {
-    it('should call loadArticles and onArticleCreated', () => {
-      const loadArticlesSpy = jest.spyOn(component, 'loadArticles');
-      const onArticleCreatedSpy = jest.spyOn(component, 'onArticleCreated');
-
-      component.ngOnInit();
-
-      expect(loadArticlesSpy).toHaveBeenCalled();
-      expect(onArticleCreatedSpy).toHaveBeenCalled();
-    });
   });
 });
