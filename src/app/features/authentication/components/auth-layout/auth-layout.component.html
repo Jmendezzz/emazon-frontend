@@ -1,0 +1,18 @@
+<app-section>
+    <div class="auth-layout">
+        <div class="auth-layout__container">
+            <div class="auth-layout__form">
+                <header class="auth-layout__form__header">
+                    <ng-content select="[header]"></ng-content>
+                </header>
+                <ng-content select="[form]"></ng-content>
+                <footer class="auth-layout__form__footer">
+                    <ng-content select="[footer]"></ng-content>
+                </footer>
+            </div>
+            <div class="auth-layout__image-container">
+                <ng-content select="[image]"></ng-content>
+            </div>
+        </div>
+    </div>
+</app-section>

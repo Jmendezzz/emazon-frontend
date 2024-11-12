@@ -31,11 +31,22 @@ export abstract class AbstractFormHandler<T> {
     }
 
     protected handleError(error: HttpErrorResponse, errorMessage?: string) {
-        const message = errorMessage || 'An error occurred. Please try again.';
         this.toastService.showToast({
-            message: message,
+            message: this.getErrorMessage(error, errorMessage),
             type: ToastType.ERROR,
         });
         this.isLoading = false;
+    }
+
+    private getErrorMessage(error: HttpErrorResponse, errorMessage?: string): string {
+        if(error.status === 400) {
+            return error.error.message;
+        }
+
+        if (errorMessage) {
+            return errorMessage;
+        }
+
+        return 'An error occurred. Please try again later.';
     }
 }

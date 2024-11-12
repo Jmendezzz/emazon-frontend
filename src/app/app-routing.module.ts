@@ -21,7 +21,7 @@ const routes: Routes = [
         data: { title: 'Home', breadcrumb: 'Home' },
       },
       {
-        path: 'login',
+        path: '',
         canActivate: [AnonymousGuard],
         loadChildren: () => import('./features/authentication/auth.module').then(m => m.AuthModule),
         data: { title: 'Login', breadcrumb: 'Login' },

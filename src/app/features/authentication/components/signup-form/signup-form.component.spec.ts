@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { AuthService } from './auth.service';
 import { AuthReponseDTO, LoginRequestDTO, SignupRequestDTO, Role, UserDetails } from '@/domain/models/Auth';
 import { TOKEN_LOCAL_STORAGE_KEY } from '@/domain/utils/constants/Auth';
+import { AuthService } from '@/features/authentication/services/auth.service';
 
 describe('AuthService', () => {
   let service: AuthService;
