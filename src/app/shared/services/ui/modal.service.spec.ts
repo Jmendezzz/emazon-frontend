@@ -17,30 +17,29 @@ describe('ModalService', () => {
   });
 
   it('should initialize with the modal closed', () => {
-    expect(service.isModalOpen.value).toBe(false);
-  });
-
-  describe('getModalObservable', () => {
-    it('should return an observable of the modal state', (done) => {
-      service.getModalObservable().subscribe((isOpen) => {
-        expect(isOpen).toBe(false);
-        done();
-      });
+    const modalId = 'testModal';
+    const modalObservable = service.getModalObservable(modalId);
+    modalObservable.subscribe(isOpen => {
+      expect(isOpen).toBe(false);
     });
   });
 
-  describe('openModal', () => {
-    it('should set the modal state to open (true)', () => {
-      service.openModal();
-      expect(service.isModalOpen.value).toBe(true);
+  it('should open the modal', () => {
+    const modalId = 'testModal';
+    service.openModal(modalId);
+    const modalObservable = service.getModalObservable(modalId);
+    modalObservable.subscribe(isOpen => {
+      expect(isOpen).toBe(true);
     });
   });
 
-  describe('closeModal', () => {
-    it('should set the modal state to closed (false)', () => {
-      service.openModal(); // First open the modal
-      service.closeModal(); // Then close it
-      expect(service.isModalOpen.value).toBe(false);
+  it('should close the modal', () => {
+    const modalId = 'testModal';
+    service.openModal(modalId); // Open the modal first
+    service.closeModal(modalId);
+    const modalObservable = service.getModalObservable(modalId);
+    modalObservable.subscribe(isOpen => {
+      expect(isOpen).toBe(false);
     });
   });
 });

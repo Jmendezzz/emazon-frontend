@@ -81,5 +81,15 @@
 
 .table-container{
   width: 100%;
-  overflow-x: auto; // Ensure th
+  overflow-x: auto; 
+}
+
+.action-btn{
+  border: none;
+  background: none;
+  cursor: pointer;
+  img{
+    width: 40px;
+    height: 40px;
+  }
 }

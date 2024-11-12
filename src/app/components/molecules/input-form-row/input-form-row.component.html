@@ -14,6 +14,7 @@
       [formControl]="control"  [prefix]="prefix"></app-input>
 
       <app-input-date *ngSwitchCase="'date'" [variant]="getInputVariant()" [placeholder]="placeholder" [formControl]="control"></app-input-date>
+      <app-input-date *ngSwitchCase="'date-time'" [variant]="getInputVariant()" [placeholder]="placeholder" [formControl]="control" [localtime]="true"></app-input-date>
 
     <app-text-area *ngSwitchCase="'textarea'" [placeholder]="placeholder" [formControl]="control"
       [variant]="getInputVariant()"></app-text-area>

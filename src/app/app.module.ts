@@ -17,7 +17,7 @@ import { BrandModule } from './features/brand/brand.module';
     OrganismsModule,
     TemplatesModule,
     CategoryModule,
-    BrandModule
+    BrandModule,
   ],
   providers: [
     {

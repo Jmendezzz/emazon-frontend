@@ -1,1 +1,2 @@
-<app-table [headers]="headers" [data]="articles" [isLoading]="isLoading"></app-table>
+<app-table [headers]="headers" [data]="articles" [isLoading]="isLoading" [actions]="getActions()"></app-table>
+<app-add-article-supply-modal [articleId]="selectedArticle?.id ?? 0"></app-add-article-supply-modal>

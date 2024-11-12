@@ -1,21 +1,32 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
-  isModalOpen = new BehaviorSubject<boolean>(false);
+  private modals: { [key: string]: BehaviorSubject<boolean> } = {};
 
-  constructor() { }
+  constructor() {}
 
-  getModalObservable() {
-    return this.isModalOpen.asObservable();
+  getModalObservable(modalId: string): Observable<boolean> {
+    if (!this.modals[modalId]) {
+      this.modals[modalId] = new BehaviorSubject<boolean>(false);
+    }
+    return this.modals[modalId].asObservable();
   }
-  openModal() {
-    this.isModalOpen.next(true);
+
+  openModal(modalId: string): void {
+    if (!this.modals[modalId]) {
+      this.modals[modalId] = new BehaviorSubject<boolean>(false);
+    }
+    this.modals[modalId].next(true);
   }
-  closeModal() {
-    this.isModalOpen.next(false);
+
+  closeModal(modalId: string): void {
+    if (!this.modals[modalId]) {
+      this.modals[modalId] = new BehaviorSubject<boolean>(false);
+    }
+    this.modals[modalId].next(false);
   }
 }

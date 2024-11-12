@@ -11,6 +11,7 @@ import { CreateCategoryModalComponent } from './components/organisms/create-cate
 import { CategoryService } from './services/category.service';
 import { AdminModule } from '../admin/admin.module';
 import { CategoryRoutingModule } from './category-routing.module';
+import { SharedModule } from '@/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { CategoryRoutingModule } from './category-routing.module';
     AtomsModule,
     OrganismsModule,
     AdminModule,
-    CategoryRoutingModule
+    CategoryRoutingModule,
+    SharedModule
   ],
   exports: [ListCategoriesComponent],
   providers: [CategoryService],

@@ -70,6 +70,9 @@ export class FormComponent<T> implements OnInit{
     if(control.hasError('minAge') && control.touched) {
       return `Age must be greater than 18`;
     }
+    if(control.hasError('futureDate') && control.touched) {
+      return `Date must be in the future`;
+    }
     return '';
   }
 

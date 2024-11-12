@@ -1,6 +1,6 @@
 <app-button (click)="openModal()">
     Create Category
 </app-button>
-<app-modal title="Create Category">
+<app-modal [modalId]="modalId"[isOpen]="isModalOpen">
     <app-create-category-form></app-create-category-form>
 </app-modal>

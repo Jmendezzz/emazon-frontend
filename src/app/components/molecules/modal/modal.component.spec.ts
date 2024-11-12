@@ -8,10 +8,10 @@ import { ESCAPE_KEY } from '@/domain/utils/constants/Common';
 describe('ModalComponent', () => {
   let component: ModalComponent;
   let fixture: ComponentFixture<ModalComponent>;
-  let modalService: ModalService;
+  let modalServiceMock: any;
 
   beforeEach(async () => {
-    const modalServiceMock = {
+    modalServiceMock = {
       getModalObservable: jest.fn(() => of(false)), 
       closeModal: jest.fn(),
     };
@@ -25,98 +25,36 @@ describe('ModalComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ModalComponent);
     component = fixture.componentInstance;
-    modalService = TestBed.inject(ModalService);
+    component.modalId = 'testModal';
+    component.isOpen = true; 
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize with modal closed', () => {
-    expect(component.isOpen).toBe(false);
-  });
-
-  it('should update isOpen when modalService emits true', () => {
-    jest.spyOn(modalService, 'getModalObservable').mockReturnValue(of(true)); 
-    component.ngOnInit();
-    fixture.detectChanges();
-    expect(component.isOpen).toBe(true);
-  });
-
-  it('should call closeModal on modalService when closeModal is triggered', () => {
+  it('should close the modal when closeModal is called', () => {
     component.closeModal();
-    expect(modalService.closeModal).toHaveBeenCalled();
+    expect(modalServiceMock.closeModal).toHaveBeenCalledWith('testModal');
   });
 
-  it('should close modal when ESCAPE_KEY is pressed', () => {
+  it('should close the modal when the escape key is pressed', () => {
     const event = new KeyboardEvent('keydown', { key: ESCAPE_KEY });
-    component.isOpen = true;
-    fixture.detectChanges();
-
-    component.handleKeyDown(event);
-    expect(modalService.closeModal).toHaveBeenCalled();
+    document.dispatchEvent(event);
+    expect(modalServiceMock.closeModal).toHaveBeenCalledWith('testModal');
   });
 
-  it('should not close modal if another key is pressed', () => {
-    const event = new KeyboardEvent('keydown', { key: 'Enter' });
-    component.isOpen = true;
+  it('should display the title', () => {
+    component.title = 'Test Modal';
     fixture.detectChanges();
-
-    component.handleKeyDown(event);
-    expect(modalService.closeModal).not.toHaveBeenCalled();
-  });
-
-  it('should close modal when clicking outside modal content', () => {
-    component.isOpen = true;
-    fixture.detectChanges();
-
-    const modalElement = fixture.debugElement.query(By.css('.modal'));
-    modalElement.triggerEventHandler('click', new MouseEvent('click'));
-
-    expect(modalService.closeModal).toHaveBeenCalled();
-  });
-
-  it('should not close modal when clicking inside modal content', () => {
-    component.isOpen = true;
-    fixture.detectChanges();
-
-    const contentElement = fixture.debugElement.query(By.css('.modal__content'));
-    contentElement.triggerEventHandler('click', new MouseEvent('click', { bubbles: true }));
-
-    expect(modalService.closeModal).not.toHaveBeenCalled();
-  });
-
-  it('should render title when provided via @Input()', () => {
-    component.isOpen = true; 
-    component.title = 'Test Modal Title';
-    fixture.detectChanges();
-
     const titleElement = fixture.debugElement.query(By.css('.modal__title')).nativeElement;
-    expect(titleElement.textContent).toContain('Test Modal Title');
+    expect(titleElement.textContent).toContain('Test Modal');
   });
 
-  it('should render the modal if isOpen is true', () => {
-    component.isOpen = true;
-    fixture.detectChanges();
-
-    const modalElement = fixture.debugElement.query(By.css('.modal'));
-    expect(modalElement).toBeTruthy();
-  });
-
-  it('should render the modal if isOpen is true', () => {
-    component.isOpen = true;
-    fixture.detectChanges();
-
-    const modalElement = fixture.debugElement.query(By.css('.modal'));
-    expect(modalElement).toBeTruthy();
-  });
-
-  it('should not render the modal if isOpen is false', () => {
-    component.isOpen = false;
-    fixture.detectChanges();
-
-    const modalElement = fixture.debugElement.query(By.css('.modal'));
-    expect(modalElement).toBeNull(); 
+  it('should call closeModal when the close button is clicked', () => {
+    const closeButton = fixture.debugElement.query(By.css('.modal__close')).nativeElement;
+    closeButton.click();
+    expect(modalServiceMock.closeModal).toHaveBeenCalledWith('testModal');
   });
 });

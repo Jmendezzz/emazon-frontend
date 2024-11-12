@@ -31,8 +31,8 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { title: 'Admin', breadcrumb: 'Admin', role: Role.ADMIN },
+    canActivate: [AuthGuard],
+    data: { title: 'Admin', breadcrumb: 'Admin'},
     children: [
       {
         path: 'categories',

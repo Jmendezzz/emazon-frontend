@@ -6,6 +6,7 @@ import { Brand } from '@/domain/models/Brand';
 import { PaginationService } from '@/shared/services/ui/pagination.service';
 import { Subject, takeUntil } from 'rxjs';
 
+
 @Component({
   selector: 'app-brand-table',
   templateUrl: './brand-table.component.html',
@@ -17,7 +18,6 @@ export class BrandTableComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
 
   private readonly destroy$ = new Subject<void>();
-
 
   constructor(
     private readonly brandService: BrandService,
@@ -34,13 +34,14 @@ export class BrandTableComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-
   loadBrands() {
     this.isLoading = true;
-    this.paginationService.getPaginationParams()
+    this.paginationService
+      .getPaginationParams()
       .pipe(takeUntil(this.destroy$))
       .subscribe(({ pagination, sorting }) => {
-        this.brandService.getBrands(pagination, sorting)
+        this.brandService
+          .getBrands(pagination, sorting)
           .pipe(takeUntil(this.destroy$))
           .subscribe({
             next: (brands) => {
@@ -49,11 +50,10 @@ export class BrandTableComponent implements OnInit, OnDestroy {
             },
             error: () => {
               this.isLoading = false;
-            }
+            },
           });
       });
   }
-
 
   onBrandCreated() {
     this.brandService.onBrandCreated$.subscribe(() => {
