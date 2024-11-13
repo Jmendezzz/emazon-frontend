@@ -8,10 +8,13 @@ import { AtomsModule } from '@/components/atoms/atoms.module';
 import { AuthService } from './services/auth.service';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { LoginPageComponent } from '@/components/pages/auth/login-page/login-page.component';
+import { SignupFormComponent } from './components/signup-form/signup-form.component';
+import { AuthLayoutComponent } from './components/auth-layout/auth-layout.component';
+import { SignupPageComponent } from '@/components/pages/auth/signup-page/signup-page.component';
 
 
 @NgModule({
-  declarations: [LoginFormComponent, LoginPageComponent],
+  declarations: [LoginFormComponent, LoginPageComponent, SignupFormComponent, AuthLayoutComponent, SignupPageComponent],
   imports: [
     CommonModule,
     AtomsModule,
@@ -20,7 +23,7 @@ import { LoginPageComponent } from '@/components/pages/auth/login-page/login-pag
     CommonModule,
     AuthRoutingModule
   ],
-  exports: [LoginPageComponent],
+  exports: [LoginPageComponent, SignupPageComponent],
   providers: [AuthService]
 })
 export class AuthModule { }

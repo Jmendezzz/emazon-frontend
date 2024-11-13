@@ -8,6 +8,7 @@ import { OrganismsModule } from './components/organisms/organisms.module';
 import { CategoryModule } from './features/category/category.module';
 import { TemplatesModule } from './components/templates/templates.module';
 import { BrandModule } from './features/brand/brand.module';
+import { HomeModule } from './features/home/home.module';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -18,6 +19,7 @@ import { BrandModule } from './features/brand/brand.module';
     TemplatesModule,
     CategoryModule,
     BrandModule,
+    HomeModule
   ],
   providers: [
     {

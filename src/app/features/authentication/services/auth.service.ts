@@ -3,12 +3,12 @@ import { environment } from '../../../../environments/environment';
 import {
   AuthReponseDTO,
   LoginRequestDTO,
+  SignupRequestDTO,
   UserDetails,
 } from '@/domain/models/Auth';
 import { map, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { TOKEN_LOCAL_STORAGE_KEY } from '@/domain/utils/constants/Auth';
-import { User } from '@/domain/models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +21,17 @@ export class AuthService {
   login(loginRequest: LoginRequestDTO): Observable<AuthReponseDTO> {
     return this.httpClient
       .post<AuthReponseDTO>(`${this.apiURL}/login`, loginRequest)
+      .pipe(
+        map((response) => {
+          localStorage.setItem(TOKEN_LOCAL_STORAGE_KEY, response.token);
+          return response;
+        })
+      );
+  }
+
+  signup(signupRequest: SignupRequestDTO): Observable<AuthReponseDTO> {
+    return this.httpClient
+      .post<AuthReponseDTO>(`${this.apiURL}/signup`, signupRequest)
       .pipe(
         map((response) => {
           localStorage.setItem(TOKEN_LOCAL_STORAGE_KEY, response.token);

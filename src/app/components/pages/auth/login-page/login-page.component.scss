@@ -2,58 +2,7 @@
 @import "variables";
 
 .login {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  &__container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    background-color: $white-color;
-    @include border-radius-md();
-    @include padding-x(20px);
-    @include padding-y(20px);
-    height: 100%;
-    position: relative;
-  }
-
-  &__image-container {
-    display: none;
-
-    @include laptop() {
-      width: 50%;
-      position: absolute; // Add this line
-      top: 0; // Add this line
-      right: 0; // Add this line
-      bottom: 0; // Add this line
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: $primary-color-100;
-    }
-  }
-  &__form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    width: 100%;
-    height: 100%;
-    @include laptop() {
-      width: 50%;
-      @include padding-x(20px);
-    }
-
-    &__footer{
-      a{
-        color: $primary-color;
-      }
-        width: 100%;
-        display: flex;
-        justify-content: center;
-
-    }
-  }
-  &__image {
+  &__image{
     width: 400px;
     height: 400px;
     object-fit: contain;
