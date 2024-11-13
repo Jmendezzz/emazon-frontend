@@ -12,12 +12,20 @@ import { CreateArticleFormComponent } from './components/create-article-form/cre
 import { CreateArticleModalComponent } from './components/create-article-modal/create-article-modal.component';
 import { BrandService } from '../brand/services/brand.service';
 import { CategoryService } from '../category/services/category.service';
-
-
+import { AddArticleSupplyFormComponent } from './components/add-article-supply-form/add-article-supply-form.component';
+import { AddArticleSupplyModalComponent } from './components/add-article-supply-modal/add-article-supply-modal.component';
+import { SharedModule } from '@/shared/shared.module';
+import { ListCustomerArticlesComponent } from '@/components/pages/articles/list-customer-articles/list-customer-articles.component';
 
 @NgModule({
   declarations: [
-    ArticleTableComponent, ListArticlesComponent, CreateArticleFormComponent, CreateArticleModalComponent
+    ArticleTableComponent,
+    ListArticlesComponent,
+    CreateArticleFormComponent,
+    CreateArticleModalComponent,
+    AddArticleSupplyFormComponent,
+    AddArticleSupplyModalComponent,
+    ListCustomerArticlesComponent
   ],
   imports: [
     CommonModule,
@@ -25,11 +33,10 @@ import { CategoryService } from '../category/services/category.service';
     MoleculesModule,
     OrganismsModule,
     AdminModule,
-    ArticleRoutingModule
+    ArticleRoutingModule,
+    SharedModule
   ],
-  exports: [
-    ListArticlesComponent
-  ],
-  providers: [ArticleService, BrandService, CategoryService]
+  exports: [ListArticlesComponent, ListCustomerArticlesComponent],
+  providers: [ArticleService, BrandService, CategoryService],
 })
-export class ArticleModule { }
+export class ArticleModule {}

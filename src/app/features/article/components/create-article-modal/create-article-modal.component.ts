@@ -1,24 +1,27 @@
+import { Component } from '@angular/core';
 import { ModalService } from '@/shared/services/ui/modal.service';
-import { Component, OnInit} from '@angular/core';
-import { ArticleService } from '../../services/article.service';
+import { ArticleService } from '@/features/article/services/article.service';
+import { BaseModalComponent } from '@/shared/abstracts/AbstractModalComponent';
 
 @Component({
   selector: 'app-create-article-modal',
   templateUrl: './create-article-modal.component.html',
-  styleUrls: ['./create-article-modal.component.scss']
+  styleUrls: ['./create-article-modal.component.scss'],
 })
-export class CreateArticleModalComponent implements OnInit{
+export class CreateArticleModalComponent extends BaseModalComponent {
+  constructor(
+    modalService: ModalService,
+    private readonly articleService: ArticleService
+  ) {
+    super(modalService);
+    this.modalId = 'createArticleModal'; 
+  }
 
-  constructor(private readonly modalService: ModalService, private readonly articleService: ArticleService) { }
+  override ngOnInit(): void {
+    super.ngOnInit();
 
-  ngOnInit(): void {
     this.articleService.onArticleCreated$.subscribe(() => {
-      this.modalService.closeModal();
+      this.closeModal();
     });
   }
-
-  openModal() {
-    this.modalService.openModal();
-  }
-
 }

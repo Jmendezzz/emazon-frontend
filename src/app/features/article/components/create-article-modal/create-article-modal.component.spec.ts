@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CreateArticleModalComponent } from './create-article-modal.component';
 import { ModalService } from '@/shared/services/ui/modal.service';
-import { ArticleService } from '../../services/article.service';
-import { of } from 'rxjs';
+import { ArticleService } from '@/features/article/services/article.service';
+import { of, Subject } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('CreateArticleModalComponent', () => {
@@ -10,43 +10,55 @@ describe('CreateArticleModalComponent', () => {
   let fixture: ComponentFixture<CreateArticleModalComponent>;
   let modalServiceMock: any;
   let articleServiceMock: any;
+  const articleCreatedSubject = new Subject<void>();
 
   beforeEach(async () => {
     modalServiceMock = {
+      getModalObservable: jest.fn().mockReturnValue(of(false)),
       openModal: jest.fn(),
-      closeModal: jest.fn()
+      closeModal: jest.fn(),
     };
 
     articleServiceMock = {
-      onArticleCreated$: of(null)
+      onArticleCreated$: articleCreatedSubject.asObservable(),
     };
 
     await TestBed.configureTestingModule({
       declarations: [CreateArticleModalComponent],
       providers: [
         { provide: ModalService, useValue: modalServiceMock },
-        { provide: ArticleService, useValue: articleServiceMock }
+        { provide: ArticleService, useValue: articleServiceMock },
       ],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateArticleModalComponent);
     component = fixture.componentInstance;
+    component.modalId = 'createArticleModal';
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should subscribe to onArticleCreated$ and close the modal', () => {
-    expect(modalServiceMock.closeModal).toHaveBeenCalled();
+  it('should initialize modalId and subscribe to article creation event', () => {
+    const closeModalSpy = jest.spyOn(component, 'closeModal');
+
+    articleCreatedSubject.next();
+
+    expect(closeModalSpy).toHaveBeenCalled();
   });
 
-  it('should call openModal when openModal() is called', () => {
+  it('should open the modal by calling modalService.openModal', () => {
     component.openModal();
-    expect(modalServiceMock.openModal).toHaveBeenCalled();
+    expect(modalServiceMock.openModal).toHaveBeenCalledWith(component.modalId);
+  });
+
+  it('should close the modal by calling modalService.closeModal', () => {
+    component.closeModal();
+    expect(modalServiceMock.closeModal).toHaveBeenCalledWith(component.modalId);
   });
 });

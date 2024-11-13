@@ -1,0 +1,52 @@
+@import 'mixins';
+@import 'variables';
+
+.footer{
+    background-color: $footer-bg-color;
+    @include padding-x(1rem);
+    color: $white-color;
+
+    &__content{
+        @include container();
+        @include padding-y(2rem);
+        display: flex;
+        flex-direction: column;
+        gap:2rem;
+
+        @include laptop(){
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+    &__links, &__contact{
+        list-style: none;
+    }
+    &__link-text{
+        color: $white-color;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 400;
+    }
+
+    &__contact-number{
+        color: $white-color;
+        font-size: 1.5rem;
+        font-weight: 800;
+        text-decoration: none;
+    }
+
+    &__contact-item{
+        font-weight: 200;
+    }
+
+    &__hr{
+        border: 0.001px solid $gray-light-color;
+        margin: 10px 10px;
+    }
+
+    &__copyright{
+        font-size: 0.8rem;
+        text-align: center;
+        padding-bottom: 10px;
+    }
+}

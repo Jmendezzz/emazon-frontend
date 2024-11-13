@@ -15,6 +15,7 @@ export class InputDateComponent implements ControlValueAccessor {
   @Input() value: string = '';
   @Input() variant: InputVariant = 'default';
   @Input() placeholder: string = '';
+  @Input() localtime: boolean = false;
 
   @Output() valueChange: EventEmitter<string> = new EventEmitter<string>();
 
@@ -42,5 +43,9 @@ export class InputDateComponent implements ControlValueAccessor {
     this.value = value;
     this.onChange(value);
     this.valueChange.emit(value);
+  }
+
+  getType(){
+    return this.localtime ? 'datetime-local' : 'date';
   }
 }

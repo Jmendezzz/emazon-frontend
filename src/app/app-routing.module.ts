@@ -21,7 +21,7 @@ const routes: Routes = [
         data: { title: 'Home', breadcrumb: 'Home' },
       },
       {
-        path: 'login',
+        path: '',
         canActivate: [AnonymousGuard],
         loadChildren: () => import('./features/authentication/auth.module').then(m => m.AuthModule),
         data: { title: 'Login', breadcrumb: 'Login' },
@@ -31,8 +31,8 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { title: 'Admin', breadcrumb: 'Admin', role: Role.ADMIN },
+    canActivate: [AuthGuard],
+    data: { title: 'Admin', breadcrumb: 'Admin'},
     children: [
       {
         path: 'categories',

@@ -1,6 +1,6 @@
 <app-button (click)="openModal()">
     Create Brand
 </app-button>
-<app-modal title="Create Brand">
+<app-modal title="Create Brand" [modalId]="modalId"[isOpen]="isModalOpen">
     <app-create-brand-form></app-create-brand-form>
 </app-modal>

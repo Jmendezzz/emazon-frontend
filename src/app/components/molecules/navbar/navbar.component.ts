@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent {
   isMenuOpen = false;
 
-  constructor(private readonly authService: AuthService, private readonly router: Router) { }
+  constructor(private readonly authService: AuthService) { }
   onHamburgerClick() {
     this.isMenuOpen = !this.isMenuOpen;
   }

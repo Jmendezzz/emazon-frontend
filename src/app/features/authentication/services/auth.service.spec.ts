@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AuthService } from './auth.service';
-import { AuthReponseDTO, LoginRequestDTO, Role, UserDetails } from '@/domain/models/Auth';
+import { AuthReponseDTO, LoginRequestDTO, SignupRequestDTO, Role, UserDetails } from '@/domain/models/Auth';
 import { TOKEN_LOCAL_STORAGE_KEY } from '@/domain/utils/constants/Auth';
 
 describe('AuthService', () => {
@@ -46,6 +46,33 @@ describe('AuthService', () => {
     const req = httpMock.expectOne(`${service['apiURL']}/login`);
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(loginRequest);
+    req.flush(authResponse);
+  });
+
+  it('should signup and store token in localStorage', () => {
+    const signupRequest: SignupRequestDTO = {
+      firstName: 'John',
+      lastName: 'Doe',
+      identityNumber: '123456789',
+      phoneNumber: '123-456-7890',
+      birthDate: new Date('2000-01-01'),
+      email: 'test@example.com',
+      password: 'password123',
+    };
+
+    const authResponse: AuthReponseDTO = {
+      token: 'fake-jwt-token',
+      role: Role.USER,
+    };
+
+    service.signup(signupRequest).subscribe((response) => {
+      expect(response).toEqual(authResponse);
+      expect(localStorage.getItem(TOKEN_LOCAL_STORAGE_KEY)).toBe(authResponse.token);
+    });
+
+    const req = httpMock.expectOne(`${service['apiURL']}/signup`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual(signupRequest);
     req.flush(authResponse);
   });
 

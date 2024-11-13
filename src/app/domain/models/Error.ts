@@ -1,4 +1,4 @@
-export  interface  Error {
+export  interface  BusinessError {
     message: string;
     code: string;
 }

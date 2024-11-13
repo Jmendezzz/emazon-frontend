@@ -1,10 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { RoleGuard } from './role.guard';
 import { AuthService } from '@/features/authentication/services/auth.service';
-import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Role } from '@/domain/models/Auth';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { of } from 'rxjs';
 
 describe('RoleGuard', () => {
   let guard: RoleGuard;
@@ -17,10 +16,11 @@ describe('RoleGuard', () => {
     };
 
     routerMock = {
-      navigate: jest.fn().mockReturnValue(of(true)),
+      navigate: jest.fn(),
     };
 
     TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
       providers: [
         RoleGuard,
         { provide: AuthService, useValue: authServiceMock },
@@ -31,10 +31,14 @@ describe('RoleGuard', () => {
     guard = TestBed.inject(RoleGuard);
   });
 
+  it('should be created', () => {
+    expect(guard).toBeTruthy();
+  });
+
   it('should allow navigation if user has the required role', () => {
     authServiceMock.userDetails.mockReturnValue({ id: 1, name: 'Test User', role: Role.ADMIN });
 
-    const mockRoute = { data: { role: Role.ADMIN } } as unknown as ActivatedRouteSnapshot;
+    const mockRoute = { data: { roles: [Role.ADMIN] } } as unknown as ActivatedRouteSnapshot;
     const result = guard.canActivate(mockRoute, {} as RouterStateSnapshot);
 
     expect(result).toBe(true);
@@ -44,7 +48,7 @@ describe('RoleGuard', () => {
   it('should deny navigation and redirect to / if user does not have the required role', () => {
     authServiceMock.userDetails.mockReturnValue({ id: 1, name: 'Test User', role: Role.USER });
 
-    const mockRoute = { data: { role: Role.ADMIN } } as unknown as ActivatedRouteSnapshot;
+    const mockRoute = { data: { roles: [Role.ADMIN] } } as unknown as ActivatedRouteSnapshot;
     const result = guard.canActivate(mockRoute, {} as RouterStateSnapshot);
 
     expect(result).toBe(false);
@@ -55,7 +59,7 @@ describe('RoleGuard', () => {
   it('should deny navigation and redirect to / if user is not authenticated', () => {
     authServiceMock.userDetails.mockReturnValue(null);
 
-    const mockRoute = { data: { role: Role.ADMIN } } as unknown as ActivatedRouteSnapshot;
+    const mockRoute = { data: { roles: [Role.ADMIN] } } as unknown as ActivatedRouteSnapshot;
     const result = guard.canActivate(mockRoute, {} as RouterStateSnapshot);
 
     expect(result).toBe(false);

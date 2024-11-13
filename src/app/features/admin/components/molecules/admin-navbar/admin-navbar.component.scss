@@ -1,9 +1,9 @@
 @import "mixins";
 @import "variables";
 .nav{
-    @include flex(row,start,start,0);
+    @include flex(row,end,start,0);
     width: 100%;
-    @include padding-y(2rem);
+    @include padding-y(0.2rem);
     @include padding-x(1rem);
     background-color: $white-color;
 }

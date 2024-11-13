@@ -14,4 +14,9 @@
     &--xl{
         @include text-3xl();
     }
+
+    &--2xl{
+        font-size: 4rem;
+        line-height: 4rem;
+    }
 }
