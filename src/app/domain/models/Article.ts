@@ -20,7 +20,6 @@ export interface CreateArticleRequestDTO {
     categoriesIds: number[];
 }
 export interface ArticleSearchCriteria{
-    articleName?: string;
     categoryId?: number;
     brandId?: number;
 }

@@ -1,0 +1,17 @@
+<div *ngIf="isLoading" class="loading-container">
+    <app-loader></app-loader>
+</div>
+
+<div *ngIf="!isLoading && items == undefined" class="loading-container">
+    <p>No data found</p>
+</div>
+
+<div class="list-container" *ngIf="!isLoading && items !== undefined" [ngClass]="{'list-container--row': direction === 'row', 'list-container--column': direction === 'column'}">
+    <ng-container *ngFor="let item of items.data">
+        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+    </ng-container>
+
+</div>
+<app-pagination *ngIf="items !== undefined && items.totalPages > 1" [totalItems]="items.totalItems"
+    [currentPage]="items.currentPage + 1" [totalPages]="items.totalPages">
+</app-pagination>

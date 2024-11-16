@@ -1,0 +1,23 @@
+<div class="cart-item-card">
+  <div class="cart-item-card__image-container">
+    <img src="/assets/ui/no-image.svg" alt="{{ cartArticle.article.name }}" class="cart-item-card__image" />
+  </div>
+  <div class="cart-item-card__content">
+    <header class="cart-item-card__header">
+      <h2 class="cart-item-card__title">{{ cartArticle.article.name }}</h2>
+    </header>
+    <div class="cart-item-card__body">
+      <p class="cart-item-card__description">{{ cartArticle.article.description }}</p>
+      <p class="cart-item-card__price">{{ cartArticle.article.price | currency }}</p>
+      <p class="cart-item-card__quantity">Quantity: {{ cartArticle.quantity }}</p>
+      <ul class="cart-item-card__categories">
+        <li *ngFor="let category of cartArticle.article.categories" class="cart-item-card__category">
+          {{ category.name }}
+        </li>
+      </ul>
+    </div>
+    <footer class="cart-item-card__footer">
+      <button class="cart-item-card__delete-button" (click)="handleDelete()">Delete</button>
+    </footer>
+  </div>
+</div>

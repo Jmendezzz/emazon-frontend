@@ -1,4 +1,3 @@
-import { AuthService } from '@/features/authentication/services/auth.service';
 import { Component} from '@angular/core';
 
 @Component({
@@ -7,7 +6,5 @@ import { Component} from '@angular/core';
   styleUrls: ['./list-articles.component.scss']
 })
 export class ListArticlesComponent {
-
-  constructor(private readonly authService:AuthService) { }
 
 }

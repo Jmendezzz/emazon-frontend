@@ -4,10 +4,11 @@ import { MainLayoutComponent } from './components/templates';
 import { HomeComponent } from './components/pages/home/home.component';
 import { AdminLayoutComponent } from './features/admin/components';
 import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
-import { Role } from './domain/models/Auth';
-import { RoleGuard } from './shared/guards/role.guard';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { AnonymousGuard } from './shared/guards/anonymous.guard';
+import { ListCustomerArticlesComponent } from './components/pages/articles/list-customer-articles/list-customer-articles.component';
+import { RoleGuard } from './shared/guards/role.guard';
+import { Role } from './domain/models/Auth';
 
 const routes: Routes = [
   {
@@ -23,33 +24,55 @@ const routes: Routes = [
       {
         path: '',
         canActivate: [AnonymousGuard],
-        loadChildren: () => import('./features/authentication/auth.module').then(m => m.AuthModule),
+        loadChildren: () =>
+          import('./features/authentication/auth.module').then(
+            (m) => m.AuthModule
+          ),
         data: { title: 'Login', breadcrumb: 'Login' },
-      }
+      },
+      {
+        path: 'products',
+        component: ListCustomerArticlesComponent,
+        data: { title: 'Products', breadcrumb: 'Products' },
+      },
+      {
+        path: 'cart',
+        loadChildren: () =>
+          import('./features/cart/cart.module').then((m) => m.CartModule),
+        data: { title: 'Cart', breadcrumb: 'Cart' },
+      },
     ],
   },
   {
     path: 'admin',
     component: AdminLayoutComponent,
-    canActivate: [AuthGuard],
-    data: { title: 'Admin', breadcrumb: 'Admin'},
+    canActivate: [AuthGuard, RoleGuard],
+    data: { title: 'Admin', breadcrumb: 'Admin', roles:[Role.ADMIN, Role.WAREHOUSE_ASSISTANT]},
     children: [
       {
         path: 'categories',
-        loadChildren: () => import('./features/category/category.module').then(m => m.CategoryModule),
+        loadChildren: () =>
+          import('./features/category/category.module').then(
+            (m) => m.CategoryModule
+          ),
       },
       {
         path: 'brands',
-        loadChildren: () => import('./features/brand/brand.module').then(m => m.BrandModule),
+        loadChildren: () =>
+          import('./features/brand/brand.module').then((m) => m.BrandModule),
       },
       {
         path: 'articles',
-        loadChildren: () => import('./features/article/article.module').then(m => m.ArticleModule),
+        loadChildren: () =>
+          import('./features/article/article.module').then(
+            (m) => m.ArticleModule
+          ),
       },
       {
         path: 'users',
-        loadChildren: () => import('./features/users/users.module').then(m => m.UsersModule),
-      }
+        loadChildren: () =>
+          import('./features/users/users.module').then((m) => m.UsersModule),
+      },
     ],
   },
   {

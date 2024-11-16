@@ -1,0 +1,102 @@
+.article-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 300px;
+    height: 450px; // Set a fixed height for the card
+    margin: 0 auto;
+  
+    &__header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+  
+    &__title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 0;
+      text-align: center;
+    }
+  
+    &__brand {
+      font-size: 1rem;
+      color: #888;
+      text-align: center;
+    }
+  
+    &__image-container {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+  
+    &__image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  
+    &__body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      flex-grow: 1;
+    }
+  
+    &__description {
+      font-size: 1rem;
+      color: #555;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+      display: -webkit-box;
+      -webkit-line-clamp: 1; 
+      -webkit-box-orient: vertical;
+    }
+  
+    &__price {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #333;
+    }
+  
+    &__stock {
+      font-size: 1rem;
+      color: #888;
+    }
+  
+    &__footer {
+      display: flex;
+      flex-direction: column;
+        align-items: center;
+      gap: 20px;
+    }
+  
+    &__categories {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+  
+    &__category {
+      background-color: #f0f0f0;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 0.875rem;
+      color: #555;
+    }
+  }
