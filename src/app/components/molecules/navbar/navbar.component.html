@@ -17,6 +17,9 @@
         <a [routerLink]="'/login'">
             <app-button *ngIf="!isAuthenticated()" size="lg" variant="primary">Sign in</app-button>
         </a>
+        <a routerLink="/cart" *ngIf="isAuthenticated()">
+            <img src="/assets/ui/cart.svg" alt="Cart" class="cart-image">
+        </a>
         <app-logout-button *ngIf="isAuthenticated()"></app-logout-button>
     </div>
     <div class="nav__hamburguer">

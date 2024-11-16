@@ -13,6 +13,7 @@ import { FormComponent } from './form/form.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
+import { ListComponent } from './list/list.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { FooterComponent } from './footer/footer.component';
     FormComponent,
     DropdownComponent,
     FooterComponent,
+    ListComponent,
   ],
   imports: [CommonModule, AtomsModule, ReactiveFormsModule, RouterModule],
   exports: [
@@ -33,7 +35,9 @@ import { FooterComponent } from './footer/footer.component';
     SidebarComponent,
     NavbarComponent,
     FormComponent,
-    FooterComponent
+    FooterComponent,
+    ListComponent,
+    DropdownComponent
   ],
 })
 export class MoleculesModule {}

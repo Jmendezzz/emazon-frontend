@@ -32,7 +32,7 @@ describe('ArticleService', () => {
   it('should get articles with pagination, sorting, and search criteria', () => {
     const pagination: Pagination = { page: 0, size: 10 };
     const sorting: Sorting = { sortBy: 'name', direction: 'ASC' };
-    const searchCriteria: ArticleSearchCriteria = { articleName: 'Test Article' };
+    const searchCriteria: ArticleSearchCriteria = {};
     const mockArticles: Paginated<Article> = {
       data: [
         { id: 1, name: 'Article 1', description: 'Description 1', price: 100, stock: 10, brand: { id: 1, name: 'Brand 1', description: 'Brand 1' }, categories: [{ id: 1, name: 'Category 1' }] },

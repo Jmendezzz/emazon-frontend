@@ -19,7 +19,7 @@ export class ArticleService {
 
   constructor(private readonly httpClient: HttpClient) { }
 
-  getArticles(pagination: Pagination, sorting:Sorting, searchCriteria?:ArticleSearchCriteria): Observable<Paginated<Article>> {
+  getArticles(pagination: Pagination, sorting?:Sorting, searchCriteria?:ArticleSearchCriteria): Observable<Paginated<Article>> {
     const params = buildPaginationParams(pagination, sorting);
 
     return this.httpClient.post<Paginated<Article>>(`${this.apiURL}/search`, {searchCriteria}, {params});

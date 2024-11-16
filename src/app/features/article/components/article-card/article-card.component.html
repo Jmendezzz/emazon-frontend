@@ -1,0 +1,25 @@
+<div class="article-card">
+    <header class="article-card__header">
+      <h2 class="article-card__title">{{ article.name }}</h2>
+      <p class="article-card__brand">{{ article.brand.name }}</p>
+    </header>
+    <div class="article-card__image-container">
+      <img src="/assets/ui/no-image.svg" alt="{{ article.name }}" class="article-card__image" />
+    </div>
+    <div class="article-card__body">
+      <p class="article-card__description">{{ article.description }}</p>
+      <p class="article-card__price">{{ article.price | currency }}</p>
+      <p class="article-card__stock">Stock: {{ article.stock }}</p>
+    </div>
+    <footer class="article-card__footer">
+      <ul class="article-card__categories">
+        <li *ngFor="let category of article.categories" class="article-card__category">
+          {{ category.name }}
+        </li>
+      </ul>
+
+      <app-button (click)="handleAddToCart()">Add to cart</app-button>
+    </footer>
+  </div>
+
+  <app-add-article-to-cart-modal [articleId]="article.id"></app-add-article-to-cart-modal>

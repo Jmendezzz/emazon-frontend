@@ -19,10 +19,8 @@
       @include flex(row, center, center, 4rem);
       position: relative;
       transform: translateY(0);
-      visibility: visible;
-      opacity: 1;
       width: auto;
-
+      background-color: transparent;
     }
     @include flex(column, center, center, 4rem);
 
@@ -32,15 +30,12 @@
     top: 0;
     background-color: $white-color;
     z-index: 1000;
-    visibility: hidden;
-    opacity: 0;
+    display: none;
     transform: translateY(-100%);
     transition: opacity 0s, visibility 0s, transform 0.3s;
 
     &--open {
       display: flex;
-      visibility: visible;
-      opacity: 1;
       transform: translateY(0);
     }
     @include tablet() {
@@ -52,6 +47,7 @@
     display: none;
     @include laptop() {
       @include flex-end();
+      gap: 2rem;
     }
 
     &__logout{
@@ -66,4 +62,10 @@
       display: none;
     }
   }
+}
+
+.cart-image{
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
 }
