@@ -1,0 +1,145 @@
+@import 'mixins';
+@import 'variables';
+
+.cart-item-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $gray-light-color;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: $white-color;
+  box-shadow: 0 2px 4px rgba($black-color, 0.1);
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  gap: 16px;
+  position: relative;
+
+  &__stock{
+    position: absolute;
+    top: 0;
+    right: 0;
+    @include padding-x(8px);
+    @include padding-y(4px);
+  }
+
+  @include tablet() {
+    flex-direction: row;
+  }
+
+  &__image-container {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    border-radius: 8px;
+
+    @include tablet() {
+      width: 150px;
+      height: 150px;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+
+    @include tablet() {
+      height: 100%;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 8px;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  &__brand {
+    font-size: 1rem;
+    color: $gray-light-color;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__description {
+    font-size: 1rem;
+    color: $black-color;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  &__price {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: $black-color;
+  }
+
+  &__quantity {
+    font-size: 1rem;
+    color: $black-color;
+  }
+
+  &__categories {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__category {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 0.875rem;
+    color: $black-color;
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__next-supply{
+    color: $gray-light-color;
+    font-weight: 400;
+  }
+
+  &__delete-button {
+    background-color: $error-color;
+    color: $white-color;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  &__delete-button:hover {
+    background-color: darken($error-color, 10%);
+  }
+}

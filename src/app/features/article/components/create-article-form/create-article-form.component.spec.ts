@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { of, throwError } from 'rxjs';
+import { of} from 'rxjs';
 import { Validators } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
@@ -9,7 +9,6 @@ import { BrandService } from '@/features/brand/services/brand.service';
 import { CategoryService } from '@/features/category/services/category.service';
 import { ToastService } from '@/shared/services/ui/toast.service';
 import {
-  ARTICLE_CREATE_ERROR_MESSAGE,
   ARTICLE_CREATE_SUCCESS_MESSAGE,
   MAX_CATEGORIES_ARTICLE,
   MIN_CATEGORIES_ARTICLE,

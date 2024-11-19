@@ -4,4 +4,5 @@ export const environment = {
   stockServiceUrl: 'http://localhost:8090',
   userServiceUrl: 'http://localhost:8091',
   transactionServiceUrl: 'http://localhost:8092',
+  cartSercviceUrl: 'http://localhost:8093',
 };

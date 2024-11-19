@@ -119,12 +119,12 @@
   font-weight: 600;
 }
 
-@mixin input(){
+@mixin input() {
   @include font-poppins();
   display: block;
   font-size: 14px;
   border: 1.4px solid $gray-light-color;
-  font-weight:600;
+  font-weight: 600;
   @include padding-x(12px);
   @include padding-y(8px);
   @include border-radius-md();

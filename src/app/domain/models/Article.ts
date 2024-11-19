@@ -9,6 +9,7 @@ export interface Article {
     stock: number;
     brand:Brand;
     categories: CategoryArticleResponseDTO[];
+    supplyDate?: Date;
 }
 
 export interface CreateArticleRequestDTO {
@@ -20,7 +21,6 @@ export interface CreateArticleRequestDTO {
     categoriesIds: number[];
 }
 export interface ArticleSearchCriteria{
-    articleName?: string;
     categoryId?: number;
     brandId?: number;
 }

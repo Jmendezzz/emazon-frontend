@@ -1,15 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-list-customer-articles',
   templateUrl: './list-customer-articles.component.html',
-  styleUrls: ['./list-customer-articles.component.scss']
+  styleUrls: ['./list-customer-articles.component.scss'],
 })
-export class ListCustomerArticlesComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+export class ListCustomerArticlesComponent {
+  constructor() {}
 }

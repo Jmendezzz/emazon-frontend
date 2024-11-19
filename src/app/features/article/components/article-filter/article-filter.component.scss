@@ -1,0 +1,9 @@
+@import 'mixins';
+.article-filter{
+    display: flex;
+    justify-content: end;
+    gap: 2rem;
+    @include padding-y(20px);
+    @include padding-x(20px);
+
+}

@@ -16,7 +16,11 @@ import { AddArticleSupplyFormComponent } from './components/add-article-supply-f
 import { AddArticleSupplyModalComponent } from './components/add-article-supply-modal/add-article-supply-modal.component';
 import { SharedModule } from '@/shared/shared.module';
 import { ListCustomerArticlesComponent } from '@/components/pages/articles/list-customer-articles/list-customer-articles.component';
-
+import { ArticleListComponent } from './components/article-list/article-list.component';
+import { ArticleCardComponent } from './components/article-card/article-card.component';
+import { CartModule } from '../cart/cart.module';
+import { ArticleFilterComponent } from './components/article-filter/article-filter.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     ArticleTableComponent,
@@ -25,7 +29,9 @@ import { ListCustomerArticlesComponent } from '@/components/pages/articles/list-
     CreateArticleModalComponent,
     AddArticleSupplyFormComponent,
     AddArticleSupplyModalComponent,
-    ListCustomerArticlesComponent
+    ListCustomerArticlesComponent,
+    ArticleListComponent,
+    ArticleCardComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +40,9 @@ import { ListCustomerArticlesComponent } from '@/components/pages/articles/list-
     OrganismsModule,
     AdminModule,
     ArticleRoutingModule,
-    SharedModule
+    SharedModule,
+    CartModule,
+    ReactiveFormsModule
   ],
   exports: [ListArticlesComponent, ListCustomerArticlesComponent],
   providers: [ArticleService, BrandService, CategoryService],

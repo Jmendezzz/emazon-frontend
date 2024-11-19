@@ -1,0 +1,9 @@
+<ng-template #cartItemTemplate let-cartItem>
+  <app-cart-item-card [cartArticle]="cartItem" (itemDeleted)="onItemDeleted($event)"></app-cart-item-card>
+</ng-template>
+
+<div class="cart__price" *ngIf="!isLoading">
+  <p>Total: <span>{{totalPrice | currency}}</span></p>
+</div>
+<app-article-filter (searchCriteriaChanged)="searchCriteriaHandler($event)"></app-article-filter>
+<app-list direction="column" [items]="items" [isLoading]="isLoading" [itemTemplate]="cartItemTemplate"></app-list>

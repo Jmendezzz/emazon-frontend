@@ -5,6 +5,7 @@ import {
 } from '@angular/forms';
 import { InputType } from 'zlib';
 import { InputVariant } from './input-types';
+import { Size } from '@/shared/types/common-types';
 
 @Component({
   selector: 'app-input',
@@ -18,6 +19,7 @@ export class InputComponent implements ControlValueAccessor {
   @Input() value: string = '';
   @Input() variant : InputVariant = 'default';
   @Input() type: InputType = 'text';
+  @Input() size:Size = 'md';
   @Input() placeholder: string = '';
   @Input() prefix?: string;
 
