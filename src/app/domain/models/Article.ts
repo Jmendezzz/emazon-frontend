@@ -9,6 +9,7 @@ export interface Article {
     stock: number;
     brand:Brand;
     categories: CategoryArticleResponseDTO[];
+    supplyDate?: Date;
 }
 
 export interface CreateArticleRequestDTO {

@@ -2,7 +2,7 @@
     <app-loader></app-loader>
 </div>
 
-<div *ngIf="!isLoading && items == undefined" class="loading-container">
+<div *ngIf="!isLoading && isEmpty()" class="loading-container">
     <p>No data found</p>
 </div>
 

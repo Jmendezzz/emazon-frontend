@@ -22,7 +22,7 @@ export class ArticleService {
   getArticles(pagination: Pagination, sorting?:Sorting, searchCriteria?:ArticleSearchCriteria): Observable<Paginated<Article>> {
     const params = buildPaginationParams(pagination, sorting);
 
-    return this.httpClient.post<Paginated<Article>>(`${this.apiURL}/search`, {searchCriteria}, {params});
+    return this.httpClient.post<Paginated<Article>>(`${this.apiURL}/search`, {...searchCriteria}, {params});
   }
 
   createArticle(article: CreateArticleRequestDTO): Observable<Article> {

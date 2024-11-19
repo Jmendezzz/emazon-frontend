@@ -2,4 +2,5 @@
     <app-article-card [article]="article"></app-article-card>
 </ng-template>
 
+<app-article-filter (searchCriteriaChanged)="searchCriteriaHandler($event)"></app-article-filter>
 <app-list [items]="items" [isLoading]="isLoading" [itemTemplate]="articleTemplate"></app-list>

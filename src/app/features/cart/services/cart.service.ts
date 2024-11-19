@@ -26,7 +26,7 @@ export class CartService {
   getCartArticles(pagination: Pagination, sorting?:Sorting, searchCriteria?:ArticleSearchCriteria): Observable<CartItemsResponseDTO> {
     const params = buildPaginationParams(pagination, sorting);
 
-    return this.httpClient.post<CartItemsResponseDTO>(`${this.apiURL}/articles`, {searchCriteria}, {params});
+    return this.httpClient.post<CartItemsResponseDTO>(`${this.apiURL}/articles`, {...searchCriteria}, {params});
   }
 
   deleteCartArticle(cartArticleId: number): Observable<ResponseDTO> {

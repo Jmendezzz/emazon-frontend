@@ -5,6 +5,7 @@
   <div class="cart-item-card__content">
     <header class="cart-item-card__header">
       <h2 class="cart-item-card__title">{{ cartArticle.article.name }}</h2>
+      <span class="cart-item-card__stock">In stock: {{cartArticle.article.stock}}</span>
     </header>
     <div class="cart-item-card__body">
       <p class="cart-item-card__description">{{ cartArticle.article.description }}</p>
@@ -17,6 +18,9 @@
       </ul>
     </div>
     <footer class="cart-item-card__footer">
+      <div class="cart-item-card__next-supply">
+        <span *ngIf="cartArticle.article.supplyDate != null">Next suppy: {{cartArticle.article.supplyDate | date}}</span>
+      </div>
       <button class="cart-item-card__delete-button" (click)="handleDelete()">Delete</button>
     </footer>
   </div>

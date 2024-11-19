@@ -18,7 +18,7 @@ export class ArticleFilterComponent implements OnInit {
   brandDropdownOptions: DropdownOption[] = [];
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     private readonly categoryService: CategoryService,
     private readonly brandService: BrandService
   ) {
@@ -61,5 +61,10 @@ export class ArticleFilterComponent implements OnInit {
       brandId: values.brandId
     };
     this.searchCriteriaChanged.emit(searchCriteria);
+  }
+
+
+  onSubmit() {
+    this.emitSearchCriteria(this.filterForm.value);
   }
 }
