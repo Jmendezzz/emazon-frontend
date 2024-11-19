@@ -46,4 +46,9 @@ export abstract class AbstractListComponent<T> {
         },
       });
   }
+
+  refresh() {
+    this.ngOnDestroy();
+    this.loadItems();
+  }
 }

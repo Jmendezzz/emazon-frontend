@@ -1,6 +1,6 @@
 import { CartArticleDTO } from '@/domain/models/Cart';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CartService } from '../services/cart.service';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-cart-item-card',

@@ -30,4 +30,9 @@ export class ArticleListComponent extends AbstractListComponent<Article> {
   ) {
     super(paginationService);
   }
+
+  searchCriteriaHandler(searchCriteria: ArticleSearchCriteria): void {
+    this.searchCriteria = searchCriteria;
+    this.refresh();
+  }
 }

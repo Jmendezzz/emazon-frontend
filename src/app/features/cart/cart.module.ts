@@ -10,7 +10,8 @@ import { CartService } from './services/cart.service';
 import { AddArticleToCartModalComponent } from './components/add-article-to-cart-modal/add-article-to-cart-modal.component';
 import { ListCustomerCartItemsComponent } from '@/components/pages/cart/list-customer-cart-items/list-customer-cart-items.component';
 import { CartItemsListComponent } from './components/cart-items-list/cart-items-list.component';
-import { CartItemCardComponent } from './cart-item-card/cart-item-card.component';
+import { CartItemCardComponent } from './components/cart-item-card/cart-item-card.component';
+import { SharedModule } from '@/shared/shared.module';
 
 
 @NgModule({
@@ -26,8 +27,9 @@ import { CartItemCardComponent } from './cart-item-card/cart-item-card.component
     CartRoutingModule,
     AtomsModule,
     MoleculesModule,
-    OrganismsModule
-  ],
+    OrganismsModule,
+    SharedModule
+    ],
   providers: [CartService],
   exports: [AddArticleToCartModalComponent, ListCustomerCartItemsComponent]
 })

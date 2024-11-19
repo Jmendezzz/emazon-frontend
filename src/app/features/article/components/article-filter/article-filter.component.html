@@ -1,12 +1,5 @@
-<form class="article-filter" >
-    <app-dropdown
-      formControlName="categoryId"
-      [options]="categoryDropdownOptions"
-      placeholder="Select Category"
-    ></app-dropdown>
-    <app-dropdown
-      formControlName="brandId"
-      [options]="brandDropdownOptions"
-      placeholder="Select Brand"
-    ></app-dropdown>
-  </form>
+<form class="article-filter" [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+    <app-dropdown formControlName="categoryId" [options]="categoryDropdownOptions"
+      placeholder="Select Category"></app-dropdown>
+    <app-dropdown formControlName="brandId" [options]="brandDropdownOptions" placeholder="Select Brand"></app-dropdown>
+</form>

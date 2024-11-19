@@ -11,7 +11,6 @@ export abstract class BaseModalComponent implements OnInit, OnDestroy {
   constructor(protected modalService: ModalService) {}
 
   ngOnInit(): void {
-    console.log('BaseModalComponent ngOnInit', this.modalService.getModalObservable(this.modalId));
     this.subscription = this.modalService.getModalObservable(this.modalId).subscribe(isOpen => {
       this.isModalOpen = isOpen;
     });

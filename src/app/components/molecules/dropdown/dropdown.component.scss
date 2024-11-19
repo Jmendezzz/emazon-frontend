@@ -3,6 +3,7 @@
 
 .dropdown {
     position: relative;
+    min-width: 180px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -79,7 +80,7 @@
         }
         &__count{
             @include padding-x(1rem);
-            @include padding-y(1rem);
+            @include padding-y(0.2rem);
             font-size: 1rem;
             font-weight: 400;
             color:$gray-light-color;

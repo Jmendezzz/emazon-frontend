@@ -6,4 +6,9 @@
   &--error {
     border-color: $error-color;
   }
+
+  &--sm{
+    max-width: 150px;
+  }
+
 }

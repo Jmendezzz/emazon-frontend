@@ -1,4 +1,4 @@
-import { Article, ArticleSearchCriteria } from '@/domain/models/Article';
+import { ArticleSearchCriteria } from '@/domain/models/Article';
 import { Paginated } from '@/domain/models/Paginated';
 import { Pagination } from '@/domain/models/Pagination';
 import { Sorting } from '@/domain/models/Sorting';
@@ -42,5 +42,10 @@ export class CartItemsListComponent extends AbstractListComponent<CartArticleDTO
 
   onItemDeleted(cartArticle: CartArticleDTO): void {
     this.loadItems();
+  }
+
+  searchCriteriaHandler(searchCriteria:ArticleSearchCriteria){
+    this.searchCriteria = searchCriteria;
+    this.refresh();
   }
 }

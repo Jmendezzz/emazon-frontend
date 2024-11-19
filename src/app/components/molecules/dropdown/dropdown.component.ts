@@ -1,5 +1,5 @@
-import { Component, forwardRef,Input, OnDestroy, OnInit } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
+import { Component, forwardRef, Input, OnDestroy, OnInit, HostListener, ElementRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DropdownOption } from './dropdown-types';
 
 @Component({
@@ -15,8 +15,7 @@ import { DropdownOption } from './dropdown-types';
   ],
 })
 export class DropdownComponent
-  implements OnInit, ControlValueAccessor, OnDestroy
-{
+  implements OnInit, ControlValueAccessor, OnDestroy {
   @Input() options: DropdownOption[] | undefined = [];
   @Input() placeholder: string = '';
   @Input() maxSelectedOptions: number = 1;
@@ -29,9 +28,12 @@ export class DropdownComponent
   onChange: (value: any) => void = () => {};
   onTouched: () => void = () => {};
 
+  constructor(private elementRef: ElementRef) {}
+
   ngOnInit(): void {
     this.filteredOptions = this.options || [];
   }
+
   writeValue(value: any): void {
     this.filteredOptions = value;
   }
@@ -59,7 +61,10 @@ export class DropdownComponent
     } else if (this.selectedOptions.length < this.maxSelectedOptions) {
       this.selectedOptions.push(option);
     }
-    const value = this.maxSelectedOptions == 1 ? this.selectedOptions.map((o) => o.value)[0] : this.selectedOptions.map((o) => o.value);
+    const value =
+      this.maxSelectedOptions == 1
+        ? this.selectedOptions.map((o) => o.value)[0]
+        : this.selectedOptions.map((o) => o.value);
     this.onChange(value);
   }
 
@@ -89,6 +94,13 @@ export class DropdownComponent
       const viewportHeight = window.innerHeight;
       const spaceBelow = viewportHeight - rect.bottom;
       this.dropdownAbove = spaceBelow < 280;
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (!this.elementRef.nativeElement.contains(event.target)) {
+      this.dropdownOpened = false;
     }
   }
 }

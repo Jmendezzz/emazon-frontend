@@ -14,4 +14,8 @@ export class ListComponent<T> {
   
   constructor() { }
 
+  isEmpty():boolean{
+    return this.items?.data.length === 0  || this.items === undefined;
+  }
+
 }

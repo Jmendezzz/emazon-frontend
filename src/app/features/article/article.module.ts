@@ -20,6 +20,7 @@ import { ArticleListComponent } from './components/article-list/article-list.com
 import { ArticleCardComponent } from './components/article-card/article-card.component';
 import { CartModule } from '../cart/cart.module';
 import { ArticleFilterComponent } from './components/article-filter/article-filter.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     ArticleTableComponent,
@@ -31,7 +32,6 @@ import { ArticleFilterComponent } from './components/article-filter/article-filt
     ListCustomerArticlesComponent,
     ArticleListComponent,
     ArticleCardComponent,
-    ArticleFilterComponent
   ],
   imports: [
     CommonModule,
@@ -41,9 +41,10 @@ import { ArticleFilterComponent } from './components/article-filter/article-filt
     AdminModule,
     ArticleRoutingModule,
     SharedModule,
-    CartModule
+    CartModule,
+    ReactiveFormsModule
   ],
-  exports: [ListArticlesComponent, ListCustomerArticlesComponent, ArticleFilterComponent],
+  exports: [ListArticlesComponent, ListCustomerArticlesComponent],
   providers: [ArticleService, BrandService, CategoryService],
 })
 export class ArticleModule {}
